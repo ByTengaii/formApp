@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Alert, Text, StyleSheet } from 'react-native';
-import { InputPass } from './Inputs/InputPass';
-import { InputEmail } from './Inputs/InputEmail';
-import { LoginButton } from './buttons/LoginButton';
+import { View, Alert, Text, StyleSheet } from 'react-native';
+import { InputPass, InputEmail, LoginButton } from '../index';
 
-export function LoginForm() {
+
+export function LoginForm({handleAuth}: {handleAuth: (value:boolean) => void}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -12,6 +11,7 @@ export function LoginForm() {
         // Check if email and password are correct
         if (email === 'deneme' && password === 'deneme') {
             Alert.alert('Success', 'Login successful');
+            handleAuth(true);
         } else {
             Alert.alert('Error', 'Invalid email or password');
         }

@@ -1,10 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import {Main} from "./src/screens/Main";
+import * as React from 'react';
+import { Login, ViewFormList } from "./src/index";
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+const Tab = createBottomTabNavigator();
+
+
+const isSignedIn = false;
+
+
 export default function App() {
+  const [isSignedIn, setIsSignedIn] = React.useState(false);
+
+  const handleAuth = (value: boolean) => {
+    setIsSignedIn(value);
+  };
+
   return (
-    <Main></Main>
+    isSignedIn ? (
+      <NavigationContainer>
+        <Tab.Navigator>
+          <Tab.Screen name="List" component={ViewFormList} />
+        </Tab.Navigator>
+      </ NavigationContainer>
+    ) : (
+      <Login handleAuth={handleAuth} />
+    )
   );
 }
-
-

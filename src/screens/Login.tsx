@@ -1,11 +1,10 @@
 import * as React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
-import { LoginForm } from "../components/LoginForm";
-import { LoginFooter } from "../components/footers/LoginFooter";
+import { LoginForm, LoginFooter} from "../index";
 
-const backgroundPatternDecorative = require('../../assets/login-backgroundPattern.png');
+const backgroundPatternDecorative = require('../../assets/loginBackgroundPattern.png');
 
-export function Main() {
+export function Login({handleAuth}: {handleAuth: (value:boolean) => void}) {
 
     return (
         <View style={[styles.main, styles.mainFlexBox]}>
@@ -13,7 +12,7 @@ export function Main() {
             <View style={styles.labelWrapper}>
                 <Text style={styles.label}>Logo</Text>
             </View>
-            <LoginForm/>
+            <LoginForm handleAuth={handleAuth}/>
             <LoginFooter/>
         </View>);
 };
@@ -57,4 +56,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Main;
+export default Login;
