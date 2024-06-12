@@ -6,11 +6,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 const Tab = createBottomTabNavigator();
 
 
-const isSignedIn = false;
-
 
 export default function App() {
-  const [isSignedIn, setIsSignedIn] = React.useState(false);
+  const [isSignedIn, setIsSignedIn] = React.useState(true);
 
   const handleAuth = (value: boolean) => {
     setIsSignedIn(value);
@@ -20,7 +18,7 @@ export default function App() {
     isSignedIn ? (
       <NavigationContainer>
         <Tab.Navigator>
-          <Tab.Screen name="List" component={ViewFormList} />
+          <Tab.Screen name="Fault List" component={ViewFormList} />
         </Tab.Navigator>
       </ NavigationContainer>
     ) : (

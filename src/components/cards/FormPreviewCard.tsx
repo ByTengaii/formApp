@@ -1,7 +1,7 @@
 import * as React from "react";
-import { Text, StyleSheet, View, Image } from "react-native";
-import { CiCircleMinus, CiCircleCheck, CiCircleAlert, FaArrowRight, BsThreeDots} from "../../index";
-
+import { Text, View, StyleSheet } from "react-native";
+import { Icon } from '@rneui/themed';
+import { useFonts, Inter_400Regular, Inter_500Medium } from '@expo-google-fonts/inter';
 
 interface PreviewCardProps {
     order: number;
@@ -10,127 +10,140 @@ interface PreviewCardProps {
     status: 'Solved' | 'Temporary Solution' | 'Not Solved';
 }
 
-function FormPreviewCard() {
+export function FormPreviewCard(props: PreviewCardProps) {
+    let [fontsLoaded] = useFonts({
+        Inter_500Medium,
+        Inter_400Regular
+    });
 
+    if (!fontsLoaded) {
+        return null;
+    }
     return (
-        <View style={styles.frameParent}>
-            <View style={styles.badgeParent}>
-                <View style={[styles.badge, styles.badgeFlexBox]}>
-                    <Text style={[styles.text, styles.labelTypo]}>1.</Text>
-                </View>
-                <View style={styles.frameGroup}>
-                    <View style={styles.labelParent}>
-                        <Text style={[styles.label, styles.labelTypo]}>BOM.RP.001 Deneme Formu</Text>
-                        <Text style={[styles.label1, styles.labelLayout]}>19.04.2024</Text>
-                    </View>
-                    <View style={styles.frameWrapper}>
-                        <View style={styles.badgeFlexBox}>
-                            <CiCircleCheck style={styles.checkCircleIcon}  />
-                            <Text style={[styles.label2, styles.labelTypo]}>{`Arıza Giderildi `}</Text>
-                        </View>
-                    </View>
+        <View style={styles.container}>
+            <View style={styles.badge}>
+                <Text style={styles.badgeText}>{props.order}.</Text>
+            </View>
+            <View style={styles.context}>
+                <Text style={styles.titleText}>{props.text}</Text>
+                <Text style={styles.dateText}>{props.date}</Text>
+                <View style={styles.statusContainer}>
+                    {props.status === 'Solved' ? (
+                        <Icon
+                            type="ionicon"
+                            name="checkmark-circle-outline"
+                            color={'green'}
+                            size={14}
+                            style={styles.statusIcon}
+                        />
+                    ) : props.status === 'Temporary Solution' ? (
+                        <Icon
+                            type="feather"
+                            name="minus-circle"
+                            color={'orange'}
+                            size={14}
+                            style={styles.statusIcon}
+                        />
+                    ) : (
+                        <Icon
+                            type="ionicon"
+                            name="close-circle-outline"
+                            color={'red'}
+                            size={14}
+                            style={styles.statusIcon}
+                        />
+                    )}
+                    <Text style={{ ...styles.statusText, color: props.status === 'Solved' ? 'green' : props.status === 'Temporary Solution' ? 'orange' : 'red' }}>
+                        {props.status}
+                    </Text>
                 </View>
             </View>
-            <FaArrowRight style={styles.arrowRightIcon} />
-            <BsThreeDots style={styles.dropdownIcon}/>
-        </View>);
+            <View style={styles.buttonsContainer}>
+                <Icon
+                    type="ionicon"
+                    name="ellipsis-horizontal"
+                    color={'#667085'}
+                    size={24}
+                />
+                <Icon
+                    type="ionicon"
+                    name="arrow-forward"
+                    color={'#667085'}
+                    size={24}
+                />
+            </View>
+        </View>
+    );
+
 };
 
 const styles = StyleSheet.create({
-    badgeFlexBox: {
-        alignItems: "center",
-        flexDirection: "row"
+    container: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 16,
     },
-    labelTypo: {
-        fontFamily: "Inter-Medium",
-        fontWeight: "500"
-    },
-    labelLayout: {
-        lineHeight: 18,
-        fontSize: 12
-    },
-    text: {
-        color: "#005f6a",
-        textAlign: "center",
-        lineHeight: 18,
-        fontSize: 12
-    },
+
     badge: {
         borderRadius: 6,
         backgroundColor: "#edf7f8",
+        borderStyle: "solid",
         borderColor: "#c1e2e6",
         borderWidth: 1,
+        width: 25,
+        height: 25,
+        alignItems: "center",
+        justifyContent: "center",
         paddingHorizontal: 6,
         paddingVertical: 2,
-        justifyContent: "center",
-        width: 24,
-        borderStyle: "solid"
     },
-    label: {
+    badgeText: {
+        fontSize: 12,
+        lineHeight: 18,
+        fontFamily: "Inter_500Medium",
+        color: "#005f6a",
+        textAlign: "center"
+    },
+    context: {
+        flex: 5,
+        marginLeft: 12,
+    },
+    titleText: {
         fontSize: 14,
         lineHeight: 20,
+        fontFamily: "Inter_500Medium",
         color: "#344054",
-        textAlign: "left"
-    },
-    label1: {
-        fontFamily: "Inter-Regular",
-        color: "#667085",
-        marginTop: 4,
-        textAlign: "left"
-    },
-    labelParent: {
-        justifyContent: "center"
-    },
-    checkCircleIcon: {
-        width: 14,
-        height: 14,
-        overflow: "hidden"
-    },
-    label2: {
-        color: "#079455",
-        marginLeft: 4,
         textAlign: "left",
+        marginBottom: 4
+    },
+    dateText: {
+        fontSize: 12,
         lineHeight: 18,
-        fontSize: 12
+        fontFamily: "Inter_400Regular",
+        color: "#667085",
+        textAlign: "left",
+        marginBottom: 8
     },
-    frameWrapper: {
-        marginTop: 8
+    statusContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
     },
-    frameGroup: {
-        marginLeft: 12,
-        justifyContent: "center"
+    statusIcon: {
+        marginRight: 4
     },
-    badgeParent: {
-        zIndex: 0,
-        flexDirection: "row"
+    statusText: {
+        fontSize: 12,
+        lineHeight: 18,
+        fontFamily: "Inter_500Medium",
+        color: "#079455",
+        textAlign: "left"
     },
-    arrowRightIcon: {
-        height: 24,
-        zIndex: 1,
+    buttonsContainer: {
+        flexDirection: 'column',
+        justifyContent: 'space-between',
         width: 24,
-        overflow: "hidden"
-    },
-    dropdownIcon: {
-        position: "absolute",
-        top: 0,
-        left: 315,
-        width: 20,
-        height: 20,
-        zIndex: 2
-    },
-    frameParent: {
-        alignSelf: "stretch",
-        borderColor: "#eaecf0",
-        borderBottomWidth: 1,
-        flex: 1,
-        width: "100%",
-        alignItems: "flex-end",
-        justifyContent: "space-between",
-        paddingBottom: 8,
-        flexDirection: "row",
-        overflow: "hidden",
-        borderStyle: "solid"
     }
-});
+
+})
 
 export default FormPreviewCard;
