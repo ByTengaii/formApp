@@ -1,20 +1,26 @@
 import * as React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
-import { LoginForm, LoginFooter} from "../index";
+import { StyleSheet, Text, View } from "react-native";
+import { LoginForm, LoginFooter } from "../index";
+import useAppFonts from "../services/font/fonts";
+import {LoginBackGroundPattern} from '../../assets/index';
 
-const backgroundPatternDecorative = require('../../assets/loginBackgroundPattern.png');
+export function Login({ handleAuth }: { handleAuth: (value: boolean) => void }) {
 
-export function Login({handleAuth}: {handleAuth: (value:boolean) => void}) {
+    const fontsLoaded = useAppFonts();
+    if (!fontsLoaded) {
+        return null;
+    }
 
     return (
         <View style={[styles.main, styles.mainFlexBox]}>
-            <Image style={styles.backgroundPatternDecorative} resizeMode="cover" source={backgroundPatternDecorative} />
+            <LoginBackGroundPattern style={styles.backgroundPatternDecorative} />
             <View style={styles.labelWrapper}>
                 <Text style={styles.label}>Logo</Text>
             </View>
-            <LoginForm handleAuth={handleAuth}/>
-            <LoginFooter/>
-        </View>);
+            <LoginForm handleAuth={handleAuth} />
+            <LoginFooter />
+        </View>
+    );
 };
 
 const styles = StyleSheet.create({
@@ -51,8 +57,7 @@ const styles = StyleSheet.create({
         lineHeight: 32,
         color: "#101828",
         textAlign: "left",
-        fontFamily: "Inter-SemiBold",
-        fontWeight: "600"
+        fontFamily: "Inter_600SemiBold",
     },
 });
 

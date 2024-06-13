@@ -1,75 +1,62 @@
 import * as React from "react";
 import { Text, View, StyleSheet } from "react-native";
-import { Icon } from '@rneui/themed';
-import { useFonts, Inter_400Regular, Inter_500Medium } from '@expo-google-fonts/inter';
-
+import useAppFonts from "../../services/font/fonts";
+import { CheckCircle, MinusCircle, XCircle, RightArrow, DotsVertical } from '../../../assets/index';
 interface PreviewCardProps {
-    order: number;
-    text: string;
-    date: string;
-    status: 'Solved' | 'Temporary Solution' | 'Not Solved';
+    index: number;
+    data :{
+        text: string;
+        date: string;
+        status: 'Solved' | 'Temporary Solution' | 'Not Solved';
+    }
 }
 
 export function FormPreviewCard(props: PreviewCardProps) {
-    let [fontsLoaded] = useFonts({
-        Inter_500Medium,
-        Inter_400Regular
-    });
-
+    const fontsLoaded = useAppFonts();
     if (!fontsLoaded) {
         return null;
     }
     return (
         <View style={styles.container}>
             <View style={styles.badge}>
-                <Text style={styles.badgeText}>{props.order}.</Text>
+                <Text style={styles.badgeText}>{props.index}.</Text>
             </View>
             <View style={styles.context}>
-                <Text style={styles.titleText}>{props.text}</Text>
-                <Text style={styles.dateText}>{props.date}</Text>
+                <Text style={styles.titleText}>{props.data.text}</Text>
+                <Text style={styles.dateText}>{props.data.date}</Text>
                 <View style={styles.statusContainer}>
-                    {props.status === 'Solved' ? (
-                        <Icon
-                            type="ionicon"
-                            name="checkmark-circle-outline"
-                            color={'green'}
-                            size={14}
+                    {props.data.status === 'Solved' ? (
+                        <CheckCircle
+                            height={14}
+                            width={14}
                             style={styles.statusIcon}
                         />
-                    ) : props.status === 'Temporary Solution' ? (
-                        <Icon
-                            type="feather"
-                            name="minus-circle"
-                            color={'orange'}
-                            size={14}
+                    ) : props.data.status === 'Temporary Solution' ? (
+                        <MinusCircle
+                            height={14}
+                            width={14}
                             style={styles.statusIcon}
                         />
                     ) : (
-                        <Icon
-                            type="ionicon"
-                            name="close-circle-outline"
-                            color={'red'}
-                            size={14}
+                        <XCircle
+                            height={14}
+                            width={14}
                             style={styles.statusIcon}
                         />
                     )}
-                    <Text style={{ ...styles.statusText, color: props.status === 'Solved' ? 'green' : props.status === 'Temporary Solution' ? 'orange' : 'red' }}>
-                        {props.status}
+                    <Text style={{ ...styles.statusText, color: props.data.status === 'Solved' ? 'green' : props.data.status === 'Temporary Solution' ? 'orange' : 'red' }}>
+                        {props.data.status}
                     </Text>
                 </View>
             </View>
             <View style={styles.buttonsContainer}>
-                <Icon
-                    type="ionicon"
-                    name="ellipsis-horizontal"
-                    color={'#667085'}
-                    size={24}
+                <DotsVertical
+                    height={24}
+                    width={24}
                 />
-                <Icon
-                    type="ionicon"
-                    name="arrow-forward"
-                    color={'#667085'}
-                    size={24}
+                <RightArrow
+                    height={24}
+                    width={24}
                 />
             </View>
         </View>
@@ -90,7 +77,7 @@ const styles = StyleSheet.create({
         borderStyle: "solid",
         borderColor: "#c1e2e6",
         borderWidth: 1,
-        width: 25,
+        width: 25, 
         height: 25,
         alignItems: "center",
         justifyContent: "center",
