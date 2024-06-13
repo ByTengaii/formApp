@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Login, ViewFormList } from "./src/index";
+import { CreateForm, Login, Profile, ViewFormList } from "./src/index";
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -18,7 +18,9 @@ export default function App() {
     isSignedIn ? (
       <NavigationContainer>
         <Tab.Navigator>
-          <Tab.Screen name="Fault List" component={ViewFormList} />
+          <Tab.Screen name="List" component={ViewFormList} />
+          <Tab.Screen name="Create Form" component={CreateForm} />
+          <Tab.Screen name="Profile" component={Profile} />
         </Tab.Navigator>
       </ NavigationContainer>
     ) : (
