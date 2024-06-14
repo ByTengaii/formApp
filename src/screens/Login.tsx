@@ -1,7 +1,7 @@
 import * as React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { LoginForm, LoginFooter } from "../index";
-import useAppFonts from "../services/font/fonts";
+import useAppFonts from "../theme/fonts";
 import {LoginBackGroundPattern} from '../../assets/index';
 
 export function Login({ handleAuth }: { handleAuth: (value: boolean) => void }) {

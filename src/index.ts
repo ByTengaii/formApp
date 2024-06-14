@@ -12,4 +12,5 @@ export { InputPass } from "./components/inputs/InputPass";
 export { LoginButton } from "./components/buttons/LoginButton";
 export { LoginFooter } from "./components/footers/LoginFooter";
 export { FormPreviewCard } from "./components/cards/FormPreviewCard";
+export { ExitButton } from "./components/buttons/ExitButton";
 // Components - End

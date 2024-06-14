@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Text, View, StyleSheet } from "react-native";
-import useAppFonts from "../../services/font/fonts";
+import useAppFonts from "../../theme/fonts";
 import { CheckCircle, MinusCircle, XCircle, RightArrow, DotsVertical } from '../../../assets/index';
 interface PreviewCardProps {
     index: number;

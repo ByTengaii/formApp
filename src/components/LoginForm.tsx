@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Alert, Text, StyleSheet } from 'react-native';
 import { InputPass, InputEmail, LoginButton } from '../index';
-
+import Colors from '../theme/colors';
 
 export function LoginForm({handleAuth}: {handleAuth: (value:boolean) => void}) {
     const [email, setEmail] = useState('');
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
         lineHeight: 32,
         fontWeight: "600",
         fontFamily: "Inter-SemiBold",
-        color: "#101828",
+        color: Colors.primary,
         textAlign: "left"
     }
 
