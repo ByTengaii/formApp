@@ -1,21 +1,32 @@
-import { View, Text, StyleSheet} from "react-native";
+import React, { useRef } from "react";
+import { FlatList, ScrollView, StyleSheet } from "react-native";
 import { FormInputLarge } from "../index";
 import useAppFonts from "../theme/fonts";
 import Colors from "../theme/colors";
+
+
+const items = [
+    { id: 1, title: "Kule" },
+    { id: 2, title: "Lokasyon" },
+    { id: 3, title: "Ekipman" },
+    { id: 4, title: "Seri No" },
+    { id: 5, title: "Marka/Model" },
+    { id: 6, title: "Benzersiz Barkod" },
+    { id: 7, title: "Arızanın Tanımı" },
+    { id: 8, title: "Arızanın Tipi (elektronik, yazılım, mekanik vb.)" },
+];
 export function CreateForm() {
     const fonts = useAppFonts();
+    const flatListRef = useRef<FlatList>(null); // Create a reference
+
     if (!fonts) return null;
-    return(
-        <View style={styles.container}>
-            <FormInputLarge title="Kule"/>
-            <FormInputLarge title="Lokasyon"/>
-            <FormInputLarge title="Ekipman"/>
-            <FormInputLarge title="Serino"/>
-            <FormInputLarge title="Marka/Model"/>
-            <FormInputLarge title="Benzersiz Barkod"/>
-            <FormInputLarge title="Arızanın Tanımı"/>
-            <FormInputLarge title="Arızanın Tipi (elektronik, yazılım, mekanik vb.)"/>
-        </View>
+    return (
+        <FlatList
+            ref={flatListRef}
+            style={styles.container}
+            data={items}
+            renderItem={({ item }) => <FormInputLarge title={item.title} />}
+        />
     )
 }
 

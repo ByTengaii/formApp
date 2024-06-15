@@ -1,4 +1,5 @@
-import { View, StyleSheet, FlatList } from "react-native";
+import React, { useRef } from "react";
+import { StyleSheet, FlatList, ScrollView } from "react-native";
 import { FormPreviewCard } from "../index";
 
 
@@ -31,8 +32,11 @@ const items = [
 ];
 
 export function ViewFormList() {
+    const flatListRef = useRef<FlatList>(null); // Create a reference
+
     return (
         <FlatList
+            ref={flatListRef}
             style={styles.container}
             data={items}
             renderItem={({ item }) => <FormPreviewCard index={item.id} data={item.data} />}
