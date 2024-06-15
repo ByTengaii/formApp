@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Image } from 'react-native';
-import { CreateForm, Login, Profile, ViewFormList } from "./src/index";
 import { NavigationContainer, } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { CreateForm, Login, Profile, ViewFormList, LeftButton, RightButton} from "./src/index";
 import {ListActiveIcon,ListDeactiveIcon,UserIcon,PlusIcon} from './assets/index'
 import Colors from './src/theme/colors';
 const Tab = createBottomTabNavigator();
@@ -48,7 +48,20 @@ export default function App() {
             )
           }}
           />
-          <Tab.Screen name="Yeni Form" component={CreateForm}/>
+          <Tab.Screen 
+          name="Yeni Form"
+          component={CreateForm}
+          options={{
+            headerTitle: "Yeni Arıza Formu",
+            headerTitleAlign: "center",
+            headerLeft: () => (
+              <LeftButton/>
+            ),
+            headerRight: () => (
+              <RightButton/>
+            ),
+          }}
+          />
           <Tab.Screen 
           name="Profil"
           component={Profile}

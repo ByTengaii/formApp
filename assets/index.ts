@@ -13,3 +13,6 @@ export { default as RightArrow } from './formCard/arrow-right.svg';
 export { default as DotsVertical } from './formCard/dots-vertical.svg';
 //Exit
 export { default as LogOutIcon } from './Buttons/logOut.svg';
+//New form
+export { default as  RightButtonIcon} from './Buttons/chevron-right.svg';
+export { default as  LeftButtonIcon} from './Buttons/chevron-left.svg';

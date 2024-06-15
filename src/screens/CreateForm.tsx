@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { FlatList, ScrollView, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, View} from "react-native";
 import { FormInputLarge } from "../index";
 import useAppFonts from "../theme/fonts";
 import Colors from "../theme/colors";
@@ -25,9 +25,9 @@ export function CreateForm() {
             ref={flatListRef}
             style={styles.container}
             data={items}
-            renderItem={({ item }) => <FormInputLarge title={item.title} />}
+            renderItem={({ item }) =><FormInputLarge title={item.title} />}
         />
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -37,6 +37,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 16,
     },
+    forwardContainer: {
+        flex: 1,
+        justifyContent: "flex-end",
+    },    
 });
 
 export default CreateForm
