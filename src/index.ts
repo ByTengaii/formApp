@@ -13,4 +13,5 @@ export { LoginButton } from "./components/buttons/LoginButton";
 export { LoginFooter } from "./components/footers/LoginFooter";
 export { FormPreviewCard } from "./components/cards/FormPreviewCard";
 export { ExitButton } from "./components/buttons/ExitButton";
+export { default as FormInputLarge } from "./components/inputs/FormInputLarge";
 // Components - End

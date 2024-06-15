@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Image } from 'react-native';
 import { CreateForm, Login, Profile, ViewFormList } from "./src/index";
 import { NavigationContainer, } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -7,6 +8,7 @@ import Colors from './src/theme/colors';
 const Tab = createBottomTabNavigator();
 
 export default function App() {
+  const profilePic = require('./assets/avatar.png');
   const [isSignedIn, setIsSignedIn] = React.useState(true); // set false
   const handleAuth = (value: boolean) => {
     setIsSignedIn(value);
@@ -41,8 +43,8 @@ export default function App() {
           component={ViewFormList} 
           options={{
             headerRight: () => (
-              <UserIcon
-              style={{marginRight:20}}/>
+              <Image source={profilePic}
+              style={{marginRight:20, width:40, height:40}}/>
             )
           }}
           />

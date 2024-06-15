@@ -9,4 +9,5 @@ export default {
     primary: '#344054',
     secondary: '#475467',
     white: '#FFFFFF',
+    borderPrimary: "#D0D5DD"
 };
