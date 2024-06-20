@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { FlatList, StyleSheet, View} from "react-native";
-import { FormInputLarge } from "../index";
+import { FormInputLarge, StatusBar} from "../index";
 import useAppFonts from "../theme/fonts";
 import Colors from "../theme/colors";
 
@@ -14,6 +14,7 @@ const items = [
     { id: 6, title: "Benzersiz Barkod" },
     { id: 7, title: "Arızanın Tanımı" },
     { id: 8, title: "Arızanın Tipi (elektronik, yazılım, mekanik vb.)" },
+    { id: 9, title: "" },
 ];
 export function CreateForm() {
     const fonts = useAppFonts();
@@ -21,12 +22,26 @@ export function CreateForm() {
 
     if (!fonts) return null;
     return (
-        <FlatList
+        
+        <View style={styles.container}>
+            <View style={styles.statusBarContainer}>
+                <StatusBar activeIndex={0} />
+            </View>
+            <FlatList
+            ref={flatListRef}
+            data={items}
+            renderItem={({ item }) =><FormInputLarge title={item.title} />}
+            />
+            <View style={styles.submitContainer}>
+
+            </View>
+        </View>
+        /*<FlatList
             ref={flatListRef}
             style={styles.container}
             data={items}
             renderItem={({ item }) =><FormInputLarge title={item.title} />}
-        />
+        />*/
     );
 }
 
@@ -37,10 +52,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 16,
     },
-    forwardContainer: {
-        flex: 1,
+    statusBarContainer:{
         justifyContent: "flex-end",
-    },    
+    },
+    submitContainer:{
+    },
 });
 
 export default CreateForm

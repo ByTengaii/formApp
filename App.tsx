@@ -9,7 +9,7 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
   const profilePic = require('./assets/avatar.png');
-  const [isSignedIn, setIsSignedIn] = React.useState(true); // set false
+  const [isSignedIn, setIsSignedIn] = React.useState(false); // set false for auth
   const handleAuth = (value: boolean) => {
     setIsSignedIn(value);
   };

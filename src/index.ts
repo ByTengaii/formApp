@@ -16,4 +16,5 @@ export { ExitButton } from "./components/buttons/ExitButton";
 export { default as FormInputLarge } from "./components/inputs/FormInputLarge";
 export { LeftButton} from "./components/buttons/LeftButton";
 export { RightButton} from "./components/buttons/RightButton";
+export { default as StatusBar } from "./components/status/StatusBar";
 // Components - End

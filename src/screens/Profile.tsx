@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 14,
         lineHeight: 20,
-        fontFamily: "Inter_600Regular",
+        fontFamily: "Inter_600SemiBold",
         color: Colors.secondary,
     },
     info: {

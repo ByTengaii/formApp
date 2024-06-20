@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
         fontFamily: "Inter_500Medium",
         color: Colors.primary,
         textAlign: "left",
-        marginBottom: 6,
+        marginBottom: 3,
     },
     input: {
         shadowColor: "rgba(16, 24, 40, 0.05)",
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         borderColor: Colors.borderPrimary,
         borderWidth: 1,
         paddingHorizontal: 12,
-        paddingVertical: 8
+        paddingVertical: 2
     },
 });
 
