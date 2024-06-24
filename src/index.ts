@@ -3,8 +3,8 @@ export { Login } from "./screens/Login";
 export { ViewFormList} from "./screens/ViewFormList";
 export { Profile} from "./screens/Profile";
 export { CreateForm} from "./screens/CreateForm";
-
 // Screens - End
+
 // Components - Start
 export { LoginForm } from "./components/LoginForm";
 export { InputEmail } from "./components/inputs/InputEmail";
@@ -18,3 +18,7 @@ export { LeftButton} from "./components/buttons/LeftButton";
 export { RightButton} from "./components/buttons/RightButton";
 export { default as StatusBar } from "./components/status/StatusBar";
 // Components - End
+
+// Navigation
+export {BottomNavigation} from "./navigation/BottomNavigation"
+export {MainNavigation} from "./navigation/MainNavigation"

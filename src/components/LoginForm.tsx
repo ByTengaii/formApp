@@ -22,7 +22,7 @@ export function LoginForm({handleAuth}: {handleAuth: (value:boolean) => void}) {
             <View style={styles.appBannerContainer}>
                 <Text style={styles.appBannerText}>App Name</Text>
             </View>
-            <InputEmail email={email} setEmail={setEmail} placeholder='email@email.com' />
+            <InputEmail email={email} setEmail={setEmail} placeholder='example@gmail.com' />
             <InputPass pass={password} setPass={setPassword} placeholder='Password' />
             <LoginButton handleFunction={handleLogin} />
         </View>
