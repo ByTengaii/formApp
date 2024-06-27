@@ -1,22 +1,25 @@
 import * as React from 'react';
-import { Image } from 'react-native';
+import { Image, TouchableOpacity} from 'react-native';
 import { NavigationContainer, } from '@react-navigation/native';
-import { Login, Profile, ViewFormList, LeftButton, RightButton} from '../index';
+import { Profile, ViewFormList, LeftButton, RightButton, FormNavigation} from '../index';
 import {ListActiveIcon,ListDeactiveIcon,UserIcon,PlusIcon} from './../../assets/index'
 import Colors from './../theme/colors';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import useAppFonts from "../theme/fonts";
+
 const Tab = createBottomTabNavigator();
 
-
-export default function CreateForm({navigation}:{navigation:any}){
-  navigation.setOptions({headerBackButtonMenuEnabled:false});
-  navigation.navigate("Yeni Arıza Formu");
-  return null;}
 export function BottomNavigation(){
     const profilePic = require('../../assets/avatar.png');
-    return(
+    const fontsLoaded = useAppFonts();
+    if (!fontsLoaded) {
+        return null;
+    }
+  return(
+    <NavigationContainer>
         <Tab.Navigator // Customization Options
-        screenOptions={({ route }) => ({
+        screenOptions={
+          ({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             if (route.name === 'Arıza Listesi') {
               return focused
@@ -24,7 +27,7 @@ export function BottomNavigation(){
               : <ListDeactiveIcon/>
             } else if (route.name === 'Yeni Form') {
               return focused
-              ? <PlusIcon stroke={Colors.red}/>
+              ? <PlusIcon fill={Colors.active}/>
               : <PlusIcon/>
             } else if (route.name =='Profil'){
               return focused
@@ -34,7 +37,7 @@ export function BottomNavigation(){
           },
           tabBarActiveTintColor: Colors.active,
           tabBarInactiveTintColor: Colors.disable,
-        })} 
+        }) } 
       >
           <Tab.Screen 
           name="Arıza Listesi"
@@ -48,16 +51,10 @@ export function BottomNavigation(){
           />
           <Tab.Screen 
           name="Yeni Form"
-          component={CreateForm}
+          component={FormNavigation}
           options={{
-            headerTitle: "Yeni Arıza Formu",
-            headerTitleAlign: "center",
-            headerLeft: () => (
-              <LeftButton/>
-            ),
-            headerRight: () => (
-              <RightButton/>
-            ),
+            tabBarStyle: { display: "none" },
+            headerShown: false,
           }}
           />
           <Tab.Screen 
@@ -68,6 +65,8 @@ export function BottomNavigation(){
           }}
           />
         </Tab.Navigator>
+      </NavigationContainer>
+
     );
     
 }

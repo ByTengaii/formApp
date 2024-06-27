@@ -15,8 +15,8 @@ export default function StatusBar({activeIndex}: {activeIndex: number}){
         <View style={styles.container}>
             {items.map((item) => (
                 (item.id === activeIndex)
-                ? (<Text key={item.id} style={[styles.badge, {backgroundColor: Colors.active}]}>{item.number}</Text>)
-                : (<Text key={item.id} style={[styles.badge, {backgroundColor: Colors.secondary}]}>{item.number}</Text>)
+                ? (<Text key={item.id} style={[styles.badge, {backgroundColor: Colors.active, color: Colors.white}]}>{item.number}</Text>)
+                : (<Text key={item.id} style={[styles.badge, {backgroundColor: Colors.white, color: Colors.secondary}]}>{item.number}</Text>)
             ))}
         </View>
     )    
@@ -25,17 +25,18 @@ export default function StatusBar({activeIndex}: {activeIndex: number}){
 const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
-        justifyContent: "space-between",
+        justifyContent: "space-around",
         alignItems: "center",
         paddingTop: 4,
         paddingBottom: 12,
     },
     badge:{
-        width: 24,
-        height: 24,
+        width: 32,
+        height: 22,
         textAlign: "center",
+        borderWidth: 1,
+        borderColor: Colors.disable,
         borderRadius: 4,
         marginHorizontal: 4,
-        color: Colors.white,
     }
 });

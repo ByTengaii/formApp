@@ -16,3 +16,6 @@ export { default as LogOutIcon } from './Buttons/logOut.svg';
 //New form
 export { default as  RightButtonIcon} from './Buttons/chevron-right.svg';
 export { default as  LeftButtonIcon} from './Buttons/chevron-left.svg';
+//Date Picker
+export { default as CalendarIcon } from './calendar.svg';
+export { default as ClockIcon} from './clock.svg';

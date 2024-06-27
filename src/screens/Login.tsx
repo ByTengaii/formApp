@@ -2,15 +2,13 @@ import * as React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { LoginForm, LoginFooter } from "../index";
 import useAppFonts from "../theme/fonts";
-import {LoginBackGroundPattern} from '../../assets/index';
+import { LoginBackGroundPattern } from '../../assets/index';
 
 export function Login({ handleAuth }: { handleAuth: (value: boolean) => void }) {
-
     const fontsLoaded = useAppFonts();
     if (!fontsLoaded) {
         return null;
     }
-
     return (
         <View style={[styles.main, styles.mainFlexBox]}>
             <LoginBackGroundPattern style={styles.backgroundPatternDecorative} />
@@ -20,7 +18,7 @@ export function Login({ handleAuth }: { handleAuth: (value: boolean) => void }) 
             <LoginForm handleAuth={handleAuth} />
             <LoginFooter />
         </View>
-    );
+    )
 };
 
 const styles = StyleSheet.create({
