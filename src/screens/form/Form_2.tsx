@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
-import { FlatList, StyleSheet, View, Button } from "react-native";
-import { FormInputLarge, StatusBar, SelectDate, SelectTime, ContinueButton, LeaveButton } from "../../index";
+import { FlatList, StyleSheet, View, Text } from "react-native";
+import {  StatusBar, SelectDate, SelectTime, ContinueButton, GoBackButton, TakeTime, SwitchQuestion} from "../../index";
 import Colors from "../../theme/colors";
 
 
@@ -14,15 +14,17 @@ const items = [
     { id: 7, title: "Montaj Süresi (sa & dk)" },
 ];
 
+
+
 const renderItem = ({ item } : {item:any}) => {
     switch (item.type) {
-        case 'date':
-            return <SelectDate title={item.title}/>;
-        case 'time':
+        case 'toggle':
+            return <SwitchQuestion title={item.title}/>;
+        case 'adding':
             return <SelectTime title={item.title}/>;
         default:
-            return <FormInputLarge title={item.title} />;
-    }
+            return <TakeTime title={item.title} />;
+    } 
 
 };
 
@@ -33,7 +35,7 @@ export function Form_2({navigation}: {navigation: any}) {
 
         <View style={styles.container}>
             <View style={styles.statusBarContainer}>
-                <StatusBar activeIndex={0} />
+                <StatusBar activeIndex={1} />
             </View>
             <FlatList
                 ref={flatListRef}
@@ -41,7 +43,7 @@ export function Form_2({navigation}: {navigation: any}) {
                 renderItem={renderItem}
             />
             <View style={styles.submitContainer}>
-                <LeaveButton/>
+                <GoBackButton/>
                 <ContinueButton
                     navigation={navigation}
                     pageName='page-2'

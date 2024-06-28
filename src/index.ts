@@ -21,8 +21,14 @@ export { RightButton} from "./components/buttons/RightButton";
 export { default as StatusBar } from "./components/status/StatusBar";
 export { SelectDate } from "./components/inputs/SelectDate"; 
 export { SelectTime } from "./components/inputs/SelectTime"; 
-export { ContinueButton } from "./components/buttons/ContinueButton";``
-export { LeaveButton } from "./components/buttons/LeaveButton";``
+export { InputTimeUnit } from "./components/inputs/InputTimeUnit"; 
+export { ContinueButton } from "./components/buttons/ContinueButton";
+export { LeaveButton } from "./components/buttons/LeaveButton";
+export { GoBackButton} from "./components/buttons/GoBackButton";
+export { FormTitle }  from "./components/titles/FormTitle";
+export { TakeTime } from "./components/TakeTime";
+export { BooleanSwitch } from "./components/inputs/BooleanSwitch";
+export { SwitchQuestion } from "./components/SwitchQuestion";
 // Components - End
 
 // Navigation

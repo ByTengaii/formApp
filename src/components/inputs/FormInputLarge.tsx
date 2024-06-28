@@ -1,5 +1,6 @@
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import Colors from '../../theme/colors';
+
 export default function FormInputLarge({ title }: { title: string }) {
     return (
         <View style={styles.container}>
