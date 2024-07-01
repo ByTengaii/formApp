@@ -9,5 +9,8 @@ export default {
     primary: '#344054',
     secondary: '#475467',
     white: '#FFFFFF',
-    borderPrimary: "#D0D5DD"
+    borderPrimary: "#D0D5DD",
+    badgeText:"#005f6a",
+    badgeBackground:"#edf7f8",
+    badgeBorder:"#c1e2e6",
 };

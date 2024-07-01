@@ -19,3 +19,5 @@ export { default as  LeftButtonIcon} from './Buttons/chevron-left.svg';
 //Date Picker
 export { default as CalendarIcon } from './calendar.svg';
 export { default as ClockIcon} from './clock.svg';
+//  Buttons
+export { default as CheckIcon } from './Buttons/check.svg';

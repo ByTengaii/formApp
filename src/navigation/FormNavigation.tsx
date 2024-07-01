@@ -1,4 +1,4 @@
-import { Form_1, Form_2 } from '../index';
+import { Form_1, Form_2, Form_3 } from '../index';
 import { LeftButtonIcon, RightButtonIcon } from '../../assets/index';
 import { TouchableOpacity } from 'react-native';
 import { View, Text, StyleSheet } from 'react-native';
@@ -38,6 +38,10 @@ export function FormNavigation({ navigation }: { navigation: any }) {
             <Stack.Screen
                 name="page-2"
                 component={Form_2}
+            />
+            <Stack.Screen
+                name="page-3"
+                component={Form_3}
             />
 
         </Stack.Navigator>

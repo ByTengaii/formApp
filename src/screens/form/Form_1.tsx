@@ -41,6 +41,7 @@ export function Form_1({navigation}: {navigation: any}) {
             <FlatList
                 ref={flatListRef}
                 data={items}
+                style={{ flex: 1, paddingTop: 20 }}
                 renderItem={renderItem}
             />
             <View style={styles.submitContainer}>
@@ -60,7 +61,6 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.white,
         paddingHorizontal: 20,
         paddingVertical: 16,
-        marginBottom: 12,
     },
     statusBarContainer: {
         justifyContent: "flex-end",
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         paddingTop: 16,
-        marginBottom: 20,
+        paddingBottom: 20,
     },
 });
 

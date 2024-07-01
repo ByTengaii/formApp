@@ -1,9 +1,13 @@
+import { Badge } from "./components/badges/Badge";
+import { AddingWorkshop } from "./components/inputs/AddingWorkshop";
+
 // Screens - Start
 export { Login } from "./screens/Login";
 export { ViewFormList} from "./screens/ViewFormList";
 export { Profile} from "./screens/Profile";
 export { Form_1} from "./screens/form/Form_1";
 export { Form_2} from "./screens/form/Form_2";
+export { Form_3} from "./screens/form/Form_3";
 
 // Screens - End
 
@@ -29,6 +33,11 @@ export { FormTitle }  from "./components/titles/FormTitle";
 export { TakeTime } from "./components/TakeTime";
 export { BooleanSwitch } from "./components/inputs/BooleanSwitch";
 export { SwitchQuestion } from "./components/SwitchQuestion";
+export { AddingWorkshop } from "./components/inputs/AddingWorkshop";
+export { YesBooleanButton } from "./components/buttons/YesBooleanButton";
+export { NoBooleanButton } from "./components/buttons/NoBooleanButton";
+export {Badge} from "./components/badges/Badge";
+export {YesNoQuestion} from "./components/YesNoQuestion";
 // Components - End
 
 // Navigation

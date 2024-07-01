@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
     container: {
         alignSelf: 'stretch',
         marginBottom: 16,
+        flex:1
     },
     title: {
         fontSize: 14,
@@ -24,14 +25,13 @@ const styles = StyleSheet.create({
         marginBottom: 3,
     },
     input: {
-        shadowColor: "rgba(16, 24, 40, 0.05)",
         borderRadius: 8,
         backgroundColor: Colors.white,
         borderStyle: "solid",
         borderColor: Colors.borderPrimary,
         borderWidth: 1,
         paddingHorizontal: 12,
-        paddingVertical: 2
+        paddingVertical: 5
     },
 });
 

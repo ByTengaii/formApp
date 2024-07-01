@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { FlatList, StyleSheet, View, Text } from "react-native";
-import {  StatusBar, SelectDate, SelectTime, ContinueButton, GoBackButton, TakeTime, SwitchQuestion} from "../../index";
+import {  StatusBar, AddingWorkshop, ContinueButton, GoBackButton, TakeTime, SwitchQuestion} from "../../index";
 import Colors from "../../theme/colors";
 
 
@@ -21,7 +21,7 @@ const renderItem = ({ item } : {item:any}) => {
         case 'toggle':
             return <SwitchQuestion title={item.title}/>;
         case 'adding':
-            return <SelectTime title={item.title}/>;
+            return <AddingWorkshop title={item.title} isEnable={true}/>;
         default:
             return <TakeTime title={item.title} />;
     } 
@@ -46,7 +46,7 @@ export function Form_2({navigation}: {navigation: any}) {
                 <GoBackButton/>
                 <ContinueButton
                     navigation={navigation}
-                    pageName='page-2'
+                    pageName='page-3'
                 />
             </View>
         </View>
@@ -59,7 +59,6 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.white,
         paddingHorizontal: 20,
         paddingVertical: 16,
-        marginBottom: 12,
     },
     statusBarContainer: {
         justifyContent: "flex-end",
@@ -70,7 +69,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         paddingTop: 16,
-        marginBottom: 20,
     },
 });
 

@@ -1,9 +1,13 @@
 import { StyleSheet, View, Text } from "react-native";
 import Colors from "../../theme/colors";
 
-export function FormTitle({ title }: { title: string }) {
+interface FormTitleProps {
+    title: string;
+    style?: object; // Add style to the interface
+}
+export function FormTitle({ title, style}: FormTitleProps) {
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, style]}>
             <Text style={styles.title}>{title}</Text>
         </View>
     )
