@@ -1,11 +1,16 @@
 import React, { useRef } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
-import { StatusBar, ContinueButton, GoBackButton, TakeSpareParts, FormInputLarge, Badge } from "../../index";
+import { StatusBar, ContinueButton, GoBackButton, YesNoQuestion, FormInputLarge, Badge } from "../../index";
 import Colors from "../../theme/colors";
 
 
 const items = [
     { id: 1, type: 'booleanButton', title: "Bu hatayı bulmak için AM/PM önleyici bakım prosedürümüz var mı ?" },
+    { id: 2, type: 'booleanButton', title: "Hatayı arızadan önce yakalamak mümkün müydü ?" },
+    { id: 3, type: 'booleanButton', title: "Bakım prosedürleri arızanın nasıl yakalanabileceğini açıklıyor mu ?" },
+    { id: 4, type: 'input', title: "En son bakım ne zaman planlanmıştı ?" },
+    { id: 5, type: 'input', title: "En son bakım ne zaman yapıldı ?" },
+    { id: 6, type: 'input', title: "Bir sonraki bakım ne zaman planlandı ?" },
 ];
 
 function orderSchema(order: string, element: React.JSX.Element) {
@@ -18,17 +23,23 @@ function orderSchema(order: string, element: React.JSX.Element) {
 }
 
 const renderItem = ({ item }: { item: any }) => {
-    return <TakeSpareParts/>;
+    switch (item.type) {
+        case 'booleanButton':
+            return orderSchema(item.id, <YesNoQuestion question={item.title} />);
+        default:
+            return orderSchema(item.id, <FormInputLarge title={item.title} />);
+    }
+
 };
 
-export function Form_3({ navigation }: { navigation: any }) {
+export function Form_4({ navigation }: { navigation: any }) {
     const flatListRef = useRef<FlatList>(null); // Create a reference
 
     return (
 
         <View style={styles.container}>
             <View style={styles.statusBarContainer}>
-                <StatusBar activeIndex={2} navigation={navigation} />
+                <StatusBar activeIndex={3} navigation={navigation} />
             </View>
             <FlatList
                 ref={flatListRef}
@@ -40,7 +51,7 @@ export function Form_3({ navigation }: { navigation: any }) {
                 <GoBackButton />
                 <ContinueButton
                     navigation={navigation}
-                    pageName='page-4'
+                    pageName='page-5'
                 />
             </View>
         </View>
@@ -67,4 +78,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Form_3;
+export default Form_4

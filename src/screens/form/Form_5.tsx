@@ -1,34 +1,30 @@
 import React, { useRef } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
-import { StatusBar, ContinueButton, GoBackButton, TakeSpareParts, FormInputLarge, Badge } from "../../index";
+import { FlatList, StyleSheet, View, Text} from "react-native";
+import { StatusBar, ContinueButton, GoBackButton, CheckBoxCard } from "../../index";
 import Colors from "../../theme/colors";
+import { color } from "@rneui/base";
 
 
 const items = [
-    { id: 1, type: 'booleanButton', title: "Bu hatayı bulmak için AM/PM önleyici bakım prosedürümüz var mı ?" },
+    { id: 1, type: 'checkbox', title: "Arıza Giderildi", color: Colors.green},
+    { id: 2, type: 'checkbox', title: "Arıza Giderilemedi", color: Colors.red},
+    { id: 3, type: 'checkbox', title: "Geçici Çözüm", color: Colors.yellow},
+    { id: 4, type: 'checkbox', title: "Atölye Ekip Talebi Var", color: Colors.disable},
 ];
 
-function orderSchema(order: string, element: React.JSX.Element) {
-    return (
-        <View style={{flexDirection: 'row'}}>
-            <Badge text={order} style={{ marginRight: 10 }} />
-            {element}
-        </View>
-    );
-}
-
 const renderItem = ({ item }: { item: any }) => {
-    return <TakeSpareParts/>;
+    return (<CheckBoxCard text={item.title} color={item.color} />);
 };
 
-export function Form_3({ navigation }: { navigation: any }) {
+
+export function Form_5({ navigation }: { navigation: any }) {
     const flatListRef = useRef<FlatList>(null); // Create a reference
 
     return (
 
         <View style={styles.container}>
             <View style={styles.statusBarContainer}>
-                <StatusBar activeIndex={2} navigation={navigation} />
+                <StatusBar activeIndex={4} navigation={navigation} />
             </View>
             <FlatList
                 ref={flatListRef}
@@ -40,7 +36,8 @@ export function Form_3({ navigation }: { navigation: any }) {
                 <GoBackButton />
                 <ContinueButton
                     navigation={navigation}
-                    pageName='page-4'
+                    pageName='Arıza Listesi'
+                    text="Kaydet"
                 />
             </View>
         </View>
@@ -67,4 +64,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Form_3;
+export default Form_5

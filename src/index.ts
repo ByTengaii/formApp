@@ -1,5 +1,4 @@
-import { Badge } from "./components/badges/Badge";
-import { AddingWorkshop } from "./components/inputs/AddingWorkshop";
+import { CheckBox } from "@rneui/base";
 
 // Screens - Start
 export { Login } from "./screens/Login";
@@ -8,6 +7,8 @@ export { Profile} from "./screens/Profile";
 export { Form_1} from "./screens/form/Form_1";
 export { Form_2} from "./screens/form/Form_2";
 export { Form_3} from "./screens/form/Form_3";
+export { Form_4} from "./screens/form/Form_4" ;
+export { Form_5} from "./screens/form/Form_5" ;
 
 // Screens - End
 
@@ -38,6 +39,10 @@ export { YesBooleanButton } from "./components/buttons/YesBooleanButton";
 export { NoBooleanButton } from "./components/buttons/NoBooleanButton";
 export {Badge} from "./components/badges/Badge";
 export {YesNoQuestion} from "./components/YesNoQuestion";
+export {SpareTable} from "./components/SpareTable";
+export {AddButton} from "./components/buttons/AddButton";
+export {TakeSpareParts} from "./components/TakeSpareParts";
+export {CheckBoxCard} from "./components/inputs/CheckBoxCard";
 // Components - End
 
 // Navigation

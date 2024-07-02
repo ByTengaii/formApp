@@ -21,3 +21,5 @@ export { default as CalendarIcon } from './calendar.svg';
 export { default as ClockIcon} from './clock.svg';
 //  Buttons
 export { default as CheckIcon } from './Buttons/check.svg';
+export { default as TrashIcon } from './Buttons/trash.svg';
+export { default as EditIcon } from './Buttons/edit.svg';

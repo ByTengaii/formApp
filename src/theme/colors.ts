@@ -13,4 +13,10 @@ export default {
     badgeText:"#005f6a",
     badgeBackground:"#edf7f8",
     badgeBorder:"#c1e2e6",
+    petrol50:'#EDF7F8',
+    petrol300:'#97CFD5',
+    petrol700:'#005F6A',
+    textSecondary:'#344054',
+
+
 };

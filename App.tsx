@@ -12,7 +12,7 @@ export default function App() {
 
   return (
     isSignedIn ? (
-      <BottomNavigation />
+      <BottomNavigation setSignedIn={setIsSignedIn}/>
     ) : (
       <Login handleAuth={handleAuth} />
     )

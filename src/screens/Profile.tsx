@@ -2,14 +2,16 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 import Colors from '../theme/colors';
 import useAppFonts from '../theme/fonts';
 import { ExitButton } from '../index';
+
 interface ProfileProps {
-    name: string;
+    /*name: string;
     surname: string;
     email: string;
     title: string;
-    pPicture: string | null;
+    pPicture: string | null;*/
+    setSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
-export function Profile() {
+export function Profile(props: ProfileProps) {
     const profilePic = require('../../assets/avatar.png');
     const fonts = useAppFonts();
     if (!fonts) return null;
@@ -31,7 +33,7 @@ export function Profile() {
                 <Text style={styles.info}>deneme@gmail.com</Text>
             </View>    
             <View style={styles.exitContainer}>
-                <ExitButton/>
+                <ExitButton setSignedIn={props.setSignedIn}/>
             </View>            
         </View>
     )

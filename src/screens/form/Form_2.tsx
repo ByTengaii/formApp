@@ -35,7 +35,7 @@ export function Form_2({navigation}: {navigation: any}) {
 
         <View style={styles.container}>
             <View style={styles.statusBarContainer}>
-                <StatusBar activeIndex={1} />
+                <StatusBar activeIndex={1} navigation={navigation} />
             </View>
             <FlatList
                 ref={flatListRef}

@@ -1,13 +1,24 @@
 import React from 'react';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Colors from '../../theme/colors';
-export function ContinueButton({navigation, pageName}: {navigation: any, pageName: string}) {
+
+
+interface ContinueButtonProps {
+    navigation: any;
+    pageName: string;
+    text:string;
+}
+export function ContinueButton(props: ContinueButtonProps) {
     return (
         <TouchableOpacity
             style={styles.button}
-            onPress={() => navigation.navigate(pageName)}
+            onPress={() => props.navigation.navigate(props.pageName)}
         >
-            <Text style={styles.text}>Devam Et</Text>
+            <Text style={styles.text}>
+                {props.text ?
+                props.text
+                : 'Devam Et'}
+            </Text>
         </TouchableOpacity>
     );
 }

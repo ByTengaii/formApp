@@ -1,6 +1,7 @@
 
-import {Text, StyleSheet, View} from 'react-native';
+import {Text, StyleSheet, View, TouchableOpacity} from 'react-native';
 import Colors from '../../theme/colors';
+
 const items =[
     {id: 0, number: 1},
     {id: 1, number: 2},
@@ -9,14 +10,30 @@ const items =[
     {id: 4, number: 5},
 ];
 
-export default function StatusBar({activeIndex}: {activeIndex: number}){
+interface StatusBarProps {
+    activeIndex: number;
+    navigation: any;
+}
 
+export default function StatusBar(props: StatusBarProps){
     return(
         <View style={styles.container}>
             {items.map((item) => (
-                (item.id === activeIndex)
-                ? (<Text key={item.id} style={[styles.badge, {backgroundColor: Colors.active, color: Colors.white}]}>{item.number}</Text>)
-                : (<Text key={item.id} style={[styles.badge, {backgroundColor: Colors.white, color: Colors.secondary}]}>{item.number}</Text>)
+                (item.id === props.activeIndex)
+                ? (
+                <TouchableOpacity
+                    onPress={() => {props.navigation.navigate(`page-${item.number}`)}}
+                >
+                    <Text key={item.id} style={[styles.badge, {backgroundColor: Colors.active, color: Colors.white}]}>{item.number}</Text>
+                </TouchableOpacity>
+                )
+                : (
+                <TouchableOpacity
+                    onPress={() => {props.navigation.navigate(`page-${item.number}`)}}
+                > 
+                <Text key={item.id} style={[styles.badge, {backgroundColor: Colors.white, color: Colors.secondary}]}>{item.number}</Text>
+                </TouchableOpacity>
+                )
             ))}
         </View>
     )    

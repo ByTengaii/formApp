@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Image, TouchableOpacity} from 'react-native';
+import { Image} from 'react-native';
 import { NavigationContainer, } from '@react-navigation/native';
-import { Profile, ViewFormList, LeftButton, RightButton, FormNavigation} from '../index';
+import { Profile, ViewFormList, FormNavigation} from '../index';
 import {ListActiveIcon,ListDeactiveIcon,UserIcon,PlusIcon} from './../../assets/index'
 import Colors from './../theme/colors';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -9,7 +9,11 @@ import useAppFonts from "../theme/fonts";
 
 const Tab = createBottomTabNavigator();
 
-export function BottomNavigation(){
+interface BottomNavigationProps {
+    setSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
+}
+export function BottomNavigation(props: BottomNavigationProps){
+
     const profilePic = require('../../assets/avatar.png');
     const fontsLoaded = useAppFonts();
     if (!fontsLoaded) {
@@ -58,11 +62,11 @@ export function BottomNavigation(){
           }}
           />
           <Tab.Screen 
-          name="Profil"
-          component={Profile}
-          options={{
-            headerShown: false
-          }}
+            name="Profil"
+            component={() => <Profile setSignedIn={props.setSignedIn} />}
+            options={{
+              headerShown: false
+            }}
           />
         </Tab.Navigator>
       </NavigationContainer>

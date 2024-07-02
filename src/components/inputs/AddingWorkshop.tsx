@@ -3,6 +3,7 @@ import {StyleSheet, View, TextInput, Text, TouchableOpacity} from "react-native"
 import {FormTitle} from "../../index";
 import { PlusIcon } from "../../../assets";
 import Colors from "../../theme/colors";
+
 export function AddingWorkshop({title, isEnable} : {title: string, isEnable: boolean}) {
     const [lines, setLines] = useState([{ id: 1 }]);
 

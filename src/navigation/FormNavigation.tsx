@@ -1,16 +1,16 @@
-import { Form_1, Form_2, Form_3 } from '../index';
+import { Form_1, Form_2, Form_3, Form_4, Form_5 } from '../index';
 import { LeftButtonIcon, RightButtonIcon } from '../../assets/index';
 import { TouchableOpacity } from 'react-native';
 import { View, Text, StyleSheet } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
-const CustomHeader = ({ title, subtitle } : {title:string , subtitle:string}) => (
+const CustomHeader = ({ title, subtitle }: { title: string, subtitle: string }) => (
     <View style={styles.headerContainer}>
-      <Text style={styles.headerTitle}>{title}</Text>
-      <Text style={styles.headerSubtitle}>{subtitle}</Text>
+        <Text style={styles.headerTitle}>{title}</Text>
+        <Text style={styles.headerSubtitle}>{subtitle}</Text>
     </View>
-  );
+);
 export function FormNavigation({ navigation }: { navigation: any }) {
     return (
         <Stack.Navigator
@@ -25,7 +25,8 @@ export function FormNavigation({ navigation }: { navigation: any }) {
                     </TouchableOpacity>
                 ),
                 headerRight: () => (
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                    >
                         <RightButtonIcon />
                     </TouchableOpacity>
                 ),
@@ -42,6 +43,14 @@ export function FormNavigation({ navigation }: { navigation: any }) {
             <Stack.Screen
                 name="page-3"
                 component={Form_3}
+            />
+            <Stack.Screen
+                name="page-4"
+                component={Form_4}
+            />
+            <Stack.Screen
+                name="page-5"
+                component={Form_5}
             />
 
         </Stack.Navigator>
