@@ -40,8 +40,7 @@ const styles = StyleSheet.create({
     appBannerText: {
         fontSize: 24,
         lineHeight: 32,
-        fontWeight: "600",
-        fontFamily: "Inter-SemiBold",
+        fontFamily: "Inter_600SemiBold",
         color: Colors.primary,
         textAlign: "left"
     }

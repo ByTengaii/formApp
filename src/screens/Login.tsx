@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         left: "50%",
         maxHeight: "100%",
         width: 480,
-        zIndex: 0
+        zIndex: -4,
     },
     labelWrapper: {
         zIndex: 1,
