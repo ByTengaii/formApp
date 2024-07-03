@@ -6,14 +6,14 @@ import { color } from "@rneui/base";
 
 
 const items = [
-    { id: 1, type: 'checkbox', title: "Arıza Giderildi", color: Colors.green},
-    { id: 2, type: 'checkbox', title: "Arıza Giderilemedi", color: Colors.red},
-    { id: 3, type: 'checkbox', title: "Geçici Çözüm", color: Colors.yellow},
-    { id: 4, type: 'checkbox', title: "Atölye Ekip Talebi Var", color: Colors.disable},
+    { id: 1,  title: "Arıza Giderildi", color: Colors.green},
+    { id: 2,  title: "Arıza Giderilemedi", color: Colors.red},
+    { id: 3,  title: "Geçici Çözüm", color: Colors.yellow},
+    { id: 4,  title: "Atölye Ekip Talebi Var", color: Colors.disable},
 ];
 
 const renderItem = ({ item }: { item: any }) => {
-    return (<CheckBoxCard text={item.title} color={item.color} />);
+    return (<CheckBoxCard item={item} />);
 };
 
 

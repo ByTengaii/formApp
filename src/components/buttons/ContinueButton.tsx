@@ -6,7 +6,7 @@ import Colors from '../../theme/colors';
 interface ContinueButtonProps {
     navigation: any;
     pageName: string;
-    text:string;
+    text?:string;
 }
 export function ContinueButton(props: ContinueButtonProps) {
     return (

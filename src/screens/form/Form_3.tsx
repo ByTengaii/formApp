@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
-import { StatusBar, ContinueButton, GoBackButton, TakeSpareParts, FormInputLarge, Badge } from "../../index";
+import { StatusBar, ContinueButton, GoBackButton, TakeSpareParts, Badge } from "../../index";
 import Colors from "../../theme/colors";
 
 

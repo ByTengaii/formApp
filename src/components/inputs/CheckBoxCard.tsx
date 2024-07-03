@@ -4,8 +4,11 @@ import Checkbox from 'expo-checkbox';
 import Colors from "../../theme/colors";
 
 interface CheckBoxCardProps {
-    text: string;
-    color?: string;
+    item:{
+        id: number, 
+        title: string,
+        color: string,
+    },
     style?: object;
 }
 
@@ -14,14 +17,14 @@ export function CheckBoxCard(props: CheckBoxCardProps) {
 
     return (
         isChecked ? (
-            <View style={{...styles.container, borderColor:props.color}}>
+            <View style={{...styles.container, borderColor:props.item.color}}>
                 <View style={styles.header}>
-                    <Text style={{...styles.text, color:props.color}}>{props.text}</Text>
+                    <Text style={{...styles.text, color:props.item.color}}>{props.item.title}</Text>
                     <Checkbox
                         value={isChecked}
                         onValueChange={setChecked}
                         style={styles.checkbox}
-                        color={props.color}
+                        color={props.item.color}
                     />
                 </View>
                 <TextInput style={styles.input} placeholder="" />
@@ -30,7 +33,7 @@ export function CheckBoxCard(props: CheckBoxCardProps) {
             : (
                 <View style={styles.container}>
                     <View style={styles.header}>
-                        <Text style={styles.text}>{props.text}</Text>
+                        <Text style={styles.text}>{props.item.title}</Text>
                         <Checkbox
                             value={isChecked}
                             onValueChange={setChecked}

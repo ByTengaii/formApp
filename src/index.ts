@@ -40,9 +40,11 @@ export { NoBooleanButton } from "./components/buttons/NoBooleanButton";
 export {Badge} from "./components/badges/Badge";
 export {YesNoQuestion} from "./components/YesNoQuestion";
 export {SpareTable} from "./components/SpareTable";
-export {AddButton} from "./components/buttons/AddButton";
+export {AddSpareButton} from "./components/buttons/AddSpareButton";
 export {TakeSpareParts} from "./components/TakeSpareParts";
 export {CheckBoxCard} from "./components/inputs/CheckBoxCard";
+import InputLargeController from "./components/controllers/InputLargeController";
+export {InputLargeController};
 // Components - End
 
 // Navigation

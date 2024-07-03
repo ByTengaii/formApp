@@ -23,3 +23,4 @@ export { default as ClockIcon} from './clock.svg';
 export { default as CheckIcon } from './Buttons/check.svg';
 export { default as TrashIcon } from './Buttons/trash.svg';
 export { default as EditIcon } from './Buttons/edit.svg';
+export { default as XClose } from './Buttons/x-close.svg';

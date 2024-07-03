@@ -32,6 +32,7 @@ const renderItem = ({ item } : {item:any}) => {
 export function Form_1({navigation}: {navigation: any}) {
     const flatListRef = useRef<FlatList>(null); // Create a reference
 
+
     return (
 
         <View style={styles.container}>

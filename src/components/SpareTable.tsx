@@ -1,34 +1,66 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { EditIcon, TrashIcon } from "../../assets";
 import Colors from "../theme/colors";
 
 interface SpareTableProps {
+    data: {
+        items: {
+            id: number;
+            stockCode: string;
+            usedAmount: number;
+            materialDescription: string;
+        }[];
+        setItems: React.Dispatch<React.SetStateAction<{
+            id: number;
+            stockCode: string;
+            usedAmount: number;
+            materialDescription: string;
+        }[]>>;
+    };
+    element: {
+        id: number;
+        stockCode: string;
+        usedAmount: number;
+        materialDescription: string;
+    };
     style?: object;
 }
 
 
 export function SpareTable(props: SpareTableProps) {
+    const deleteItem = () => {
+        const newItems = props.data.items.filter((item) => item.id !== props.element.id);
+        props.data.setItems(newItems);
+    }
     return (
         <View style={[styles.container,props.style]}>
             <View style={styles.headerContainer}>
                 <Text style={styles.headerTitleText}>Yedek Parça Tablosu</Text>
-                <EditIcon style={{...styles.headerIcon, marginLeft:'auto'}} />
-                <TrashIcon style={styles.headerIcon} />
+                <TouchableOpacity style={{...styles.headerIcon, marginLeft:'auto'}}>
+                    <EditIcon/>
+                </TouchableOpacity>
+                <TouchableOpacity
+                style={styles.headerIcon}
+                onPress={deleteItem}
+                >
+                    <TrashIcon  />
+                </TouchableOpacity>
+                
             </View>
             <View style={styles.rowContainer}>
                 <View style={styles.cellContainer}>
                     <Text style={[styles.cellTitle, styles.cellTitleText]}>Stok Kodu</Text>
-                    <Text style={[styles.cellContentText,styles.cellContent]}>TP-2349532-24</Text>
+                    <Text style={[styles.cellContentText,styles.cellContent]}>{props.element.stockCode}</Text>
                 </View>
                 <View style={styles.cellContainer}>
                     <Text style={[styles.cellTitle, styles.cellTitleText]}>Sarf Edilen Miktar</Text>
-                    <Text style={[styles.cellContentText,styles.cellContent]}>TP-2349532-24</Text>
+                    <Text style={[styles.cellContentText,styles.cellContent]}>{props.element.usedAmount}</Text>
                 </View>
             </View>
             <View style={styles.rowContainer}>
                 <View style={[styles.cellContainer, styles.lastCellContainer]}>
                     <Text style={[styles.cellTitle, styles.cellTitleText]}>Malzeme Malzeme Tanımı</Text>
-                    <Text style={[styles.cellContentText,styles.cellContent]}>Malzeme bilgileri & tanımı buraya yazılır.</Text>
+                    <Text style={[styles.cellContentText,styles.cellContent]}>{props.element.materialDescription}</Text>
                 </View>
             </View>
         </View>
