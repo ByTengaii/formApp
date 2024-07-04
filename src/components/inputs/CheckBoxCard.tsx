@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { View, Text, StyleSheet, TextInput } from "react-native";
-import Checkbox from 'expo-checkbox';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import Colors from "../../theme/colors";
 
 interface CheckBoxCardProps {
@@ -9,38 +8,36 @@ interface CheckBoxCardProps {
         title: string,
         color: string,
     },
+    state:{
+        activeIndex: number;
+        setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
+    }
     style?: object;
 }
 
 export function CheckBoxCard(props: CheckBoxCardProps) {
-    const [isChecked, setChecked] = useState(false);
 
     return (
-        isChecked ? (
-            <View style={{...styles.container, borderColor:props.item.color}}>
+        props.state.activeIndex == props.item.id ? (
+            <TouchableOpacity style={{...styles.container, borderColor:props.item.color}}>
                 <View style={styles.header}>
                     <Text style={{...styles.text, color:props.item.color}}>{props.item.title}</Text>
-                    <Checkbox
-                        value={isChecked}
-                        onValueChange={setChecked}
-                        style={styles.checkbox}
-                        color={props.item.color}
-                    />
+                    <View style={{...styles.checkbox, backgroundColor:props.item.color, borderColor:props.item.color }}>
+                        <View style={styles.checkboxFilled}/>
+                    </View>
                 </View>
                 <TextInput style={styles.input} placeholder="" />
-            </View >
+            </TouchableOpacity >
         )
             : (
-                <View style={styles.container}>
+                <TouchableOpacity style={styles.container}
+                onPress={()=>{props.state.setActiveIndex(props.item.id)}}>
+
                     <View style={styles.header}>
                         <Text style={styles.text}>{props.item.title}</Text>
-                        <Checkbox
-                            value={isChecked}
-                            onValueChange={setChecked}
-                            style={styles.checkbox}
-                        />
+                        <View style={styles.checkbox}/>
                     </View>
-                </View >
+                </TouchableOpacity >
             )
 
     );
@@ -56,7 +53,16 @@ const styles = StyleSheet.create({
     },
     checkbox: {
         marginLeft: 'auto',
-        borderRadius: 100,
+        borderRadius: 10,
+        borderWidth: 1,
+        width: 20,
+        height: 20,
+        padding: 4,
+    },
+    checkboxFilled: {
+        flex:1,
+        backgroundColor: Colors.white,
+        borderRadius: 10,
     },
     header: {
         flexDirection: 'row',

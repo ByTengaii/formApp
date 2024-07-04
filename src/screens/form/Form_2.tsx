@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { FlatList, StyleSheet, View, Text } from "react-native";
 import {  StatusBar, AddingWorkshop, ContinueButton, GoBackButton, TakeTime, SwitchQuestion} from "../../index";
 import Colors from "../../theme/colors";
+import { FormProps } from "../../models/FormModel";
 
 
 const items = [
@@ -28,15 +29,14 @@ const renderItem = ({ item } : {item:any}) => {
 
 };
 
-export function Form_2({navigation}: {navigation: any}) {
+
+
+export function Form_2(props:FormProps) {
     const flatListRef = useRef<FlatList>(null); // Create a reference
+    props.index.setActiveIndex(1);
 
     return (
-
         <View style={styles.container}>
-            <View style={styles.statusBarContainer}>
-                <StatusBar activeIndex={1} navigation={navigation} />
-            </View>
             <FlatList
                 ref={flatListRef}
                 data={items}
@@ -45,7 +45,7 @@ export function Form_2({navigation}: {navigation: any}) {
             <View style={styles.submitContainer}>
                 <GoBackButton/>
                 <ContinueButton
-                    navigation={navigation}
+                    navigation={props.navigation}
                     pageName='page-3'
                 />
             </View>

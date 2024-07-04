@@ -23,7 +23,7 @@ export { ExitButton } from "./components/buttons/ExitButton";
 export { default as FormInputLarge } from "./components/inputs/FormInputLarge";
 export { LeftButton} from "./components/buttons/LeftButton";
 export { RightButton} from "./components/buttons/RightButton";
-export { default as StatusBar } from "./components/status/StatusBar";
+export { default as StatusBar } from "./components/headers/StatusBar";
 export { SelectDate } from "./components/inputs/SelectDate"; 
 export { SelectTime } from "./components/inputs/SelectTime"; 
 export { InputTimeUnit } from "./components/inputs/InputTimeUnit"; 
@@ -44,7 +44,10 @@ export {AddSpareButton} from "./components/buttons/AddSpareButton";
 export {TakeSpareParts} from "./components/TakeSpareParts";
 export {CheckBoxCard} from "./components/inputs/CheckBoxCard";
 import InputLargeController from "./components/controllers/InputLargeController";
+import { TakeSpareModal } from "./components/modals/TakeSpareModal";
 export {InputLargeController};
+export {TakeSpareModal};
+export {FormHeader} from "./components/headers/FormHeader";
 // Components - End
 
 // Navigation

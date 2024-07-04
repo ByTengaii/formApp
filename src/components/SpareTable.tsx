@@ -1,49 +1,54 @@
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { SpareFormData } from "../models/SpareModel";
 import { EditIcon, TrashIcon } from "../../assets";
 import Colors from "../theme/colors";
 
 interface SpareTableProps {
     data: {
-        items: {
-            id: number;
-            stockCode: string;
-            usedAmount: number;
-            materialDescription: string;
-        }[];
-        setItems: React.Dispatch<React.SetStateAction<{
-            id: number;
-            stockCode: string;
-            usedAmount: number;
-            materialDescription: string;
-        }[]>>;
+        items: SpareFormData[];
+        setItems: React.Dispatch<React.SetStateAction<SpareFormData[]>>;
     };
-    element: {
-        id: number;
-        stockCode: string;
-        usedAmount: number;
-        materialDescription: string;
-    };
+    stateModal:{
+        modalVisible: boolean;
+        setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    }
+    element: SpareFormData;
+    modalData:{
+        modalData: SpareFormData;
+        setModalData: React.Dispatch<React.SetStateAction<SpareFormData>>;
+        setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
+    }
     style?: object;
 }
 
 
 export function SpareTable(props: SpareTableProps) {
     const deleteItem = () => {
-        const newItems = props.data.items.filter((item) => item.id !== props.element.id);
+        const newItems = props.data.items.filter((item) => item.stockCode !== props.element.stockCode);
         props.data.setItems(newItems);
     }
+
+    const editItem = () => {
+        props.modalData.setIsEdit(true);
+        props.modalData.setModalData(props.element);
+        props.stateModal.setModalVisible(true);
+    }
+
     return (
         <View style={[styles.container,props.style]}>
             <View style={styles.headerContainer}>
                 <Text style={styles.headerTitleText}>Yedek Parça Tablosu</Text>
-                <TouchableOpacity style={{...styles.headerIcon, marginLeft:'auto'}}>
+                <TouchableOpacity 
+                style={{...styles.headerIcon, marginLeft:'auto'}}
+                onPress={editItem}
+                >
                     <EditIcon/>
                 </TouchableOpacity>
                 <TouchableOpacity
                 style={styles.headerIcon}
                 onPress={deleteItem}
                 >
-                    <TrashIcon  />
+                <TrashIcon  />
                 </TouchableOpacity>
                 
             </View>

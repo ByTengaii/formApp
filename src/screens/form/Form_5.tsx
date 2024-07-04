@@ -1,8 +1,8 @@
-import React, { useRef } from "react";
-import { FlatList, StyleSheet, View, Text} from "react-native";
+import React, { useRef, useState } from "react";
+import { FlatList, StyleSheet, View} from "react-native";
 import { StatusBar, ContinueButton, GoBackButton, CheckBoxCard } from "../../index";
 import Colors from "../../theme/colors";
-import { color } from "@rneui/base";
+import { FormProps } from "../../models/FormModel";
 
 
 const items = [
@@ -12,20 +12,21 @@ const items = [
     { id: 4,  title: "Atölye Ekip Talebi Var", color: Colors.disable},
 ];
 
-const renderItem = ({ item }: { item: any }) => {
-    return (<CheckBoxCard item={item} />);
-};
 
 
-export function Form_5({ navigation }: { navigation: any }) {
+
+export function Form_5(props:FormProps) {
     const flatListRef = useRef<FlatList>(null); // Create a reference
+    const [activeIndex, setActiveIndex] = useState(0);
+    props.index.setActiveIndex(4);
 
+    const renderItem = ({ item }: { item: any }) => {
+        return (<CheckBoxCard state={{activeIndex,setActiveIndex}} item={item} />);
+    };
     return (
 
         <View style={styles.container}>
-            <View style={styles.statusBarContainer}>
-                <StatusBar activeIndex={4} navigation={navigation} />
-            </View>
+
             <FlatList
                 ref={flatListRef}
                 data={items}
@@ -35,7 +36,7 @@ export function Form_5({ navigation }: { navigation: any }) {
             <View style={styles.submitContainer}>
                 <GoBackButton />
                 <ContinueButton
-                    navigation={navigation}
+                    navigation={props.navigation}
                     pageName='Arıza Listesi'
                     text="Kaydet"
                 />

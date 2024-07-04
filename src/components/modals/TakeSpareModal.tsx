@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, View, TouchableOpacity, Text, StyleSheet, TextInput } from "react-native";
-import { InputLargeController, FormInputLarge } from '../../index';
+import { InputLargeController } from '../../index';
 import { XClose } from "../../../assets";
 import Colors from "../../theme/colors";
-import { useForm, Controller, set } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { SpareFormData, SpareSchema } from "../../models/SpareModel";
+import { zodResolver } from "@hookform/resolvers/zod";  
+import { set } from "zod";
 
 interface TakeSpareModalProps {
     style?: object;
@@ -12,34 +15,30 @@ interface TakeSpareModalProps {
         setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
     };
     data: {
-        items: {
-            id: number;
-            stockCode: string;
-            usedAmount: number;
-            materialDescription: string;
-        }[];
-        setItems: React.Dispatch<React.SetStateAction<{
-            id: number;
-            stockCode: string;
-            usedAmount: number;
-            materialDescription: string;
-        }[]>>;
+        items: SpareFormData[];
+        setItems: React.Dispatch<React.SetStateAction<SpareFormData[]>>;
     };
-    defaultValue?: {
-        id: number;
-        stockCode: string;
-        usedAmount: number;
-        materialDescription: string;
+    modelData: {
+        modalData: SpareFormData;
+        setModalData: React.Dispatch<React.SetStateAction<SpareFormData>>;
     }
+    isEdit: boolean;
 }
+
+console.log('renderrr');
+
 export function TakeSpareModal(props: TakeSpareModalProps) {
     const {
         control,
         handleSubmit,
+        setValue,
         formState: { errors },
-    } = useForm<FormData>()
-
-    
+    } = useForm<SpareFormData>({
+        resolver: zodResolver(SpareSchema)
+    })
+    setValue('stockCode', props.modelData.modalData.stockCode);
+    setValue('usedAmount', props.modelData.modalData.usedAmount);
+    setValue('materialDescription', props.modelData.modalData.materialDescription);
     return (
         <Modal
             style={[styles.modalContainer, props.style]}
@@ -65,26 +64,41 @@ export function TakeSpareModal(props: TakeSpareModalProps) {
                     title="TPIC Stok Kodu" 
                     control={control} 
                     placeholder=""
+                    errors={errors}
                     />
                     <InputLargeController 
                     name="usedAmount"
                     title="Sarf Edilen Miktar"
                     control={control}
                     placeholder=""
+                    errors={errors}
                     props={{
-                        keyboardType: 'numeric'
+                        inputMode: 'decimal',
                     }}/>
                     <InputLargeController 
                     name="materialDescription"
                     title="Malzeme tanımı"
                     control={control}
                     placeholder=""
+                    errors={errors}
                     />
 
                     <TouchableOpacity
                         onPress={handleSubmit((data) => {
-                            props.data.setItems([...props.data.items, {id:props.data.items.length + 1, ...data}]);
+                        if(props.isEdit){
+                            const newItems = props.data.items.map((item) => {
+                                if(item.stockCode === props.modelData.modalData.stockCode){
+                                    return data;
+                                }else{
+                                    return item;
+                                }
+                            });
+                            props.data.setItems(newItems);
                             props.stateModal.setModalVisible(!props.stateModal.modalVisible);
+                        }else{
+                            props.data.setItems([...props.data.items, data]);
+                            props.stateModal.setModalVisible(!props.stateModal.modalVisible);
+                        }
                         } )}
                         style={styles.button}
                     >

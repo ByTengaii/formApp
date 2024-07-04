@@ -1,23 +1,22 @@
 import { useState } from "react";
 import { View } from "react-native";
-import { SpareTable, FormTitle, AddSpareButton } from "../index";
+import { SpareFormData } from "../models/SpareModel";
+import { SpareTable, FormTitle, AddSpareButton, TakeSpareModal } from "../index";
 
-interface SpareParts {
-    id: number;
-    stockCode: string;
-    usedAmount: number;
-    materialDescription: string;
-};
+
 export function TakeSpareParts() {
-    const [items, setItems] = useState([] as SpareParts[]);
-
+    const [items, setItems] = useState([] as SpareFormData[]);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modalData, setModalData] = useState({} as SpareFormData);
+    const [isEdit, setIsEdit] = useState(false);
     return (
         <View>
             <FormTitle title="Kullanılan Yedek Parçalar" style={{ marginBottom: 10 }} />
-            {items.map((item) => {
-                return <SpareTable data={{items, setItems}} element={item}  style={{ marginBottom: 10 }} />;
+            {items.map((item,index) => {
+                return <SpareTable key={index} stateModal={{modalVisible,setModalVisible}} data={{items, setItems}} element={item} modalData={{modalData,setModalData, setIsEdit}} style={{ marginBottom: 10 }} />;
             })}
-            <AddSpareButton  data={{items, setItems}}/>
+            <TakeSpareModal isEdit={isEdit} modelData={{modalData, setModalData}}stateModal={{modalVisible, setModalVisible}} data={{items,setItems}} />
+            <AddSpareButton  modalData={{modalData, setModalData, setIsEdit}}stateModal={{modalVisible, setModalVisible}}data={{items, setItems}}/>
         </View>
     );
 } 

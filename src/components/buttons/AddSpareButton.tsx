@@ -3,34 +3,36 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { TakeSpareModal } from "../modals/TakeSpareModal";
 import { PlusIcon } from "../../../assets";
 import Colors from "../../theme/colors";
+import { SpareFormData } from "../../models/SpareModel";
 
 interface AddButtonProps {
     data: {
-        items: {
-            id: number;
-            stockCode: string;
-            usedAmount: number;
-            materialDescription: string;
-        }[];
-        setItems: React.Dispatch<React.SetStateAction<{
-            id: number;
-            stockCode: string;
-            usedAmount: number;
-            materialDescription: string;
-        }[]>>;
+        items: SpareFormData[];
+        setItems: React.Dispatch<React.SetStateAction<SpareFormData[]>>;
     };
+    stateModal:{
+        modalVisible: boolean;
+        setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    };
+    modalData: {
+        modalData: SpareFormData;
+        setModalData: React.Dispatch<React.SetStateAction<SpareFormData>>;
+        setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
+    }
+    defaultValue?: SpareFormData;
     style?: object;
 }
 
 export function AddSpareButton(props: AddButtonProps) {
-    const [modalVisible, setModalVisible] = useState(false);
 
     return (
         <View>
-            <TakeSpareModal stateModal={{modalVisible,setModalVisible}} data={props.data} />
             <TouchableOpacity
                 style={[styles.container, props.style]}
-                onPress={() => { setModalVisible(true); }}
+                onPress={() => {
+                    props.modalData.setIsEdit(false);
+                    props.modalData.setModalData({} as SpareFormData); 
+                    props.stateModal.setModalVisible(true); }}
             >
                 <PlusIcon style={styles.icon} />
                 <Text style={styles.text}>Ekle</Text>

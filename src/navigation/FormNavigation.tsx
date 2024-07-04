@@ -1,64 +1,55 @@
-import { Form_1, Form_2, Form_3, Form_4, Form_5 } from '../index';
-import { LeftButtonIcon, RightButtonIcon } from '../../assets/index';
-import { TouchableOpacity } from 'react-native';
-import { View, Text, StyleSheet } from 'react-native';
+
+import { useState} from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Form_1, Form_2, Form_3, Form_4, Form_5, FormHeader } from '../index';
 
 const Stack = createNativeStackNavigator();
-const CustomHeader = ({ title, subtitle }: { title: string, subtitle: string }) => (
-    <View style={styles.headerContainer}>
-        <Text style={styles.headerTitle}>{title}</Text>
-        <Text style={styles.headerSubtitle}>{subtitle}</Text>
-    </View>
-);
+
 export function FormNavigation({ navigation }: { navigation: any }) {
+    const [activeIndex, setActiveIndex] = useState(0);
     return (
         <Stack.Navigator
             screenOptions={{
-                title: 'Yeni Arıza Formu',
-                headerTitleAlign: "center",
-                headerLeft: () => (
-                    <TouchableOpacity
-                        onPress={() => navigation.goBack()}
-                    >
-                        <LeftButtonIcon />
-                    </TouchableOpacity>
-                ),
-                headerRight: () => (
-                    <TouchableOpacity
-                    >
-                        <RightButtonIcon />
-                    </TouchableOpacity>
-                ),
+                header() {
+                    return (
+                        <FormHeader
+                            title='Yeni Arıza Formu'
+                            subtitle='Arıza Detayları'
+                            navigation={navigation}
+                            index={{ activeIndex, setActiveIndex }}
+                        />
+                    );
+                },
+                presentation: 'card',
             }}
         >
             <Stack.Screen
                 name="page-1"
-                component={Form_1}
-            />
+            >
+                {(props) => (<Form_1 {...props} index={{activeIndex,setActiveIndex}} />)}
+            </Stack.Screen>
+
             <Stack.Screen
                 name="page-2"
-                component={Form_2}
-            />
+            >
+                {(props) => (<Form_2 {...props} index={{activeIndex,setActiveIndex}} />)}
+            </Stack.Screen>
             <Stack.Screen
                 name="page-3"
-                component={Form_3}
-            />
+            >
+                {(props) => (<Form_3 {...props} index={{activeIndex,setActiveIndex}} />)}
+            </Stack.Screen>
             <Stack.Screen
                 name="page-4"
-                component={Form_4}
-            />
+            >
+                {(props) => (<Form_4 {...props} index={{activeIndex,setActiveIndex}} />)}
+            </Stack.Screen>
             <Stack.Screen
                 name="page-5"
-                component={Form_5}
-            />
+            >
+                {(props) => (<Form_5 {...props} index={{activeIndex,setActiveIndex}} />)}
+            </Stack.Screen>
 
         </Stack.Navigator>
     );
 }
-
-const styles = StyleSheet.create({
-    headerContainer: {},
-    headerTitle: {},
-    headerSubtitle: {},
-});

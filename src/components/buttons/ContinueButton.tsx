@@ -8,11 +8,14 @@ interface ContinueButtonProps {
     pageName: string;
     text?:string;
 }
+
 export function ContinueButton(props: ContinueButtonProps) {
     return (
         <TouchableOpacity
             style={styles.button}
-            onPress={() => props.navigation.navigate(props.pageName)}
+            onPress={() => {
+                props.navigation.navigate(props.pageName)
+            }}
         >
             <Text style={styles.text}>
                 {props.text ?

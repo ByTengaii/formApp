@@ -11,18 +11,24 @@ const items =[
 ];
 
 interface StatusBarProps {
-    activeIndex: number;
     navigation: any;
+    index:{
+        activeIndex: number;
+        setActiveIndex: React.Dispatch<React.SetStateAction<number>>
+    }
 }
 
 export default function StatusBar(props: StatusBarProps){
     return(
         <View style={styles.container}>
             {items.map((item) => (
-                (item.id === props.activeIndex)
+                (item.id === props.index.activeIndex)
                 ? (
                 <TouchableOpacity
-                    onPress={() => {props.navigation.navigate(`page-${item.number}`)}}
+                    onPress={() => {
+                        props.index.setActiveIndex(item.id);
+                        props.navigation.navigate(`page-${item.number}`)
+                    }}
                 >
                     <Text key={item.id} style={[styles.badge, {backgroundColor: Colors.active, color: Colors.white}]}>{item.number}</Text>
                 </TouchableOpacity>
