@@ -5,7 +5,7 @@ import { XClose } from "../../../assets";
 import Colors from "../../theme/colors";
 import { useForm } from "react-hook-form";
 import { SpareFormData, SpareSchema } from "../../models/SpareModel";
-import { zodResolver } from "@hookform/resolvers/zod";  
+import { zodResolver } from "@hookform/resolvers/zod";
 import { set } from "zod";
 
 interface TakeSpareModalProps {
@@ -59,47 +59,47 @@ export function TakeSpareModal(props: TakeSpareModalProps) {
                             <XClose />
                         </TouchableOpacity>
                     </View>
-                    <InputLargeController 
-                    name="stockCode" 
-                    title="TPIC Stok Kodu" 
-                    control={control} 
-                    placeholder=""
-                    errors={errors}
+                    <InputLargeController
+                        name="stockCode"
+                        title="TPIC Stok Kodu"
+                        control={control}
+                        placeholder=""
+                        errors={errors}
                     />
-                    <InputLargeController 
-                    name="usedAmount"
-                    title="Sarf Edilen Miktar"
-                    control={control}
-                    placeholder=""
-                    errors={errors}
-                    props={{
-                        inputMode: 'decimal',
-                    }}/>
-                    <InputLargeController 
-                    name="materialDescription"
-                    title="Malzeme tanımı"
-                    control={control}
-                    placeholder=""
-                    errors={errors}
+                    <InputLargeController
+                        name="usedAmount"
+                        title="Sarf Edilen Miktar"
+                        control={control}
+                        placeholder=""
+                        errors={errors}
+                        props={{
+                            inputMode: 'decimal',
+                        }} />
+                    <InputLargeController
+                        name="materialDescription"
+                        title="Malzeme tanımı"
+                        control={control}
+                        placeholder=""
+                        errors={errors}
                     />
 
                     <TouchableOpacity
                         onPress={handleSubmit((data) => {
-                        if(props.isEdit){
-                            const newItems = props.data.items.map((item) => {
-                                if(item.stockCode === props.modelData.modalData.stockCode){
-                                    return data;
-                                }else{
-                                    return item;
-                                }
-                            });
-                            props.data.setItems(newItems);
-                            props.stateModal.setModalVisible(!props.stateModal.modalVisible);
-                        }else{
-                            props.data.setItems([...props.data.items, data]);
-                            props.stateModal.setModalVisible(!props.stateModal.modalVisible);
-                        }
-                        } )}
+                            if (props.isEdit) {
+                                const newItems = props.data.items.map((item) => {
+                                    if (item.stockCode === props.modelData.modalData.stockCode) {
+                                        return data;
+                                    } else {
+                                        return item;
+                                    }
+                                });
+                                props.data.setItems(newItems);
+                                props.stateModal.setModalVisible(!props.stateModal.modalVisible);
+                            } else {
+                                props.data.setItems([...props.data.items, data]);
+                                props.stateModal.setModalVisible(!props.stateModal.modalVisible);
+                            }
+                        })}
                         style={styles.button}
                     >
                         <Text style={styles.buttonText}>Ekle</Text>
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
         lineHeight: 24,
         fontFamily: 'Inter_600SemiBold',
     },
-    title:{
+    title: {
         fontSize: 14,
         lineHeight: 20,
         fontFamily: "Inter_500Medium",
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
         textAlign: "left",
         marginBottom: 3,
     },
-    input:{
+    input: {
         borderRadius: 8,
         backgroundColor: Colors.white,
         borderStyle: "solid",

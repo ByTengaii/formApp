@@ -1,30 +1,46 @@
 import React, { useState } from 'react';
-import { View, Alert, Text, StyleSheet } from 'react-native';
-import { InputPass, InputEmail, LoginButton } from '../index';
+import { View, Text, StyleSheet } from 'react-native';
+import { useForm} from 'react-hook-form';
+import { InputPass, InputEmail, LoginButton, InputLargeController} from '../index';
 import Colors from '../theme/colors';
 
 export function LoginForm({handleAuth}: {handleAuth: (value:boolean) => void}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleLogin = () => {
-        // Check if email and password are correct
-        if (email === 'deneme' && password === 'deneme') {
-            Alert.alert('Success', 'Login successful');
-            handleAuth(true);
-        } else {
-            Alert.alert('Error', 'Invalid email or password');
-        }
-    };
+    const{
+        control,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
+
+
 
     return (
         <View style={styles.container}>
             <View style={styles.appBannerContainer}>
                 <Text style={styles.appBannerText}>App Name</Text>
             </View>
-            <InputEmail email={email} setEmail={setEmail} placeholder='example@gmail.com' />
-            <InputPass pass={password} setPass={setPassword} placeholder='Password' />
-            <LoginButton handleFunction={handleLogin} />
+            <InputLargeController 
+            title={'Email'}
+            control={control}
+            name='email'
+            errors={errors}
+            placeholder='example@gmail.com'
+            />
+            <InputLargeController 
+            title={'password'}
+            control={control}
+            name='email'
+            errors={errors}
+            placeholder='example@gmail.com'
+            props={{
+                secureTextEntry: true
+            }}
+            />
+            <LoginButton props={{
+            }}
+            />
         </View>
     );
 };

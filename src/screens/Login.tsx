@@ -1,10 +1,16 @@
 import * as React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { useForm } from "react-hook-form";
 import { LoginForm, LoginFooter } from "../index";
 import useAppFonts from "../theme/fonts";
 import { LoginBackGroundPattern } from '../../assets/index';
 
-export function Login({ handleAuth }: { handleAuth: (value: boolean) => void }) {
+interface LoginProps {
+    handleAuth: (value: boolean) => void;
+}
+
+export function Login(props: LoginProps) {
+
     const fontsLoaded = useAppFonts();
     if (!fontsLoaded) {
         return null;
@@ -15,7 +21,7 @@ export function Login({ handleAuth }: { handleAuth: (value: boolean) => void }) 
             <View style={styles.labelWrapper}>
                 <Text style={styles.label}>Logo</Text>
             </View>
-            <LoginForm handleAuth={handleAuth} />
+            <LoginForm handleAuth={props.handleAuth} />
             <LoginFooter />
         </View>
     )

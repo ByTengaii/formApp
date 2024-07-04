@@ -1,26 +1,30 @@
-import * as React from "react";
-import { Text, TouchableOpacity, StyleSheet } from "react-native";
+import {FC}  from "react";
+import { Text, TouchableOpacity, StyleSheet, TouchableOpacityProps } from "react-native";
 import Colors from "../../theme/colors";
 import useAppFonts  from "../../theme/fonts";
+
 interface Props {
-    handleFunction: any;
+    props?: TouchableOpacityProps;
 }
 
 
-export function LoginButton({ handleFunction }: Props) {
-    const fontsLoaded = useAppFonts();
-    if (!fontsLoaded) {
-        return null;
-    }    
-    return (
-        <TouchableOpacity
-            onPress={handleFunction}
-            style={styles.button}>
-            <Text style={styles.text}>Login</Text>
-        </ TouchableOpacity>
-    );
+const LoginButton: FC<Props> = ({
+    props }) => {
+        const fontsLoaded = useAppFonts();
+        if (!fontsLoaded) {
+            return null;
+        }    
+        return (
+            <TouchableOpacity
+                style={styles.button}
+                {...props}
+            >
+                <Text style={styles.text}>Login</Text>
+            </ TouchableOpacity>
+        );
+}
 
-};
+
 
 const styles = StyleSheet.create({
     button: {
