@@ -5,7 +5,6 @@ import { Profile, ViewFormList, FormNavigation } from '../index';
 import { ListActiveIcon, ListDeactiveIcon, UserIcon, PlusIcon } from './../../assets/index'
 import Colors from './../theme/colors';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import useAppFonts from "../theme/fonts";
 
 const Tab = createBottomTabNavigator();
 
@@ -13,12 +12,7 @@ interface BottomNavigationProps {
   setSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export function BottomNavigation(props: BottomNavigationProps) {
-
   const profilePic = require('../../assets/avatar.png');
-  const fontsLoaded = useAppFonts();
-  if (!fontsLoaded) {
-    return null;
-  }
   return (
     <NavigationContainer>
       <Tab.Navigator // Customization Options

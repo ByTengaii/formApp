@@ -2,14 +2,11 @@ import { LogOutIcon } from "../../../assets/index";
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Colors from "../../theme/colors";
-import useAppFonts from "../../theme/fonts";
 
 interface ExitButtonProps {
     setSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export function ExitButton(props: ExitButtonProps) {
-    const fonts = useAppFonts();
-    if (!fonts) return null;
     return (
             <TouchableOpacity style={styles.exitButton}
             onPress={() => props.setSignedIn(false)}

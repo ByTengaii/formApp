@@ -13,10 +13,8 @@ export { Form_5} from "./screens/form/Form_5" ;
 // Screens - End
 
 // Components - Start
-export { LoginForm } from "./components/LoginForm";
 export { InputEmail } from "./components/inputs/InputEmail";
 export { InputPass } from "./components/inputs/InputPass";
-export { LoginButton } from "./components/buttons/LoginButton";
 export { LoginFooter } from "./components/footers/LoginFooter";
 export { FormPreviewCard } from "./components/cards/FormPreviewCard";
 export { ExitButton } from "./components/buttons/ExitButton";

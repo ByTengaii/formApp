@@ -2,7 +2,6 @@ import { FC } from "react";
 import { Text, View, TextInput, TextInputProps, StyleSheet } from "react-native"
 import { Controller, Control, FieldValues, FieldErrors } from "react-hook-form"
 import Colors from "../../theme/colors";
-import { Title } from "react-native-paper";
 
 interface Props {
     title: string;
@@ -10,6 +9,7 @@ interface Props {
     errors: FieldErrors<FieldValues>;
     name: string;
     placeholder: string;
+    style?: object;
     props?: TextInputProps
 }
 
@@ -20,6 +20,7 @@ const InputLargeController: FC<Props> = ({
     name,
     title,
     placeholder,
+    style,
     props }) => {
     return (
         <>
@@ -28,7 +29,7 @@ const InputLargeController: FC<Props> = ({
                 rules={{ required: true }}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
-                    <View>
+                    <View style={style}>
                         <Text style={styles.title}>{title}</Text>
                         <TextInput
                             style={styles.input}

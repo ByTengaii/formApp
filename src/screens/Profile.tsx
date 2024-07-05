@@ -1,20 +1,16 @@
 import { View, Text, StyleSheet, Image } from 'react-native';
 import Colors from '../theme/colors';
-import useAppFonts from '../theme/fonts';
 import { ExitButton } from '../index';
+import { useUser } from '../services/';
 
 interface ProfileProps {
-    /*name: string;
-    surname: string;
-    email: string;
-    title: string;
-    pPicture: string | null;*/
+    //pPicture: string | null;*
     setSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
 export function Profile(props: ProfileProps) {
+    const user = useUser();
     const profilePic = require('../../assets/avatar.png');
-    const fonts = useAppFonts();
-    if (!fonts) return null;
     return (
         <View style={styles.container} >
             <View style={styles.banner}>
@@ -22,15 +18,15 @@ export function Profile(props: ProfileProps) {
                     source={profilePic}
                     style={styles.profilePic}
                 />
-                <Text style={styles.name}>İsim Soyisim</Text>
+                <Text style={styles.name}>{user.userData?.name} {user.userData?.surname}</Text>
             </View>
             <View style={styles.infoContainer}>
                 <Text style={styles.title}>Görevi</Text>
-                <Text style={styles.info}>Operatör</Text>
+                <Text style={styles.info}>{user.userData?.title}</Text>
             </View>
             <View style={styles.infoContainer}>
                 <Text style={styles.title}>E-Mail</Text>
-                <Text style={styles.info}>deneme@gmail.com</Text>
+                <Text style={styles.info}>{user.userData?.email}</Text>
             </View>    
             <View style={styles.exitContainer}>
                 <ExitButton setSignedIn={props.setSignedIn}/>

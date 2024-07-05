@@ -1,7 +1,5 @@
 import { z, ZodType } from "zod"; // Add new import
 import { SpareFormData } from "./SpareModel";
-import { FieldErrors, Control, FieldValues } from "react-hook-form";
-import { TextInputProps } from "react-native";
 
 export type FormProps= {
     navigation: any;

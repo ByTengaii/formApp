@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Text, View, StyleSheet } from "react-native";
-import useAppFonts from "../../theme/fonts";
 import { CheckCircle, MinusCircle, XCircle, RightArrow, DotsVertical } from '../../../assets/index';
 
 interface PreviewCardProps {
@@ -13,10 +12,6 @@ interface PreviewCardProps {
 }
 
 export function FormPreviewCard(props: PreviewCardProps) {
-    const fontsLoaded = useAppFonts();
-    if (!fontsLoaded) {
-        return null;
-    }
     return (
         <View style={styles.container}>
             <View style={styles.badge}>
