@@ -1,5 +1,5 @@
 import { View,Text, StyleSheet } from "react-native";
-import { FormTitle, InputTimeUnit} from "../index";
+import { FormTitle, InputTimeUnit} from "./";
 
 export function TakeTime ({title} : {title: string}) {
     return (

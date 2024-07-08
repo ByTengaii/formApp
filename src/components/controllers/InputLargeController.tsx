@@ -8,7 +8,7 @@ interface Props {
     control: Control<any>;
     errors: FieldErrors<FieldValues>;
     name: string;
-    placeholder: string;
+    placeholder?: string;
     style?: object;
     props?: TextInputProps
 }
@@ -19,7 +19,7 @@ const InputLargeController: FC<Props> = ({
     errors,
     name,
     title,
-    placeholder,
+    placeholder="",
     style,
     props }) => {
     return (

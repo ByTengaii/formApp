@@ -1,5 +1,5 @@
 import { View, StyleSheet } from "react-native";
-import { FormTitle, YesBooleanButton, NoBooleanButton} from "../index";
+import { FormTitle, YesBooleanButton, NoBooleanButton} from "./";
 import { useState } from "react";
 
 interface YesNoQuestionProps {

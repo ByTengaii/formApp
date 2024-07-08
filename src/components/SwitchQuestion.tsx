@@ -1,20 +1,70 @@
-import { View,StyleSheet } from "react-native";
-import { BooleanSwitch, FormTitle } from "../index"
+import React, { useState } from "react";
+import { View, StyleSheet, Switch } from "react-native";
+import { Controller, Control, FieldErrors, FieldValues, UseFormSetValue, set } from "react-hook-form";
+import { FormTitle } from "./"
+import { Colors } from "../theme/";
+import { Item } from "../models";
 
 
-export function SwitchQuestion({title} : {title: string}) {
+interface SwitchQuestionProps {
+    item: Item;
+    control: Control<any>;
+    setIsContacted: (isCalled: boolean) => void;
+    setValue?: UseFormSetValue<any>;
+}
+
+const SwitchQuestion: React.FC<SwitchQuestionProps> = ({
+    item,
+    control,
+    setIsContacted,
+    setValue,
+}) => {
+    const [isEnabled, setIsEnabled] = useState(false);
+    const toggleSwitch = () => {
+        setIsEnabled(previousState => !previousState)
+        setIsContacted(!isEnabled);
+        setValue?
+            setValue(item.name, !isEnabled)
+            :null;
+    };
+
     return (
         <View style={styles.container}>
-            <FormTitle title={title} />
-            <BooleanSwitch />
+            <FormTitle title={item.title} />
+            <View style={styles.switchContainer}>
+                <Controller
+                    name={item.name}
+                    control={control}
+                    render={({field}) => (
+                        <Switch
+                            trackColor={{ false: Colors.secondary, true: Colors.active }}
+                            thumbColor={isEnabled ? Colors.white : Colors.disable}
+                            onValueChange={toggleSwitch}
+                            value={isEnabled}
+                            style={{ transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }] }}
+                        />
+                    )}
+
+                />
+
+            </View>
         </View>
+
+
     );
 }
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
         flex: 1,
         marginBottom: 12,
         flexDirection: 'row',
     },
+    switchContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginLeft: 'auto'
+    },
 });
+
+export default SwitchQuestion;

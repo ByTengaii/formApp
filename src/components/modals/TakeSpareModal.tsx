@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Modal, View, TouchableOpacity, Text, StyleSheet, TextInput } from "react-native";
-import { InputLargeController } from '../../index';
+import { InputLargeController } from '../../components';
 import { XClose } from "../../../assets";
 import Colors from "../../theme/colors";
 import { useForm } from "react-hook-form";

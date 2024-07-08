@@ -1,0 +1,46 @@
+
+qr
+
+
+
+
+rimqq
+ell
+aport React, { createContext, useContext, useState } from 'react';
+i
+nBmport {  FormData } from '../../models/index';
+OOBOOOOOOOBBBBBOO
+const FOOormConOOOOtext = createContext(
+ AOOOOA {} asOBBOOO {
+O    formData: FormData| undefined;
+    setForm: React.Dispatch<React.SetStateAction<FormData | undefined>>;
+  }
+);
+
+interface Props {
+  children: React.ReactNode;
+}
+
+const FormProvider = (props:Props) => {
+  const [formData, setForm] = useState<FormData>();
+
+  return ( 
+    <FormContext.Provider value={{ formData, setForm }}>
+      {props.children}
+    </FormContext.Provider>
+  );
+};
+
+const getForm = () => {
+  return useContext(FormContext);
+};
+
+const appendForm = (data: Partial<FormData>) => {
+    const { formData, setForm } = getForm();
+    setForm({
+        ...formData,
+        ...data
+    } as FormData);
+}
+
+export { FormProvider, getForm, appendForm  };

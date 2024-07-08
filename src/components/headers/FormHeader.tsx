@@ -1,6 +1,6 @@
 import { Text,View,StyleSheet, TouchableOpacity } from "react-native";
 import { LeftButtonIcon, RightButtonIcon } from "../../../assets";
-import {StatusBar} from "../../index";
+import {StatusBar} from "../";
 
 interface FormHeaderProps {
     title: string;

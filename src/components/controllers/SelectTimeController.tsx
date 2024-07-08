@@ -1,8 +1,19 @@
 import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import {Controller, Control, FieldErrors, FieldValues, UseFormSetValue } from 'react-hook-form';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { Item } from '../../models';
 import Colors from '../../theme/colors';
 import { ClockIcon } from '../../../assets';
-import DateTimePicker from '@react-native-community/datetimepicker';
+
+
+
+interface SelectTimeProps {
+  item: Item;
+  control: Control<any>;
+  errors: FieldErrors<FieldValues>;
+  setValue?: UseFormSetValue<any>;
+}
 
 function MyComponent({ title, date }: { title: string, date: Date }) {
   return (
@@ -16,7 +27,13 @@ function MyComponent({ title, date }: { title: string, date: Date }) {
 
   )
 }
-export function SelectTime({title}: {title: string}) {
+
+const SelectTimeController: React.FC<SelectTimeProps> = ({
+  item,
+  control,
+  errors,
+  setValue
+}) => {
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
@@ -24,8 +41,13 @@ export function SelectTime({title}: {title: string}) {
   const onChange = (event: any, selectedDate?: Date | undefined) => {
     const currentDate = selectedDate;
     setShow(false);
-    if (typeof (currentDate) !== 'undefined')
+    if (typeof (currentDate) !== 'undefined'){
       setDate(currentDate);
+      setValue?
+      setValue(item.name, currentDate)
+      :null;
+    }
+      
   };
 
   const showDatepicker = () => {
@@ -34,21 +56,34 @@ export function SelectTime({title}: {title: string}) {
   };
 
   return (
-    <View>
-      <TouchableOpacity
-        onPress={showDatepicker} >
-        <MyComponent title={title} date={date} />
-      </TouchableOpacity>
-      {show && (
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={date}
-          mode={mode as any}
-          is24Hour={true}
-          onChange={onChange}
-        />
-      )}
-    </View>
+    <>
+      <Controller
+        name={item.name}
+        control={control}
+        render={({ field: { } }) => (
+          <View>
+            <TouchableOpacity
+              onPress={showDatepicker} >
+              <MyComponent title={item.title} date={date} />
+            </TouchableOpacity>
+            {show && (
+              <DateTimePicker
+                testID="dateTimePicker"
+                value={date}
+                mode={mode as any}
+                is24Hour={true}
+                onChange={onChange}
+              />
+            )}
+          </View>
+        )}
+      />
+      {errors
+        && errors[item.name]
+        && <Text style={{ color: Colors.red }}>{String(errors[item.name]?.message)}</Text>
+      }
+    </>
+
   );
 }
 
@@ -70,7 +105,7 @@ const styles = StyleSheet.create({
     marginBottom: 3,
   },
   icon: {
-    marginRight:5
+    marginRight: 5
   },
   text: {
     flex: 1,
@@ -81,3 +116,5 @@ const styles = StyleSheet.create({
   },
 
 })
+
+export default SelectTimeController;

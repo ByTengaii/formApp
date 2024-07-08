@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
 import { FlatList, StyleSheet, View} from "react-native";
-import { StatusBar, ContinueButton, GoBackButton, CheckBoxCard } from "../../index";
+import {  ContinueButton, GoBackButton, CheckBoxCard } from "../../components";
 import Colors from "../../theme/colors";
-import { FormProps } from "../../models/FormModel";
+import { FormProps } from "../../models/";
 
 
 const items = [
@@ -11,9 +11,6 @@ const items = [
     { id: 3,  title: "Geçici Çözüm", color: Colors.yellow},
     { id: 4,  title: "Atölye Ekip Talebi Var", color: Colors.disable},
 ];
-
-
-
 
 export function Form_5(props:FormProps) {
     const flatListRef = useRef<FlatList>(null); // Create a reference

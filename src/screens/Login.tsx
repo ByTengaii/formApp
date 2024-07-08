@@ -1,10 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Alert} from "react-native";
 import {  useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { LoginFooter, InputLargeController } from "../index";
-import { Colors } from "../theme/index";
-import { useUser, signIn} from '../services/index';
+import { useUser} from '../services/context/index';
+import { signIn } from '../services/auth/index';
+import { LoginFooter, InputLargeController } from "../components/index";
+import { Colors, useAppFonts} from "../theme/index";
 import { UserFormData, UserFormSchema, UserData} from '../models/index';
 import { LoginBackGroundPattern } from '../../assets/index';
 
@@ -15,6 +16,7 @@ interface LoginProps {
 
 
 export function Login(props: LoginProps) {
+    const fonst = useAppFonts();
     const user = useUser();
     const {
         control,
@@ -25,6 +27,7 @@ export function Login(props: LoginProps) {
         resolver: zodResolver(UserFormSchema)
     });
 
+    if (!fonst) return null;
     const onSubmit = handleSubmit(async (data) => {
         const userData =  await signIn(data.email, data.password);
         console.log("Data:", userData);
@@ -33,7 +36,8 @@ export function Login(props: LoginProps) {
             props.handleAuth(true);
         }
         else {
-            console.log("Error");
+            Alert.alert("Error", "Invalid email or password");
+            console.log("User login error");
         }
     });
 

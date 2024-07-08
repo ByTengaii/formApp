@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Image } from 'react-native';
 import Colors from '../theme/colors';
-import { ExitButton } from '../index';
-import { useUser } from '../services/';
+import { ExitButton } from '../components/';
+import { useUser } from '../services/context';
 
 interface ProfileProps {
     //pPicture: string | null;*

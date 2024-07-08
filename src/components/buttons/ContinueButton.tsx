@@ -1,21 +1,18 @@
 import React from 'react';
-import { Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { Text, TouchableOpacity, StyleSheet, GestureResponderEvent, TouchableOpacityProps} from 'react-native';
 import Colors from '../../theme/colors';
 
 
 interface ContinueButtonProps {
-    navigation: any;
-    pageName: string;
     text?:string;
+    props?: TouchableOpacityProps;
 }
 
 export function ContinueButton(props: ContinueButtonProps) {
     return (
         <TouchableOpacity
             style={styles.button}
-            onPress={() => {
-                props.navigation.navigate(props.pageName)
-            }}
+            {...props.props}
         >
             <Text style={styles.text}>
                 {props.text ?

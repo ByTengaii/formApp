@@ -25,19 +25,21 @@ export default function StatusBar(props: StatusBarProps){
                 (item.id === props.index.activeIndex)
                 ? (
                 <TouchableOpacity
+                key={item.id}
                     onPress={() => {
                         props.index.setActiveIndex(item.id);
                         props.navigation.navigate(`page-${item.number}`)
                     }}
                 >
-                    <Text key={item.id} style={[styles.badge, {backgroundColor: Colors.active, color: Colors.white}]}>{item.number}</Text>
+                    <Text style={[styles.badge, {backgroundColor: Colors.active, color: Colors.white}]}>{item.number}</Text>
                 </TouchableOpacity>
                 )
                 : (
                 <TouchableOpacity
+                key={item.id}
                     onPress={() => {props.navigation.navigate(`page-${item.number}`)}}
                 > 
-                <Text key={item.id} style={[styles.badge, {backgroundColor: Colors.white, color: Colors.secondary}]}>{item.number}</Text>
+                <Text  style={[styles.badge, {backgroundColor: Colors.white, color: Colors.secondary}]}>{item.number}</Text>
                 </TouchableOpacity>
                 )
             ))}

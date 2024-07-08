@@ -5,7 +5,6 @@ import { UserData} from "../../models";
 const db = getFirestore(app);
 
 export async function getUser(uid: string){
-    console.log("UID:", uid);
       const docRef = doc(collection(db, "users"), uid);
       let userData: UserData | undefined = undefined;
       try {

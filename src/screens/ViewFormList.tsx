@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { StyleSheet, FlatList, ScrollView } from "react-native";
-import { FormPreviewCard } from "../index";
+import { FormPreviewCard } from "../components";
 
 
 const items = [
@@ -9,7 +9,7 @@ const items = [
         data: {
             text: "BOM.RP.001 Deneme Formu",
             date: "19.04.2024",
-            status: 'Solved',
+            status: 'solved',
         }
     },
     {
@@ -17,7 +17,7 @@ const items = [
         data: {
             text: "TPIC Form 86",
             date: "19.04.2024",
-            status: 'Temporary Solution',
+            status: 'temporarySolution',
         }
 
     },
@@ -26,7 +26,7 @@ const items = [
         data: {
             text: "BOM.RP.001 Deneme Formu",
             date: "19.04.2024",
-            status: 'Not Solved',
+            status: 'notSolved',
         }
     },
 ];

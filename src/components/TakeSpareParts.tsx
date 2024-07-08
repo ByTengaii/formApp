@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { View } from "react-native";
 import { SpareFormData } from "../models/SpareModel";
-import { SpareTable, FormTitle, AddSpareButton, TakeSpareModal } from "../index";
+import { SpareTable, FormTitle, AddSpareButton, TakeSpareModal } from "./";
 
 
 export function TakeSpareParts() {

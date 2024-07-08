@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
-import { StatusBar, ContinueButton, GoBackButton, YesNoQuestion, FormInputLarge, Badge } from "../../index";
+import {  ContinueButton, GoBackButton, YesNoQuestion, FormInputLarge, Badge } from "../../components";
 import Colors from "../../theme/colors";
-import { FormProps } from "../../models/FormModel";
+import { FormProps } from "../../models/";
 
 
 const items = [

@@ -7,7 +7,7 @@ interface PreviewCardProps {
     data :{
         text: string;
         date: string;
-        status: 'Solved' | 'Temporary Solution' | 'Not Solved';
+        status: 'solved' | 'temporarySolution' | 'notSolved';
     }
 }
 
@@ -21,13 +21,13 @@ export function FormPreviewCard(props: PreviewCardProps) {
                 <Text style={styles.titleText}>{props.data.text}</Text>
                 <Text style={styles.dateText}>{props.data.date}</Text>
                 <View style={styles.statusContainer}>
-                    {props.data.status === 'Solved' ? (
+                    {props.data.status === 'solved' ? (
                         <CheckCircle
                             height={14}
                             width={14}
                             style={styles.statusIcon}
                         />
-                    ) : props.data.status === 'Temporary Solution' ? (
+                    ) : props.data.status === 'temporarySolution' ? (
                         <MinusCircle
                             height={14}
                             width={14}
@@ -40,8 +40,8 @@ export function FormPreviewCard(props: PreviewCardProps) {
                             style={styles.statusIcon}
                         />
                     )}
-                    <Text style={{ ...styles.statusText, color: props.data.status === 'Solved' ? 'green' : props.data.status === 'Temporary Solution' ? 'orange' : 'red' }}>
-                        {props.data.status}
+                    <Text style={{ ...styles.statusText, color: props.data.status === 'solved' ? 'green' : props.data.status === 'temporarySolution' ? 'orange' : 'red' }}>
+                        {props.data.status === 'solved' ? 'Solved' : props.data.status === 'temporarySolution' ? 'Temporary Solution' : 'Not Solved'}
                     </Text>
                 </View>
             </View>
