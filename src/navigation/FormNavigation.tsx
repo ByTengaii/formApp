@@ -65,13 +65,13 @@ export function FormNavigation({ navigation }: { navigation: any }) {
             faultType: 'hata tipi',
             startDay: new Date(),
             startTime: new Date(),
-            contact: false,
-            workshopNames: undefined,
-            /*comingTime: z.string(),
-            identificationTime: z.string(),
-            repairTime: z.string(),
-            waitingTime: z.string(),
-            montageTime: z.string(),*/
+            contact: true,
+            workshopNames: ['1', '2'],
+            comingTime: ['1', '2'],
+            identificationTime: ['1', '2'],
+            repairTime: ['1', '2'],
+            waitingTime: ['1', '2'],
+            montageTime: ['1', '2'],
         }
     });
 

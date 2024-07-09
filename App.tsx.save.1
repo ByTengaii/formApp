@@ -1,0 +1,24 @@
+BOimport * as React from 'react';
+import { BottomNavigation, Login } from './src/index';
+imOprort { UserProvider } from './src/services/context/index';
+AAOO
+OO
+
+export default function App() {
+  const [isSignedIn, setIsSignedIn] = React.useState(false); // set false for 
+  const handleAuth = (value: boolean) => {
+    setIsSignedIn(value);
+  };
+
+  return (
+    <UserProvider>
+      {isSignedIn ? (
+      <BottomNavigation setSignedIn={setIsSignedIn} />
+      ) : (
+      <Login handleAuth={handleAuth} />
+      )}
+    </UserProvider>
+
+
+  );
+}

@@ -1,0 +1,71 @@
+OOOOOBOOimpOOOOOOort React, { useState} from "react";
+import OB{ View, TouchableOpacity, StyleSheet} from "react-native";
+iOmport OOOO{ UseFormReturn, useFieldArray } from "react-hook-form";
+iOBOmport { BrcSpareFormData, Item } from "../models/";
+import { SpareTable, FormTitle, AddSpareButton, TakeSpareModal } from "./";
+import { PlusIcon } from "../../assets";
+
+interface ControllerProps {
+    item:Item;
+    formMethods: UseFormReturn<any>;
+}
+
+const TakeSpareParts: React.FC<ControllerProps> =({
+    item,
+    formMethods,
+}) =>{
+    const [items, setItems] = useState([] as SpareFormData[]);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [isEdit, setIsEdit] = useState(false);
+    //const [modalData, setModalData] = useState({} as SpareFormData);
+    const { control } = formMethods;
+
+    const fielMethods = useFieldArray({
+        control,
+        name: "spare",
+    });
+
+    return (
+        <View>
+            <FormTitle title="Kullanılan Yedek Parçalar" style={{ marginBottom: 10 }} />
+            {fielMethods.fields.map((field, index) => {
+                return (
+                    <SpareTable key={field.id} stateModal={{modalVisible,setModalVisible}} data={{items, setItems}} element={field} modalData={{modalData,setModalData, setIsEdit}} style={{ marginBottom: 10 }} />
+                );
+            })}
+            <TakeSpareModal isEdit={isEdit} modelData={{modalData, setModalData}}stateModal={{modalVisible, setModalVisible}} data={{items,setItems}} />
+            <AddSpareButton  
+            modalData={{modalData, setModalData, setIsEdit}}
+            stateModal={{modalVisible, setModalVisible}}
+            data={{items, setItems}}/>
+            <TouchableOpacity
+                style={AddButtonStyles.container}
+                onPress={() => {
+                    setIsEdit(false);
+                    setModalData({} as SpareFormData); 
+                    setModalVisible(true); }}
+            >
+                <PlusIcon style={AddButtonStyles.icon} />
+                <Text style={AddButtonStyles.text} >Ekle</Text>
+            </TouchableOpacity>
+        </View>
+    );
+} 
+
+
+const AddButtonStyles = StyleSheet.create({
+    container: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        borderWidth: 1,
+        borderRadius: 8,
+        borderColor: Colors.borderPrimary,
+        paddingVertical: 10,
+        paddingHorizontal: 14,
+    },
+    icon: {},
+    text: {}
+});
+
+export default TakeSpareParts;
