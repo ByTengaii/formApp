@@ -1,2 +1,3 @@
 export {UserProvider, useUser} from "./UserContext";
-export {FormProvider, getForm} from "./FormContext";
+export {FormDataProvider, getFormData} from "./FormContext";
+export { StatusBarProvider, useStatusBarContext  } from "./StatusBarContext";

@@ -6,10 +6,6 @@ interface FormHeaderProps {
     title: string;
     subtitle: string;
     navigation: any;
-    index:{
-        activeIndex: number;
-        setActiveIndex: React.Dispatch<React.SetStateAction<number>>
-    }
 }
 export function FormHeader(props: FormHeaderProps) {
     return (
@@ -26,7 +22,6 @@ export function FormHeader(props: FormHeaderProps) {
                     <RightButtonIcon />
                 </TouchableOpacity>    
             </View>
-            <StatusBar index={props.index} navigation={props.navigation}/>
         </View>
     );
 }

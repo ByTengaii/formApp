@@ -1,13 +1,12 @@
 import { FC } from "react";
 import { Text, View, TextInput, TextInputProps, StyleSheet } from "react-native"
-import { Controller, Control, FieldValues, FieldErrors } from "react-hook-form"
+import { Controller, UseFormReturn } from "react-hook-form"
 import Colors from "../../theme/colors";
 
 interface Props {
     title: string;
-    control: Control<any>;
-    errors: FieldErrors<FieldValues>;
     name: string;
+    formMethods: UseFormReturn<any>;
     placeholder?: string;
     style?: object;
     props?: TextInputProps
@@ -15,13 +14,13 @@ interface Props {
 
 
 const InputLargeController: FC<Props> = ({
-    control,
-    errors,
     name,
+    formMethods,
     title,
     placeholder="",
     style,
     props }) => {
+        const { control, formState: { errors } } = formMethods;
     return (
         <>
             <Controller

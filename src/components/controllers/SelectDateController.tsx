@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { Controller, Control, FieldErrors, FieldValues, UseFormSetValue} from 'react-hook-form';
+import { Controller, Control, FieldErrors, FieldValues, UseFormSetValue, UseFormReturn} from 'react-hook-form';
 import { Item } from '../../models';
 import { Colors } from '../../theme';
 import { CalendarIcon } from '../../../assets';
@@ -21,17 +21,14 @@ function MyComponent({ title, date }: { title: string, date: Date }) {
 
 interface SelectDateProps {
   item: Item;
-  control: Control<any>;
-  errors: FieldErrors<FieldValues>;
-  setValue?: UseFormSetValue<any>;
+  formMethods: UseFormReturn<any>;
 }
 
 const SelectDateController: React.FC<SelectDateProps> = ({
   item,
-  control,
-  errors,
-  setValue
+  formMethods
 }) => {
+  const { control, formState:{errors}, setValue } = formMethods;
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);

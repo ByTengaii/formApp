@@ -1,42 +1,14 @@
 import React, { useRef } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
-import { useForm } from "react-hook-form";
-import { getForm } from '../../services/context/'
+import { getFormData } from '../../services/context/'
 import { FormProps, Item } from "../../models";
 import { SelectDateController, SelectTimeController, ContinueButton, LeaveButton, InputLargeController } from "../../components";
 import { Colors } from "../../theme";
-import { z, ZodType } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useFormContext } from "react-hook-form";
 
 
 
 
-type FormValues = {
-    tower: string,
-    location: string,
-    equipmant: string,
-    serialNo: string,
-    band: string,
-    barCode: string,
-    faultDefination: string,
-    faultType: string,
-    startDay: Date
-    startTime: Date
-};
-
-const FormSchema: ZodType<FormValues> = z
-    .object({
-        tower: z.string(({ required_error: "Tower is required" })).min(1),
-        location: z.string(({ required_error: "Location is required" })).min(1),
-        equipmant: z.string(({ required_error: "Equipmant is required" })).min(1),
-        serialNo: z.string(({ required_error: "Serial Number is required" })).min(1),
-        band: z.string(({ required_error: "Band is required" })).min(1),
-        barCode: z.string(({ required_error: "Bar Code is required" })).min(1),
-        faultDefination: z.string(({ required_error: "Fault Defination is required" })).min(1),
-        faultType: z.string(({ required_error: "Fault Type is required" })).min(1),
-        startDay: z.date(({ required_error: "Start Day is required" })),
-        startTime: z.date(({ required_error: "Start Time is required" })),
-    }).required();
 
 
 const items = [
@@ -58,45 +30,27 @@ const items = [
 
 export function Form_1(props: FormProps) {
     const flatListRef = useRef<FlatList>(null); // Create a reference
-    const Form = getForm();
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-        setValue,
-    } = useForm<FormValues>({
-        resolver: zodResolver(FormSchema),
-    });
+    const FormData = getFormData();
+    const formContext = useFormContext();
 
-    setValue('tower', 'kule');
-    setValue('location', 'lokasyon');
-    setValue('equipmant', 'ekipman');
-    setValue('serialNo', 'seri no');
-    setValue('band', 'marka/model');
-    setValue('barCode', 'barkod');
-    setValue('faultDefination', 'ariza tanimi');
-    setValue('faultType', 'ariza tipi');
-    setValue('startDay', new Date());
-    setValue('startTime', new Date());
     
-    const onSubmit = handleSubmit((data) => {
+    const onSubmit = formContext.handleSubmit((data) => {
         console.log(data);
-        Form.setForm(data);
-        console.log('FormDAta',Form.formData);
+        FormData.setForm(data);
+        console.log('FormDAta',FormData.formData);
         //props.navigation.navigate('page-2');
     });
     const ViewItem = ({ item }: { item: Item }) => {
         switch (item.type) {
             case 'date':
-                return <SelectDateController item={item} control={control} errors={errors} setValue={setValue} />;
+                return <SelectDateController item={item} formMethods={formContext} />;
             case 'time':
-                return <SelectTimeController item={item} control={control} errors={errors} setValue={setValue} />;
+                return <SelectTimeController item={item} formMethods={formContext} />;
             default:
-                return < InputLargeController title={item.title} name={item.name} control={control} errors={errors} />;
+                return < InputLargeController title={item.title} name={item.name} formMethods={formContext} />;
         }
 
     };
-    props.index.setActiveIndex(0);
 
     return (
 
@@ -110,8 +64,6 @@ export function Form_1(props: FormProps) {
             <View style={styles.submitContainer}>
                 <LeaveButton />
                 <ContinueButton
-                    navigation={props.navigation}
-                    pageName='page-2'
                     props={{
                         onPress: onSubmit,
                     }}

@@ -1,11 +1,10 @@
-import React, { useRef, useState } from "react";
-import { FlatList, StyleSheet, View, } from "react-native";
-import { FormProps, Item} from "../../models/";
+imOOBBOport React, { useRef, useState } from "react";
+OOimporOt { FlatList, StyleSheet, View, } from "react-native";
+import {OOO useFormContext } from "react-hook-form";
+import { gOOBBOOOetFormData, useStatusBarContext} from "../../services/context";
+import { Item} from "../../models/";
 import { AddingWorkshop, ContinueButton, GoBackButton, TakeTime, SwitchQuestion} from "../../components";
 import Colors from "../../theme/colors";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z, ZodType } from "zod";
 
 
 const items = [
@@ -18,53 +17,31 @@ const items = [
     { id: 7, name: 'montageTime',title: "Montaj Süresi (sa & dk)" },
 ] as Item[];
 
-type FormValues = {
-    contact: boolean,
-    workshopNames: string[] | undefined,
-    /*comingTime: string,
-    identificationTime: string,
-    repairTime: string,
-    waitingTime: string,
-    montageTime: string,*/
-};
-
-const FormSchema : ZodType<FormValues> = z.object({
-    contact: z.boolean(),
-    workshopNames: z.array(z.string()).optional(),
-    /*comingTime: z.string(),
-    identificationTime: z.string(),
-    repairTime: z.string(),
-    waitingTime: z.string(),
-    montageTime: z.string(),*/
-}).required();
-
+interface FormProps {
+    navigation: any;
+}
 
 export function Form_2(props:FormProps) {
+    const formDataContext = getFormData();
+    const formContext = useFormContext();
+    const statusBarContext = useStatusBarContext();
     const [isContacted, setIsContacted] = useState(false);
     const flatListRef = useRef<FlatList>(null); // Create a reference
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-        setValue,
-    } = useForm<FormValues>({
-        resolver: zodResolver(FormSchema),
-    });
 
+    statusBarContext.setActiveIndex(1);
     const ViewItem = ({ item }: { item: Item }) => {
         switch (item.type) {
             case 'toggle':
                 return <SwitchQuestion 
-                control={control}
                 item={item} 
                 setIsContacted={setIsContacted}
-                setValue={setValue}
+                formContext={formContext}
                 />;
             case 'adding':
                 return <AddingWorkshop
-                control={control}
                 item={item}
                 isEnable={isContacted}
+                formContext={formContext}
                 />;
             default:
                 return <TakeTime title={item.title} />;
@@ -72,8 +49,10 @@ export function Form_2(props:FormProps) {
 
     };
 
-    const onSubmit = handleSubmit((data) => {
+    const onSubmit = formContext.handleSubmit( (data) => {
         console.log(data);
+        formDataContext.setFormData(data);
+        console.log('FormDAta',formDataContext.formData);
     });
 
     return (

@@ -3,10 +3,6 @@ import { SpareFormData } from "./SpareModel";
 
 export type FormProps= {
     navigation: any;
-    index:{
-        activeIndex: number;
-        setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
-    }
 };
 
 export type Item = {

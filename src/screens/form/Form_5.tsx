@@ -15,7 +15,6 @@ const items = [
 export function Form_5(props:FormProps) {
     const flatListRef = useRef<FlatList>(null); // Create a reference
     const [activeIndex, setActiveIndex] = useState(0);
-    props.index.setActiveIndex(4);
 
     const renderItem = ({ item }: { item: any }) => {
         return (<CheckBoxCard state={{activeIndex,setActiveIndex}} item={item} />);
@@ -33,8 +32,6 @@ export function Form_5(props:FormProps) {
             <View style={styles.submitContainer}>
                 <GoBackButton />
                 <ContinueButton
-                    navigation={props.navigation}
-                    pageName='Arıza Listesi'
                     text="Kaydet"
                 />
             </View>

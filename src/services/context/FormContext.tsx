@@ -12,7 +12,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-const FormProvider = (props:Props) => {
+const FormDataProvider = (props:Props) => {
   const [formData, setForm] = useState<Partial<FormData>>();
   return ( 
     <FormContext.Provider value={{ formData, setForm }}>
@@ -21,16 +21,16 @@ const FormProvider = (props:Props) => {
   );
 };
 
-const getForm = () => {
+const getFormData = () => {
   return useContext(FormContext);
 };
 
 const appendForm = (data: Partial<FormData>) => {
-  const { formData, setForm } = getForm();
+  const { formData, setForm } = getFormData();
   setForm({
     ...formData,
     ...data,
   });
 }
 
-export { FormProvider, getForm, appendForm  };
+export { FormDataProvider, getFormData , appendForm  };

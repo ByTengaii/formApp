@@ -35,7 +35,6 @@ const renderItem = ({ item }: { item: any }) => {
 
 export function Form_4(props:FormProps) {
     const flatListRef = useRef<FlatList>(null); // Create a reference
-    props.index.setActiveIndex(3);
 
     return (
 
@@ -49,8 +48,6 @@ export function Form_4(props:FormProps) {
             <View style={styles.submitContainer}>
                 <GoBackButton />
                 <ContinueButton
-                    navigation={props.navigation}
-                    pageName='page-5'
                 />
             </View>
         </View>

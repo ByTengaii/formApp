@@ -18,17 +18,16 @@ interface LoginProps {
 export function Login(props: LoginProps) {
     const fonst = useAppFonts();
     const user = useUser();
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-        setValue
-    } = useForm<UserFormData>({
-        resolver: zodResolver(UserFormSchema)
+    const methods = useForm<UserFormData>({
+        resolver: zodResolver(UserFormSchema),
+        defaultValues: {
+            email: 'gurkanqq28@hotmail.com',
+            password: '01012002',
+        }
     });
 
     if (!fonst) return null;
-    const onSubmit = handleSubmit(async (data) => {
+    const onSubmit = methods.handleSubmit(async (data) => {
         const userData =  await signIn(data.email, data.password);
         console.log("Data:", userData);
         if (userData) {
@@ -41,8 +40,6 @@ export function Login(props: LoginProps) {
         }
     });
 
-    setValue('email', 'gurkanqq28@hotmail.com');
-    setValue('password', '01012002');
     return (
         <View style={[styles.main, styles.mainFlexBox]}>
             <LoginBackGroundPattern style={styles.backgroundPatternDecorative} />
@@ -55,16 +52,14 @@ export function Login(props: LoginProps) {
                 </View>
                 <InputLargeController
                     title={'Email'}
-                    control={control}
+                    formMethods={methods}
                     name='email'
-                    errors={errors}
                     placeholder='example@gmail.com'
                 />
                 <InputLargeController
                     title={'password'}
-                    control={control}
+                    formMethods={methods}
                     name='password'
-                    errors={errors}
                     placeholder=''
                     style={styles.labels}
                     props={{
