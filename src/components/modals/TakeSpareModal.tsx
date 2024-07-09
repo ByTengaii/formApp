@@ -6,7 +6,6 @@ import Colors from "../../theme/colors";
 import { useForm } from "react-hook-form";
 import { SpareFormData, SpareSchema } from "../../models/SpareModel";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { set } from "zod";
 
 interface TakeSpareModalProps {
     style?: object;
@@ -25,7 +24,6 @@ interface TakeSpareModalProps {
     isEdit: boolean;
 }
 
-console.log('renderrr');
 
 export function TakeSpareModal(props: TakeSpareModalProps) {
     const {

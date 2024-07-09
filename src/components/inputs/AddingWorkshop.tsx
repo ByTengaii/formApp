@@ -22,9 +22,7 @@ const AddingWorkshop: React.FC<AddingWorkshopProps> = ({
         control
     });
     const addNewLine = () => {
-        append({
-            name: `workshop-${1}`
-        });
+        append({});
     };
 
 
@@ -32,21 +30,13 @@ const AddingWorkshop: React.FC<AddingWorkshopProps> = ({
         <View style={{ ...styles.container, display: isEnable ? 'flex' : 'none' }}>
             <FormTitle title={item.title}></FormTitle>
             {fields.map((item, index) => (
-                /*<li key={item.id}>
-                    <input {...register(`test.${index}.firstName`)} />
-                    <Controller
-                        render={({ field }) => <input {...field} />}
-                        name={`test.${index}.lastName`}
-                        control={control}
-                    />
-                    <button type="button" onClick={() => remove(index)}>Delete</button>
-                </li>*/
                 <View  style={styles.element}>
                 <View style={styles.badge}>
                     <Text style={styles.badgeText}>{index+1}.</Text>
                 </View>
                 <Controller
                     key={item.id}
+                    name={`workshopNames.${index}`}
                     control={control}
                     render={({ field: { onChange, onBlur, value } }) => (
                         <TextInput
@@ -56,7 +46,6 @@ const AddingWorkshop: React.FC<AddingWorkshopProps> = ({
                             value={value}
                         />
                     )}
-                    name={`workshop-${item.id}`}
                 />
                 <TouchableOpacity
                  onPress={()=>remove(index)}

@@ -20,13 +20,13 @@ type FormValues = {
     faultType: string,
     startDay: Date,
     startTime: Date,
-    /*contact: boolean,
+    contact: boolean,
     workshopNames: string[] | undefined,
-    comingTime: string,
-    identificationTime: string,
-    repairTime: string,
-    waitingTime: string,
-    montageTime: string,*/
+    comingTime: string[],
+    identificationTime: string[],
+    repairTime: string[],
+    waitingTime: string[],
+    montageTime: string[],
 };
 
 const FormSchema: ZodType<FormValues> = z
@@ -41,14 +41,14 @@ const FormSchema: ZodType<FormValues> = z
         faultType: z.string(({ required_error: "Fault Type is required" })).min(1),
         startDay: z.date(({ required_error: "Start Day is required" })),
         startTime: z.date(({ required_error: "Start Time is required" })),
-        /*contact: z.boolean(),
-        workshopNames: z.array(z.string()).optional(),
-        /*comingTime: z.string(),
-        identificationTime: z.string(),
-        repairTime: z.string(),
-        waitingTime: z.string(),
-        montageTime: z.string(),*/
-    }).required();
+        contact: z.boolean(),
+        workshopNames: z.array(z.string()),
+        comingTime: z.array(z.string()),
+        identificationTime: z.array(z.string()),
+        repairTime: z.array(z.string()),
+        waitingTime: z.array(z.string()),
+        montageTime: z.array(z.string()),
+    }).required().passthrough();
 
 export function FormNavigation({ navigation }: { navigation: any }) {
 
@@ -65,7 +65,7 @@ export function FormNavigation({ navigation }: { navigation: any }) {
             faultType: 'hata tipi',
             startDay: new Date(),
             startTime: new Date(),
-            /*contact: false,
+            contact: false,
             workshopNames: undefined,
             /*comingTime: z.string(),
             identificationTime: z.string(),

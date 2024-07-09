@@ -43,7 +43,9 @@ export function Form_2(props:FormProps) {
                 isEnable={isContacted}
                 />;
             default:
-                return <TakeTime title={item.title} />;
+                return <TakeTime 
+                item={item} 
+                formMethods={formContext}  />;
         } 
 
     };
