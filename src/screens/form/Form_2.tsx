@@ -3,9 +3,7 @@ import { FlatList, StyleSheet, View, } from "react-native";
 import { FormProps, Item} from "../../models/";
 import { AddingWorkshop, ContinueButton, GoBackButton, TakeTime, SwitchQuestion} from "../../components";
 import Colors from "../../theme/colors";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z, ZodType } from "zod";
+import { useFormContext } from "react-hook-form";
 import { useStatusBarContext } from "../../services/context";
 
 
@@ -19,55 +17,29 @@ const items = [
     { id: 7, name: 'montageTime',title: "Montaj Süresi (sa & dk)" },
 ] as Item[];
 
-type FormValues = {
-    contact: boolean,
-    workshopNames: string[] | undefined,
-    /*comingTime: string,
-    identificationTime: string,
-    repairTime: string,
-    waitingTime: string,
-    montageTime: string,*/
-};
 
-const FormSchema : ZodType<FormValues> = z.object({
-    contact: z.boolean(),
-    workshopNames: z.array(z.string()).optional(),
-    /*comingTime: z.string(),
-    identificationTime: z.string(),
-    repairTime: z.string(),
-    waitingTime: z.string(),
-    montageTime: z.string(),*/
-}).required();
 
 
 export function Form_2(props:FormProps) {
     const [isContacted, setIsContacted] = useState(false);
     const flatListRef = useRef<FlatList>(null); // Create a reference
+    const formContext = useFormContext();
     const statusBarContext = useStatusBarContext();
     statusBarContext.setActiveIndex(1);
 
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-        setValue,
-    } = useForm<FormValues>({
-        resolver: zodResolver(FormSchema),
-    });
 
     const ViewItem = ({ item }: { item: Item }) => {
         switch (item.type) {
             case 'toggle':
                 return <SwitchQuestion 
-                control={control}
                 item={item} 
                 setIsContacted={setIsContacted}
-                setValue={setValue}
+                formMethods={formContext}
                 />;
             case 'adding':
                 return <AddingWorkshop
-                control={control}
                 item={item}
+                formMethods={formContext}
                 isEnable={isContacted}
                 />;
             default:
@@ -76,7 +48,7 @@ export function Form_2(props:FormProps) {
 
     };
 
-    const onSubmit = handleSubmit((data) => {
+    const onSubmit = formContext.handleSubmit((data) => {
         console.log(data);
     });
 

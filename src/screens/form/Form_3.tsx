@@ -10,14 +10,7 @@ const items = [
     { id: 1, type: 'booleanButton', title: "Bu hatayı bulmak için AM/PM önleyici bakım prosedürümüz var mı ?" },
 ];
 
-function orderSchema(order: string, element: React.JSX.Element) {
-    return (
-        <View style={{flexDirection: 'row'}}>
-            <Badge text={order} style={{ marginRight: 10 }} />
-            {element}
-        </View>
-    );
-}
+
 
 const renderItem = ({ item }: { item: any }) => {
     return <TakeSpareParts/>;

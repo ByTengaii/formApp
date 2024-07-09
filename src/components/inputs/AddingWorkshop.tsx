@@ -1,76 +1,95 @@
-import { useState } from "react";
-import {StyleSheet, View, TextInput, Text, TouchableOpacity} from "react-native";
-import { FieldErrors, FieldValues, UseFormSetValue, Control, Controller } from "react-hook-form";
-import {FormTitle} from "../";
-import { PlusIcon } from "../../../assets";
-import {Colors} from "../../theme";
+import { StyleSheet, View, TextInput, Text, TouchableOpacity, Button } from "react-native";
+import { Controller, UseFormReturn, useFieldArray } from "react-hook-form";
+import { FormTitle } from "../";
+import { PlusIcon, TrashIcon } from "../../../assets";
+import { Colors } from "../../theme";
 import { Item } from "../../models";
 
 interface AddingWorkshopProps {
     isEnable: boolean;
     item: Item;
-    control: Control<any>;
+    formMethods: UseFormReturn<any>;
 }
 
-const AddingWorkshop:React.FC<AddingWorkshopProps> = ({
+const AddingWorkshop: React.FC<AddingWorkshopProps> = ({
     isEnable,
     item,
-    control,
+    formMethods
 }) => {
-    const [lines, setLines] = useState([{ id: 1 }]);
-
+    const { control } = formMethods;
+    const { fields, append, remove} = useFieldArray({
+        name: "workshopNames",
+        control
+    });
     const addNewLine = () => {
-        setLines([...lines, { id: lines.length + 1 }]);
+        append({
+            name: `workshop-${1}`
+        });
     };
 
+
     return (
-        <View style={{...styles.container, display: isEnable?'flex':'none'}}>
+        <View style={{ ...styles.container, display: isEnable ? 'flex' : 'none' }}>
             <FormTitle title={item.title}></FormTitle>
-            {lines.map((line, index) => (
-                <View key={line.id} style={styles.element}>
-                    <View style={styles.badge}>
-                        <Text style={styles.badgeText}>{line.id}.</Text>
-                    </View>
+            {fields.map((item, index) => (
+                /*<li key={item.id}>
+                    <input {...register(`test.${index}.firstName`)} />
                     <Controller
-                        key={index}
+                        render={({ field }) => <input {...field} />}
+                        name={`test.${index}.lastName`}
                         control={control}
-                        render={({ field: { onChange, onBlur, value } }) => (
-                            <TextInput
-                                style={styles.input}
-                                onBlur={onBlur}
-                                onChangeText={onChange}
-                                value={value}
-                            />
-                        )}
-                        name={`workshop-${line.id}`}
                     />
+                    <button type="button" onClick={() => remove(index)}>Delete</button>
+                </li>*/
+                <View  style={styles.element}>
+                <View style={styles.badge}>
+                    <Text style={styles.badgeText}>{index+1}.</Text>
                 </View>
+                <Controller
+                    key={item.id}
+                    control={control}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                        <TextInput
+                            style={styles.input}
+                            onBlur={onBlur}
+                            onChangeText={onChange}
+                            value={value}
+                        />
+                    )}
+                    name={`workshop-${item.id}`}
+                />
+                <TouchableOpacity
+                 onPress={()=>remove(index)}
+                >
+                    <TrashIcon />
+                </TouchableOpacity>
+            </View>
             ))}
             <TouchableOpacity style={styles.addButton}
-            onPress={addNewLine}>
-                <PlusIcon/>
+                onPress={addNewLine}>
+                <PlusIcon />
             </TouchableOpacity>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
 
     },
-    element:{
+    element: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'flex-start',
         marginTop: 8,
     },
-    badge:{
+    badge: {
         borderRadius: 6,
         backgroundColor: Colors.badgeBackground,
         borderStyle: "solid",
         borderColor: Colors.badgeBorder,
         borderWidth: 1,
-        width: 25, 
+        width: 25,
         height: 25,
         alignItems: "center",
         justifyContent: "center",
@@ -78,14 +97,14 @@ const styles = StyleSheet.create({
         paddingVertical: 2,
         marginRight: 'auto',
     },
-    badgeText:{
+    badgeText: {
         fontSize: 12,
         lineHeight: 18,
         fontFamily: "Inter_500Medium",
         color: Colors.badgeText,
         textAlign: "center"
     },
-    input:{
+    input: {
         borderRadius: 8,
         backgroundColor: Colors.white,
         borderStyle: "solid",
@@ -93,11 +112,12 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         paddingHorizontal: 12,
         paddingVertical: 2,
-        width: '90%',
+        width: '83%',
         height: 40,
+        marginRight: 5,
     },
-    
-    addButton:{
+
+    addButton: {
         alignItems: 'center',
         width: '90%',
         height: 40,

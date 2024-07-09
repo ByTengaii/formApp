@@ -67,51 +67,55 @@ export function FormNavigation({ navigation }: { navigation: any }) {
             startTime: new Date(),
             /*contact: false,
             workshopNames: undefined,
-            */
+            /*comingTime: z.string(),
+            identificationTime: z.string(),
+            repairTime: z.string(),
+            waitingTime: z.string(),
+            montageTime: z.string(),*/
         }
     });
 
     return (
         <StatusBarProvider>
             <FormProvider {...methods}>
-                    <FormDataProvider>
-                        <Stack.Navigator
-                            screenOptions={{
-                                header() {
-                                    return (
-                                        <FormHeader
-                                            title='Yeni Arıza Formu'
-                                            subtitle='Arıza Detayları'
-                                            navigation={navigation}
-                                        />
-                                    );
-                                },
-                                presentation: 'card',
-                            }}
-                        >
-                            <Stack.Screen
-                                name="page-1"
-                                component={Form_1}
-                            />
+                <FormDataProvider>
+                    <Stack.Navigator
+                        screenOptions={{
+                            header() {
+                                return (
+                                    <FormHeader
+                                        title='Yeni Arıza Formu'
+                                        subtitle='Arıza Detayları'
+                                        navigation={navigation}
+                                    />
+                                );
+                            },
+                            presentation: 'card',
+                        }}
+                    >
+                        <Stack.Screen
+                            name="page-1"
+                            component={Form_1}
+                        />
 
-                            <Stack.Screen
-                                name="page-2"
-                                component={Form_2}
-                            />
-                            <Stack.Screen
-                                name="page-3"
-                                component={Form_3}
-                            />
-                            <Stack.Screen
-                                name="page-4"
-                                component={Form_4}
-                            />
-                            <Stack.Screen
-                                name="page-5"
-                                component={Form_5}
-                            />
-                        </Stack.Navigator>
-                    </FormDataProvider>
+                        <Stack.Screen
+                            name="page-2"
+                            component={Form_2}
+                        />
+                        <Stack.Screen
+                            name="page-3"
+                            component={Form_3}
+                        />
+                        <Stack.Screen
+                            name="page-4"
+                            component={Form_4}
+                        />
+                        <Stack.Screen
+                            name="page-5"
+                            component={Form_5}
+                        />
+                    </Stack.Navigator>
+                </FormDataProvider>
             </FormProvider>
         </StatusBarProvider>
     );
