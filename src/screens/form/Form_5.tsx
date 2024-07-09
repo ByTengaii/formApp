@@ -3,6 +3,7 @@ import { FlatList, StyleSheet, View} from "react-native";
 import {  ContinueButton, GoBackButton, CheckBoxCard } from "../../components";
 import Colors from "../../theme/colors";
 import { FormProps } from "../../models/";
+import { useStatusBarContext } from "../../services/context";
 
 
 const items = [
@@ -15,7 +16,8 @@ const items = [
 export function Form_5(props:FormProps) {
     const flatListRef = useRef<FlatList>(null); // Create a reference
     const [activeIndex, setActiveIndex] = useState(0);
-
+    const statusBarContext = useStatusBarContext();
+    statusBarContext.setActiveIndex(4);
     const renderItem = ({ item }: { item: any }) => {
         return (<CheckBoxCard state={{activeIndex,setActiveIndex}} item={item} />);
     };

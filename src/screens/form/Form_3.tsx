@@ -3,6 +3,7 @@ import { FlatList, StyleSheet, View } from "react-native";
 import {  ContinueButton, GoBackButton, TakeSpareParts, Badge } from "../../components";
 import {Colors} from "../../theme/";
 import { FormProps } from "../../models/";
+import { useStatusBarContext } from "../../services/context";
 
 
 const items = [
@@ -24,7 +25,8 @@ const renderItem = ({ item }: { item: any }) => {
 
 export function Form_3(props: FormProps) {
     const flatListRef = useRef<FlatList>(null); // Create a reference
-
+    const statusBarContext = useStatusBarContext();
+    statusBarContext.setActiveIndex(2);
     return (
 
         <View style={styles.container}>

@@ -22,6 +22,7 @@ export function FormHeader(props: FormHeaderProps) {
                     <RightButtonIcon />
                 </TouchableOpacity>    
             </View>
+            <StatusBar navigation={props.navigation}/>
         </View>
     );
 }

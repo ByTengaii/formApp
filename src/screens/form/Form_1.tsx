@@ -1,10 +1,10 @@
 import React, { useRef } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
-import { getFormData } from '../../services/context/'
+import { useFormContext } from "react-hook-form";
+import { getFormData, useStatusBarContext } from '../../services/context/'
 import { FormProps, Item } from "../../models";
 import { SelectDateController, SelectTimeController, ContinueButton, LeaveButton, InputLargeController } from "../../components";
 import { Colors } from "../../theme";
-import { useFormContext } from "react-hook-form";
 
 
 
@@ -32,13 +32,14 @@ export function Form_1(props: FormProps) {
     const flatListRef = useRef<FlatList>(null); // Create a reference
     const FormData = getFormData();
     const formContext = useFormContext();
-
+    const statusBarContext = useStatusBarContext();
+    statusBarContext.setActiveIndex(0);
     
     const onSubmit = formContext.handleSubmit((data) => {
         console.log(data);
         FormData.setForm(data);
         console.log('FormDAta',FormData.formData);
-        //props.navigation.navigate('page-2');
+        props.navigation.navigate('page-2');
     });
     const ViewItem = ({ item }: { item: Item }) => {
         switch (item.type) {

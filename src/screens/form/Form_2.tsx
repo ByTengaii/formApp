@@ -6,6 +6,7 @@ import Colors from "../../theme/colors";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z, ZodType } from "zod";
+import { useStatusBarContext } from "../../services/context";
 
 
 const items = [
@@ -42,6 +43,9 @@ const FormSchema : ZodType<FormValues> = z.object({
 export function Form_2(props:FormProps) {
     const [isContacted, setIsContacted] = useState(false);
     const flatListRef = useRef<FlatList>(null); // Create a reference
+    const statusBarContext = useStatusBarContext();
+    statusBarContext.setActiveIndex(1);
+
     const {
         control,
         handleSubmit,
