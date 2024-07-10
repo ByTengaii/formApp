@@ -1,15 +1,27 @@
 import { app } from "../fireBaseConfig";
 import { getFirestore, collection, getDoc, doc, setDoc, getDocs } from "firebase/firestore";
-import { UserData,FormTemplate } from "../../models";
+import { PreviewCardData, FormTemplate}  from "../../models";
 
 const db = getFirestore(app);
 
-export async function getForms(userID: string){
-  const querySnapshot = await getDocs(collection(db, "forms",userID));
-  querySnapshot.forEach((doc) => {
-    // doc.data() is never undefined for query doc snapshots
-    console.log(doc.id, " => ", doc.data());
-  });
+export async function getFormsPreview(userID: string){
+  try{
+    const querySnapshot = await getDocs(collection(db, userID));
+    let forms: PreviewCardData[] = [];
+    let i = 1;
+    querySnapshot.forEach((doc) => {
+      forms.push( { 
+        formId: doc.id,
+        text: doc.data().formData.tower,
+        date: doc.data().formData.fault.startDay,
+        status: doc.data().formData.status,
+        } as PreviewCardData);
+    });
+    return forms;
+  }catch(e){
+    console.log('Error getting documents: ', e);
+    return [];
+  }
 } 
 
 

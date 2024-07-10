@@ -152,3 +152,10 @@ export const FormTemplateSchema: ZodType<FormTemplate> = z.object({
         status: z.enum(['notSolved', 'solved', 'temporarySolution'])
     }),
 });
+
+export type PreviewCardData = {
+    formId: string;
+    text: string;
+    date: Date;
+    status: 'notSolved' | 'solved' | 'temporarySolution';
+}

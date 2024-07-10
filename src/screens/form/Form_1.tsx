@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { useFormContext } from "react-hook-form";
-import { getFormData, useStatusBarContext } from '../../services/context/'
+import { useStatusBarContext, useUser } from '../../services/context/'
 import { FormProps, Item } from "../../models";
 import { SelectDateController, SelectTimeController, ContinueButton, LeaveButton, InputLargeController } from "../../components";
 import { Colors } from "../../theme";
@@ -31,9 +31,9 @@ const items = [
 export function Form_1(props: FormProps) {
     const flatListRef = useRef<FlatList>(null); // Create a reference
     const formContext = useFormContext();
+    const userContext = useUser();
     const statusBarContext = useStatusBarContext();
     statusBarContext.setActiveIndex(0);
-    
     const onSubmit = () => {
         props.navigation.navigate('page-2')
     };

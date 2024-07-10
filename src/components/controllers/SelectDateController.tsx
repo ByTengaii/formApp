@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { Controller, Control, FieldErrors, FieldValues, UseFormSetValue, UseFormReturn} from 'react-hook-form';
+import { Controller, UseFormReturn} from 'react-hook-form';
 import { Item } from '../../models';
 import { Colors } from '../../theme';
 import { CalendarIcon } from '../../../assets';

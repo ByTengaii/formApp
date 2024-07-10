@@ -1,1 +1,1 @@
-export {addForm2Database} from './dataFetching';
+export {addForm2Database, getFormsPreview} from './dataFetching';

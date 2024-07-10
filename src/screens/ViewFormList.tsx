@@ -1,46 +1,52 @@
 import React, { useRef } from "react";
 import { StyleSheet, FlatList, ScrollView } from "react-native";
 import { FormPreviewCard } from "../components";
+import { getFormsPreview } from "../services/data";
+import { useUser } from "../services/context";
+
+interface cardData {
+    id: string;
+    data: {
+        text: string;
+        date: string;
+        status: 'notSolved' | 'solved' | 'temporarySolution';
+    }
+}
 
 
 const items = [
     {
-        id: 1,
-        data: {
-            text: "BOM.RP.001 Deneme Formu",
-            date: "19.04.2024",
-            status: 'solved',
-        }
+        formId: '1',
+        text: "BOM.RP.001 Deneme Formu",
+        date: "19.04.2024",
+        status: 'solved',
     },
     {
-        id: 2,
-        data: {
-            text: "TPIC Form 86",
-            date: "19.04.2024",
-            status: 'temporarySolution',
-        }
+        formId: '2',
+        text: "TPIC Form 86",
+        date: "19.04.2024",
+        status: 'temporarySolution',
 
     },
     {
-        id: 3,
-        data: {
-            text: "BOM.RP.001 Deneme Formu",
-            date: "19.04.2024",
-            status: 'notSolved',
-        }
+        formId: '3',
+        text: "BOM.RP.001 Deneme Formu",
+        date: "19.04.2024",
+        status: 'notSolved',
     },
 ];
 
 export function ViewFormList() {
+    const userContext = useUser();
     const flatListRef = useRef<FlatList>(null); // Create a reference
-
+    const forms = getFormsPreview(userContext.userData.uid);
     return (
         <FlatList
             ref={flatListRef}
             style={styles.container}
             data={items}
-            renderItem={({ item }) => <FormPreviewCard index={item.id} data={item.data} />}
-            keyExtractor={item => item.id.toString()}
+            renderItem={({ item, index }) => <FormPreviewCard index={index + 1} data={item} />}
+            keyExtractor={item => item.formId}
         />
     );
 }

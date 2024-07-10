@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useRef, useState, useId } from "react";
 import { FlatList, StyleSheet, View, Text } from "react-native";
 import { Form, useFormContext } from "react-hook-form";
 import { ContinueButton, GoBackButton, CheckBoxCard } from "../../components";
@@ -6,7 +6,6 @@ import Colors from "../../theme/colors";
 import { FormProps, UserData, FormTemplate, FormData, FormSchema } from "../../models/";
 import { useStatusBarContext, useUser} from "../../services/context";
 import { addForm2Database } from "../../services/data";
-const { v4: uuidv4 } = require('uuid');
 
 const items = [
     { id: 1, title: "Arıza Giderildi", color: Colors.green },
@@ -16,7 +15,7 @@ const items = [
 ];
 
 function generateRandomFormId() {
-    return `form-${Math.random().toString(36).substr(2, 9)}`;
+    return `form-${useId()}`;
 }
 
 const createFormTemplate = (user: UserData, formData: FormData) => {

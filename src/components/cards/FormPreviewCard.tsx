@@ -5,6 +5,7 @@ import { CheckCircle, MinusCircle, XCircle, RightArrow, DotsVertical } from '../
 interface PreviewCardProps {
     index: number;
     data :{
+        formId: string;
         text: string;
         date: string;
         status: 'solved' | 'temporarySolution' | 'notSolved';

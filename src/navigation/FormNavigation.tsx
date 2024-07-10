@@ -48,7 +48,6 @@ export function FormNavigation({ navigation }: { navigation: any }) {
     return (
         <StatusBarProvider>
             <FormProvider {...methods}>
-                <FormDataProvider>
                     <Stack.Navigator
                         screenOptions={{
                             header() {
@@ -85,7 +84,6 @@ export function FormNavigation({ navigation }: { navigation: any }) {
                             component={Form_5}
                         />
                     </Stack.Navigator>
-                </FormDataProvider>
             </FormProvider>
         </StatusBarProvider>
     );

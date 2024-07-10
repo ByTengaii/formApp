@@ -3,8 +3,8 @@ import {  UserData } from '../../models/index';
 
 const UserContext = createContext(
   {} as {
-    userData: UserData | undefined;
-    setUser: React.Dispatch<React.SetStateAction<UserData | undefined>>;
+    userData: UserData ;
+    setUser: React.Dispatch<React.SetStateAction<UserData>>;
   }
 );
 
@@ -13,7 +13,7 @@ interface Props {
 }
 
 const UserProvider = (props:Props) => {
-  const [userData, setUser] = useState<UserData>();
+  const [userData, setUser] = useState<UserData>({} as UserData);
 
   return ( 
     <UserContext.Provider value={{ userData, setUser }}>
