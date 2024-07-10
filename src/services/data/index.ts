@@ -1,0 +1,1 @@
+export {addForm2Database} from './dataFetching';

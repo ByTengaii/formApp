@@ -41,7 +41,7 @@ export function Form_4(props:FormProps) {
                     name={item.name}
                     formMethods={formContext}
                     title={item.title}
-                    style={{flex: 1}}
+                    style={{ flex:1, marginBottom: 20}}
                     />);
         }
     

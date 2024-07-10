@@ -22,7 +22,7 @@ const InputLargeController: FC<Props> = ({
     props }) => {
         const { control, formState: { errors } } = formMethods;
     return (
-        <>
+        <View style={style}>
             <Controller
                 name={name}
                 rules={{ required: true }}
@@ -31,7 +31,7 @@ const InputLargeController: FC<Props> = ({
                     <View style={style}>
                         <Text style={styles.title}>{title}</Text>
                         <TextInput
-                            style={[styles.input, style]}
+                            style={styles.input}
                             onBlur={onBlur}
                             onChangeText={onChange}
                             value={value}
@@ -41,11 +41,12 @@ const InputLargeController: FC<Props> = ({
                     </View>
                 )}
             />
-            {errors 
+                {errors 
                 && errors[name] 
                 && <Text style={{ color: Colors.red }}>{String(errors[name].message)}</Text>
             }
-        </>
+        </View>
+        
     );
 }
 

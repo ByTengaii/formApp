@@ -5,7 +5,8 @@ import { ContinueButton, GoBackButton, CheckBoxCard } from "../../components";
 import Colors from "../../theme/colors";
 import { FormProps, UserData, FormTemplate, FormData, FormSchema } from "../../models/";
 import { useStatusBarContext, useUser} from "../../services/context";
-
+import { addForm2Database } from "../../services/data";
+const { v4: uuidv4 } = require('uuid');
 
 const items = [
     { id: 1, title: "Arıza Giderildi", color: Colors.green },
@@ -14,12 +15,17 @@ const items = [
     { id: 4, title: "Atölye Ekip Talebi Var", color: Colors.disable },
 ];
 
+function generateRandomFormId() {
+    return `form-${Math.random().toString(36).substr(2, 9)}`;
+}
+
 const createFormTemplate = (user: UserData, formData: FormData) => {
-    //console.log('user',user);   
-    //console.log('formData',formData);
+    
+    const formId = generateRandomFormId();
+
     const data: FormTemplate = {
         ownerId: user.uid,
-        formId: 5,
+        formId: formId,
         createdAt: new Date(),
         updatedAt: new Date(),
         formData: {
@@ -54,6 +60,7 @@ const createFormTemplate = (user: UserData, formData: FormData) => {
             status: formData.status,
         }
     };
+    //FormSchema.parse(data);
     //console.log('data',data);
     return data;
 
@@ -76,16 +83,16 @@ export function Form_5(props: FormProps) {
         formContext.setValue('status', anwerSheet[index]);
     };
 
-    const onSubmit = formContext.handleSubmit((data) => {
+    const onSubmit = formContext.handleSubmit(async (data) => {
         let formTemplate = null;
         if (userContext.userData) 
             formTemplate = createFormTemplate( userContext.userData , data as FormData );
         console.log('FormTemplate/n',formTemplate);
         if(formTemplate) {
-            console.log(formTemplate.formData.spareParts);
-            //formContext.reset();
-            //props.navigation.navigate('page-1');
-            //props.navigation.navigate('Arıza Listesi');
+            await addForm2Database(formTemplate);
+            formContext.reset();
+            props.navigation.navigate('page-1');
+            props.navigation.navigate('Arıza Listesi');
         }else{
             console.log('Validation error');
         }
@@ -110,7 +117,7 @@ export function Form_5(props: FormProps) {
                 <View style={{ paddingTop: 10 }}>
                     {Object.keys(errors).map((name, index) => (
                         <Text key={index} style={{ color: 'red' }}>
-                            {String(errors[name]?.message)} aaaaa
+                            {String(errors[name]?.message)}
                         </Text>
                     ))}
                 </View>

@@ -11,6 +11,7 @@ import { ClockIcon } from '../../../assets';
 interface SelectTimeProps {
   item: Item;
   formMethods: UseFormReturn<any>;
+  style?: object;
 }
 
 function MyComponent({ title, date }: { title: string, date: Date }) {
@@ -28,7 +29,8 @@ function MyComponent({ title, date }: { title: string, date: Date }) {
 
 const SelectTimeController: React.FC<SelectTimeProps> = ({
   item,
-  formMethods
+  formMethods,
+  style
 }) => {
   const { control, formState:{errors}, setValue } = formMethods;
   const [date, setDate] = useState(new Date());
@@ -58,7 +60,7 @@ const SelectTimeController: React.FC<SelectTimeProps> = ({
         name={item.name}
         control={control}
         render={({ field: { } }) => (
-          <View>
+          <View style={style}>
             <TouchableOpacity
               onPress={showDatepicker} >
               <MyComponent title={item.title} date={date} />

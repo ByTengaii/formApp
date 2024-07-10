@@ -15,7 +15,7 @@ const TakeTime: React.FC<ControllerProps> = ({
     item,
     formMethods 
 }) => {
-    const { control } = formMethods;
+    const { control, formState:{errors} } = formMethods;
     const {fields} = useFieldArray({
         name: item.name,
         control
@@ -60,6 +60,10 @@ const TakeTime: React.FC<ControllerProps> = ({
                     <Text style={inputStyles.unit}>dk</Text>
                 </View>
             </View>
+            {errors 
+                && errors[item.name] 
+                && <Text style={{ color: Colors.red }}>{String(errors[item.name]?.message)}</Text>
+            }
         </View>
     );
 }

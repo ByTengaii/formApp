@@ -43,7 +43,7 @@ export function Form_1(props: FormProps) {
             case 'date':
                 return <SelectDateController item={item} formMethods={formContext} />;
             case 'time':
-                return <SelectTimeController item={item} formMethods={formContext} />;
+                return <SelectTimeController item={item} formMethods={formContext} style={{marginBottom:40}} />;
             default:
                 return < InputLargeController title={item.title} name={item.name} formMethods={formContext} />;
         }
@@ -56,7 +56,7 @@ export function Form_1(props: FormProps) {
             <FlatList
                 ref={flatListRef}
                 data={items}
-                style={{ flex: 1, paddingTop: 20 }}
+                style={{ flex: 1, paddingTop: 20}}
                 renderItem={ViewItem}
             />
             <View style={styles.submitContainer}>
