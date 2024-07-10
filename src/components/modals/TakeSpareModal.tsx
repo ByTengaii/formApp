@@ -15,7 +15,7 @@ interface TakeSpareModalProps {
     };
     data: {
         items: SpareFormData[];
-        setItems: React.Dispatch<React.SetStateAction<SpareFormData[]>>;
+        handleItems:(data: SpareFormData[]) => void;
     };
     modelData: {
         modalData: SpareFormData;
@@ -28,7 +28,7 @@ interface TakeSpareModalProps {
 export function TakeSpareModal(props: TakeSpareModalProps) {
     const methods = useForm<SpareFormData>({
         resolver: zodResolver(SpareSchema),
-    })
+    });
 
     methods.setValue('stockCode', props.modelData.modalData.stockCode);
     methods.setValue('usedAmount', props.modelData.modalData.usedAmount);
@@ -82,10 +82,10 @@ export function TakeSpareModal(props: TakeSpareModalProps) {
                                         return item;
                                     }
                                 });
-                                props.data.setItems(newItems);
+                                props.data.handleItems(newItems);
                                 props.stateModal.setModalVisible(!props.stateModal.modalVisible);
                             } else {
-                                props.data.setItems([...props.data.items, data]);
+                                props.data.handleItems([...props.data.items, data]);
                                 props.stateModal.setModalVisible(!props.stateModal.modalVisible);
                             }
                         })}

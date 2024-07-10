@@ -4,7 +4,7 @@ import {  ContinueButton, GoBackButton, SpareTable,FormTitle, TakeSpareModal, Ad
 import {Colors} from "../../theme/";
 import { FormProps, SpareFormData} from "../../models/";
 import { useStatusBarContext } from "../../services/context";
-import { useFormContext } from "react-hook-form";
+import { set, useFormContext } from "react-hook-form";
 
 
 const renderData = [
@@ -14,29 +14,34 @@ const renderData = [
 
 
 export function Form_3(props: FormProps) {
-    const [items, setItems] = useState([] as SpareFormData[]);
+    const formContext = useFormContext();
+    const statusBarContext = useStatusBarContext();
+    const [items, setItems] = useState(formContext.getValues('spareParts') as SpareFormData[]);
     const [modalVisible, setModalVisible] = useState(false);
     const [modalData, setModalData] = useState({} as SpareFormData);
     const [isEdit, setIsEdit] = useState(false);
-    const formContext = useFormContext();
     const flatListRef = useRef<FlatList>(null); // Create a reference
-    const statusBarContext = useStatusBarContext();
     statusBarContext.setActiveIndex(2);
 
-    const onSubmit = formContext.handleSubmit((data) => {
-        formContext.setValue('spareParts', items);
-        console.log(data);
-    });
+    
+    const handleItems = (data:SpareFormData[]) => {
+        setItems(data);
+        formContext.setValue('spareParts', data);
+    }
+
+    const onSubmit = () => {
+        props.navigation.navigate('page-4')
+    };
 
     const renderItem = ({ item }: { item: any }) => {
         return (
             <View>
             <FormTitle title="Kullanılan Yedek Parçalar" style={{ marginBottom: 10 }} />
             {items.map((item,index) => {
-                return <SpareTable key={index} stateModal={{modalVisible,setModalVisible}} data={{items, setItems}} element={item} modalData={{modalData,setModalData, setIsEdit}} style={{ marginBottom: 10 }} />;
+                return <SpareTable key={index} stateModal={{modalVisible,setModalVisible}} data={{items, handleItems}} element={item} modalData={{modalData,setModalData, setIsEdit}} style={{ marginBottom: 10 }} />;
             })}
-            <TakeSpareModal isEdit={isEdit} modelData={{modalData, setModalData}}stateModal={{modalVisible, setModalVisible}} data={{items,setItems}} />
-            <AddSpareButton  modalData={{modalData, setModalData, setIsEdit}}stateModal={{modalVisible, setModalVisible}}data={{items, setItems}}/>
+            <TakeSpareModal isEdit={isEdit} modelData={{modalData, setModalData}}stateModal={{modalVisible, setModalVisible}} data={{items,handleItems}} />
+            <AddSpareButton  modalData={{modalData, setModalData, setIsEdit}}stateModal={{modalVisible, setModalVisible}}data={{items, handleItems}}/>
         </View>
         );
     };

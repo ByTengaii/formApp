@@ -6,72 +6,42 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Form_1, Form_2, Form_3, Form_4, Form_5 } from '../index';
 import { FormHeader } from '../components';
 import { FormDataProvider, StatusBarProvider } from '../services/context/index';
+import { FormData, FormSchema } from '../models';
 
 const Stack = createNativeStackNavigator();
 
-type FormValues = {
-    tower: string,
-    location: string,
-    equipmant: string,
-    serialNo: string,
-    band: string,
-    barCode: string,
-    faultDefination: string,
-    faultType: string,
-    startDay: Date,
-    startTime: Date,
-    contact: boolean,
-    workshopNames: string[] | undefined,
-    comingTime: string[],
-    identificationTime: string[],
-    repairTime: string[],
-    waitingTime: string[],
-    montageTime: string[],
-};
 
-const FormSchema: ZodType<FormValues> = z
-    .object({
-        tower: z.string(({ required_error: "Tower is required" })).min(1),
-        location: z.string(({ required_error: "Location is required" })).min(1),
-        equipmant: z.string(({ required_error: "Equipmant is required" })).min(1),
-        serialNo: z.string(({ required_error: "Serial Number is required" })).min(1),
-        band: z.string(({ required_error: "Band is required" })).min(1),
-        barCode: z.string(({ required_error: "Bar Code is required" })).min(1),
-        faultDefination: z.string(({ required_error: "Fault Defination is required" })).min(1),
-        faultType: z.string(({ required_error: "Fault Type is required" })).min(1),
-        startDay: z.date(({ required_error: "Start Day is required" })),
-        startTime: z.date(({ required_error: "Start Time is required" })),
-        contact: z.boolean(),
-        workshopNames: z.array(z.string()),
-        comingTime: z.array(z.string()),
-        identificationTime: z.array(z.string()),
-        repairTime: z.array(z.string()),
-        waitingTime: z.array(z.string()),
-        montageTime: z.array(z.string()),
-    }).required().passthrough();
 
 export function FormNavigation({ navigation }: { navigation: any }) {
 
-    const methods = useForm<FormValues>({
+    const methods = useForm<FormData>({
         resolver: zodResolver(FormSchema),
         defaultValues: {
-            tower: 'kule',
-            location: 'lokasyon',
-            equipmant: 'ekipman',
-            serialNo: 'serial no',
-            band: 'band',
-            barCode: 'barkod',
-            faultDefination: 'hata tanimi',
-            faultType: 'hata tipi',
+            tower: 'aaaa',
+            location: 'aaaa',
+            equipmant: 'aaaa',
+            serialNo: 'aaaa',
+            band: 'xxxxxxxx',
+            barCode: 'xxxxxx',
+            faultDefination: 'xxxxxx',
+            faultType: 'xxxxxxxxxxx',
             startDay: new Date(),
             startTime: new Date(),
             contact: true,
-            workshopNames: ['1', '2'],
-            comingTime: ['1', '2'],
-            identificationTime: ['1', '2'],
-            repairTime: ['1', '2'],
-            waitingTime: ['1', '2'],
-            montageTime: ['1', '2'],
+            workshopNames: ['xxxx', 'xxxx', 'xxxx', 'xxxx'],
+            comingTime: ['3', '3'],
+            identificationTime: ['3', '3'],
+            repairTime: ['3', '3'],
+            waitingTime: ['3', '3'],
+            montageTime: ['3','3'],
+            spareParts: [{ stockCode: 'xxxx', usedAmount: '3', materialDescription: 'xxxx'}, { stockCode: 'yyyyy', usedAmount: '2', materialDescription: 'yyyyy'}],
+            careProcedure: false,
+            detectionBefore: true,
+            catchFaultProcedure: false,
+            lastRepairPlan: '2002',
+            lastRepair: '2002',
+            nextRepairPlan: '2002',
+            status: 'temporarySolution',
         }
     });
 

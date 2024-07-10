@@ -9,7 +9,7 @@ interface CheckBoxCardProps {
     },
     state:{
         activeIndex: number;
-        setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
+        handleCheckBox: (index: number) => void;
     }
     style?: object;
 }
@@ -30,7 +30,7 @@ export function CheckBoxCard(props: CheckBoxCardProps) {
         )
             : (
                 <TouchableOpacity style={styles.container}
-                onPress={()=>{props.state.setActiveIndex(props.item.id)}}>
+                onPress={()=>{props.state.handleCheckBox(props.item.id)}}>
 
                     <View style={styles.header}>
                         <Text style={styles.text}>{props.item.title}</Text>

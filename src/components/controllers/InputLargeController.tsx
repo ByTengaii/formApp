@@ -31,7 +31,7 @@ const InputLargeController: FC<Props> = ({
                     <View style={style}>
                         <Text style={styles.title}>{title}</Text>
                         <TextInput
-                            style={styles.input}
+                            style={[styles.input, style]}
                             onBlur={onBlur}
                             onChangeText={onChange}
                             value={value}

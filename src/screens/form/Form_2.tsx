@@ -21,10 +21,10 @@ const items = [
 
 
 export function Form_2(props:FormProps) {
-    const [isContacted, setIsContacted] = useState(false);
     const flatListRef = useRef<FlatList>(null); // Create a reference
     const formContext = useFormContext();
     const statusBarContext = useStatusBarContext();
+    const [isContacted, setIsContacted] = useState(formContext.getValues('contact') as boolean);
     statusBarContext.setActiveIndex(1);
 
 
@@ -50,9 +50,9 @@ export function Form_2(props:FormProps) {
 
     };
 
-    const onSubmit = formContext.handleSubmit((data) => {
-        console.log(data);
-    });
+    const onSubmit = () => {
+        props.navigation.navigate('page-3')
+    };
 
     return (
         <View style={styles.container}>

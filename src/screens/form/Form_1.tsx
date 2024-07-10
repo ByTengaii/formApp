@@ -30,17 +30,14 @@ const items = [
 
 export function Form_1(props: FormProps) {
     const flatListRef = useRef<FlatList>(null); // Create a reference
-    const FormData = getFormData();
     const formContext = useFormContext();
     const statusBarContext = useStatusBarContext();
     statusBarContext.setActiveIndex(0);
     
-    const onSubmit = formContext.handleSubmit((data) => {
-        console.log(data);
-        FormData.setForm(data);
-        console.log('FormDAta',FormData.formData);
-        props.navigation.navigate('page-2');
-    });
+    const onSubmit = () => {
+        props.navigation.navigate('page-2')
+    };
+
     const ViewItem = ({ item }: { item: Item }) => {
         switch (item.type) {
             case 'date':

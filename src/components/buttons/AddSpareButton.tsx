@@ -8,7 +8,7 @@ import { SpareFormData } from "../../models/SpareModel";
 interface AddButtonProps {
     data: {
         items: SpareFormData[];
-        setItems: React.Dispatch<React.SetStateAction<SpareFormData[]>>;
+        handleItems: (data: SpareFormData[]) => void;
     };
     stateModal:{
         modalVisible: boolean;

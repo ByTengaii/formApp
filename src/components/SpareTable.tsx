@@ -6,7 +6,7 @@ import Colors from "../theme/colors";
 interface SpareTableProps {
     data: {
         items: SpareFormData[];
-        setItems: React.Dispatch<React.SetStateAction<SpareFormData[]>>;
+        handleItems:(data: SpareFormData[]) => void;
     };
     stateModal:{
         modalVisible: boolean;
@@ -25,7 +25,7 @@ interface SpareTableProps {
 export function SpareTable(props: SpareTableProps) {
     const deleteItem = () => {
         const newItems = props.data.items.filter((item) => item.stockCode !== props.element.stockCode);
-        props.data.setItems(newItems);
+        props.data.handleItems(newItems);
     }
 
     const editItem = () => {

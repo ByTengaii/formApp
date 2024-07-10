@@ -18,7 +18,7 @@ const SwitchQuestion: React.FC<SwitchQuestionProps> = ({
     setIsContacted
 }) => {
     const { control, setValue } = formMethods;
-    const [isEnabled, setIsEnabled] = useState(false);
+    const [isEnabled, setIsEnabled] = useState(formMethods.getValues(item.name) as boolean);
     const toggleSwitch = () => {
         setIsEnabled(previousState => !previousState)
         setIsContacted(!isEnabled);
