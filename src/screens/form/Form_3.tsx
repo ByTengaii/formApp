@@ -1,4 +1,4 @@
-import React, { useRef, useState} from "react";
+import React, { useCallback, useRef, useState} from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import {  ContinueButton, GoBackButton, SpareTable,FormTitle, TakeSpareModal, AddSpareButton} from "../../components";
 import {Colors} from "../../theme/";
@@ -24,11 +24,12 @@ export function Form_3(props: FormProps) {
     statusBarContext.setActiveIndex(2);
 
     
-    const handleItems = (data:SpareFormData[]) => {
+    const handleItems = useCallback((data:SpareFormData[]) => {
         setItems(data);
         formContext.setValue('spareParts', data);
-    }
-
+        console.log('function rendered');
+    },[formContext.getValues('spareParts')]);
+    
     const onSubmit = () => {
         props.navigation.navigate('page-4')
     };

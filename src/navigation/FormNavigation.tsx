@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -50,34 +50,40 @@ async function DataFormating(userID: string, formId: string) {
             detectionBefore: false,
             catchFaultProcedure: false,
             status: 'notSolved',
-        }
+        };
     }
-    await getFormFromDatabase(userID, formId).then((data) => {
-        if (data == null) {
-            return {
-                spareParts: [],
-                workshopNames: [],
-                contact: false,
-                careProcedure: false,
-                detectionBefore: false,
-                catchFaultProcedure: false,
-                status: 'notSolved',
-            }
-        }
-        const formData = dataConverter(data);
-        console.log(formData);
-        return formData as FormData;
-    });
-
+    const data = await getFormFromDatabase(userID, formId);
+    if (data == null) {
+        return {
+            spareParts: [],
+            workshopNames: [],
+            contact: false,
+            careProcedure: false,
+            detectionBefore: false,
+            catchFaultProcedure: false,
+            status: 'notSolved',
+        };
+    }
+    const formData = dataConverter(data);
+    console.log(formData); // Corrected typo here
+    return formData as FormData;
 }
+
 export  function FormNavigation({ route, navigation }: { navigation: any, route: any }) {
     const { formId } = route.params;
     const userContext = useUser();
-    const formData = DataFormating(userContext.userData.uid, formId);
+    const [formData, setFormData] = useState({} as FormData)
+   // const formData: FormData = useMemo(()=> {DataFormating(userContext.userData.uid, formId)},[formId]);
+    useEffect(()=>{
+        DataFormating(userContext.userData.uid, formId).then((data) => {
+            setFormData(data as FormData);
+        })
+    },[userContext.userData.uid, formId])
+
     console.log('IN FORM',formData);
     const methods = useForm<FormData>({
         resolver: zodResolver(FormSchema),
-        defaultValues: {
+        defaultValues: formData,/*{
             tower: 'deneme',
             location: 'deneme',
             equipmant: 'deneme',
@@ -103,7 +109,7 @@ export  function FormNavigation({ route, navigation }: { navigation: any, route:
             detectionBefore: false,
             catchFaultProcedure: false,
             status: 'notSolved'
-        }
+        }*/
     });
 
     

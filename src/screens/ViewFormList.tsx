@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect,useCallback, useRef, useState } from "react";
 import { StyleSheet, FlatList, ScrollView } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 import { FormPreviewCard } from "../components";
 import { getFormsPreview } from "../services/data";
 import { useUser } from "../services/context";
@@ -12,12 +13,16 @@ export function ViewFormList({navigation}: {navigation: any}) {
     const flatListRef = useRef<FlatList>(null); // Create a reference
     const [items, setItems] = useState<PreviewCardData[]>([]);
     
-    useEffect(() => {
-        getFormsPreview(userContext.userData.uid).then((data) => {
-            setItems(data);
-            console.log('ViewList Data get');
-        });
-    }, [navigation.state]);
+    useFocusEffect(
+        useCallback(() => {
+            const fetchData = async () => {
+                const data = await getFormsPreview(userContext.userData.uid);
+                setItems(data);
+                console.log('ViewList Data get');
+            };
+            fetchData();
+        }, [userContext.userData.uid]) // Add dependencies here
+    );
 
     return (
         <FlatList
