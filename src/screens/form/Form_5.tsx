@@ -18,12 +18,12 @@ function generateRandomFormId() {
     return `form-${Math.random().toString(36).substr(2, 9)}`;
 }
 
-const createFormTemplate = (user: UserData, formData: FormData) => {
+function createFormTemplate (uid: string, formData: FormData){
     
     const formId = generateRandomFormId();
 
     const data: FormTemplate = {
-        ownerId: user.uid,
+        ownerId: uid,
         formId: formId,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -59,8 +59,6 @@ const createFormTemplate = (user: UserData, formData: FormData) => {
             status: formData.status,
         }
     };
-    //FormSchema.parse(data);
-    //console.log('data',data);
     return data;
 
 }
@@ -72,7 +70,7 @@ export function Form_5(props: FormProps) {
     const flatListRef = useRef<FlatList>(null); // Create a reference
     const statusBarContext = useStatusBarContext();
     statusBarContext.setActiveIndex(4);
-    const anwerSheet = ['', 'solved', 'notSolved', 'temporarySolution', 'workshopRequest']
+    const anwerSheet = ['', 'solved', 'notSolved', 'temporarySolution', 'notSolved']
     const [activeIndex, setActiveIndex] = useState(anwerSheet.indexOf(formContext.getValues('status') as string));
 
     const { errors } = formContext.formState;
@@ -83,18 +81,23 @@ export function Form_5(props: FormProps) {
     };
 
     const onSubmit = formContext.handleSubmit(async (data) => {
-        let formTemplate = null;
-        if (userContext.userData) 
-            formTemplate = createFormTemplate( userContext.userData , data as FormData );
-        console.log('FormTemplate/n',formTemplate);
-        if(formTemplate) {
-            await addForm2Database(formTemplate);
-            formContext.reset();
-            props.navigation.navigate('page-1');
-            props.navigation.navigate('Arıza Listesi');
-        }else{
-            console.log('Validation error');
+        try{
+            let formTemplate = null;
+            if (userContext.userData) 
+                formTemplate = createFormTemplate( userContext.userData.uid , data as FormData );
+            console.log('FormTemplate/n',formTemplate);
+            if(formTemplate) {
+                await addForm2Database(formTemplate);
+                formContext.reset();
+                props.navigation.navigate('page-1');
+                props.navigation.navigate('Arıza Listesi');
+            }else{
+                console.log('Form submittion error');
+            }
+        }catch(e){
+            console.log('Error:',e);
         }
+       
     });
 
     const renderItem = ({ item }: { item: any }) => {

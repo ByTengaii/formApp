@@ -54,6 +54,7 @@ export function BottomNavigation(props: BottomNavigationProps) {
         <Tab.Screen
           name="Yeni Form"
           component={FormNavigation}
+          initialParams={{ formId: '0' }}
           options={{
             tabBarStyle: { display: "none" },
             headerShown: false,

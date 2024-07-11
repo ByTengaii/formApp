@@ -4,7 +4,7 @@ import {  ContinueButton, GoBackButton, SpareTable,FormTitle, TakeSpareModal, Ad
 import {Colors} from "../../theme/";
 import { FormProps, SpareFormData} from "../../models/";
 import { useStatusBarContext } from "../../services/context";
-import { set, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 
 const renderData = [

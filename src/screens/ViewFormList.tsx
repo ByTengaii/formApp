@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { StyleSheet, FlatList, ScrollView } from "react-native";
 import { FormPreviewCard } from "../components";
 import { getFormsPreview } from "../services/data";
@@ -7,46 +7,33 @@ import { PreviewCardData } from "../models";
 
 
 
-
-const itemse: PreviewCardData[] = [
-    {
-        formId: '1',
-        text: "BOM.RP.001 Deneme Formu",
-        date: 'Tue Aug 24 2021',
-        status: 'solved',
-    },
-    {
-        formId: '2',
-        text: "TPIC Form 86",
-        date: 'Tue Aug 24 2021',
-        status: 'temporarySolution',
-    },
-    {
-        formId: '3',
-        text: "BOM.RP.001 Deneme Formu",
-        date: 'Tue Aug 24 2021',
-        status: 'notSolved',
-    },
-];
-
-export function ViewFormList() {
+export function ViewFormList({navigation}: {navigation: any}) {
     const userContext = useUser();
     const flatListRef = useRef<FlatList>(null); // Create a reference
-    const [items, setItems] = React.useState<PreviewCardData[]>([]);
-
+    const [items, setItems] = useState<PreviewCardData[]>([]);
+    
     useEffect(() => {
         getFormsPreview(userContext.userData.uid).then((data) => {
             setItems(data);
-            console.log(data);
+            console.log('ViewList Data get');
         });
-    }, [userContext.userData.uid,items]);
+    }, [navigation.state]);
 
     return (
         <FlatList
             ref={flatListRef}
             style={styles.container}
             data={items}
-            renderItem={({ item, index }) => <FormPreviewCard index={index + 1} data={item} />}
+            renderItem={({ item, index }) => {
+            return <FormPreviewCard
+            index={index + 1} 
+            data={item} 
+            RigtArrowProps={{
+                onPress: () => {
+                    navigation.navigate('Yeni Form', { formId: item.formId });
+                }
+            }}
+            />}}
             keyExtractor={item => item.formId}
         />
     );

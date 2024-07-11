@@ -13,7 +13,7 @@ export async function getFormsPreview(userID: string){
       forms.push( { 
         formId: doc.id,
         text: doc.data().formData.tower,
-        date: doc.data().formData.fault.startDay.toDate().toDateString(),
+        date: doc.data().updatedAt.toDate().toDateString(),
         status: doc.data().formData.status,
         } as PreviewCardData);
     });
@@ -27,10 +27,28 @@ export async function getFormsPreview(userID: string){
 
 
 export async function addForm2Database(form: FormTemplate) {
+  console.log('Adding document to database', form);
   try{
-    await setDoc(doc(db, form.ownerId, form.formId),form);
+    const docRef = doc(db, form.ownerId, form.formId);
+    await setDoc(docRef,form);
   }catch(e){
     console.error('Error adding document: ', e);
   }
 
+}
+
+export async function getFormFromDatabase(userID: string, formID: string){
+  try{
+    const docRef = doc(db, userID, formID);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return docSnap.data() as FormTemplate;
+        } else {
+      console.log('No such document!');
+      return null;
+    }
+  }catch(e){
+    console.log('Error getting document:', e);
+    return null;
+  }
 }

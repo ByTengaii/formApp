@@ -1,6 +1,17 @@
-import * as React from "react";
-import { Text, View, StyleSheet } from "react-native";
-import { CheckCircle, MinusCircle, XCircle, RightArrow, DotsVertical } from '../../../assets/index';
+import React, {useMemo} from "react";
+import { 
+    Text, 
+    View, 
+    TouchableOpacity, 
+    StyleSheet, 
+    TouchableOpacityProps} from "react-native";
+import { 
+    CheckCircle, 
+    MinusCircle, 
+    XCircle,
+    RightArrow,
+    DotsVertical } from '../../../assets/index';
+import { Badge }  from '../'
 
 interface PreviewCardProps {
     index: number;
@@ -10,14 +21,14 @@ interface PreviewCardProps {
         date: string;
         status: 'solved' | 'temporarySolution' | 'notSolved';
     }
+    RigtArrowProps?: TouchableOpacityProps;
 }
 
 export function FormPreviewCard(props: PreviewCardProps) {
+
     return (
         <View style={styles.container}>
-            <View style={styles.badge}>
-                <Text style={styles.badgeText}>{props.index}.</Text>
-            </View>
+            <Badge text={String(props.index)}/>
             <View style={styles.context}>
                 <Text style={styles.titleText}>{props.data.text}</Text>
                 <Text style={styles.dateText}>{props.data.date}</Text>
@@ -51,10 +62,14 @@ export function FormPreviewCard(props: PreviewCardProps) {
                     height={24}
                     width={24}
                 />
+                <TouchableOpacity
+                    {...props.RigtArrowProps}
+                >
                 <RightArrow
                     height={24}
                     width={24}
                 />
+                </TouchableOpacity>
             </View>
         </View>
     );

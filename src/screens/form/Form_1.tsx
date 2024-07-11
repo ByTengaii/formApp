@@ -47,7 +47,6 @@ export function Form_1(props: FormProps) {
             default:
                 return < InputLargeController title={item.title} name={item.name} formMethods={formContext} />;
         }
-
     };
 
     return (
