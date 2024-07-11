@@ -13,7 +13,7 @@ export async function getFormsPreview(userID: string){
       forms.push( { 
         formId: doc.id,
         text: doc.data().formData.tower,
-        date: doc.data().formData.fault.startDay,
+        date: doc.data().formData.fault.startDay.toDate().toDateString(),
         status: doc.data().formData.status,
         } as PreviewCardData);
     });

@@ -15,7 +15,7 @@ const items = [
 ];
 
 function generateRandomFormId() {
-    return `form-${useId()}`;
+    return `form-${Math.random().toString(36).substr(2, 9)}`;
 }
 
 const createFormTemplate = (user: UserData, formData: FormData) => {

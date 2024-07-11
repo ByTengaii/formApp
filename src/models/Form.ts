@@ -156,6 +156,6 @@ export const FormTemplateSchema: ZodType<FormTemplate> = z.object({
 export type PreviewCardData = {
     formId: string;
     text: string;
-    date: Date;
+    date: string;
     status: 'notSolved' | 'solved' | 'temporarySolution';
 }
