@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { FormPreviewCard } from "../components";
 import { getFormsPreview } from "../services/data";
 import { useUser } from "../services/context";
-import { getFormFromDatabase } from "../services/data";
+import { getFormFromDatabase, deleteFormFromDatabase } from "../services/data";
 import { PreviewCardData, FormTemplate, FormData, defaultFormData } from "../models";
 
 function dataConverter(data: FormTemplate) {
@@ -72,6 +72,12 @@ export function ViewFormList({navigation}: {navigation: any}) {
         navigation.navigate('Yeni Form', {formData: data, formId: formId});
     },[]);
 
+    const deleteItem = useCallback(async (formId: string) => {
+        await deleteFormFromDatabase(userContext.userData.uid, formId);
+        const data = await getFormsPreview(userContext.userData.uid);
+        setItems(data);
+    },[]);
+
     return (
         <FlatList
             ref={flatListRef}
@@ -80,11 +86,17 @@ export function ViewFormList({navigation}: {navigation: any}) {
             renderItem={({ item, index }) => {
             return <FormPreviewCard
             index={index + 1} 
-            data={item} 
+            data={item}
+            containerStyle={{ marginBottom:20 }}
             RigtArrowProps={{
             onPress: () => {
                 editItem(item.formId);
             }}}
+            TrashProps={{
+              onPress: () => {
+                  deleteItem(item.formId);
+                }  
+            }}
             />}}
             keyExtractor={item => item.formId}
         />

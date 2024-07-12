@@ -1,5 +1,5 @@
 import { app } from "../fireBaseConfig";
-import { getFirestore, collection, getDoc, doc, setDoc, getDocs } from "firebase/firestore";
+import { getFirestore, collection, getDoc, doc, setDoc, getDocs, deleteDoc} from "firebase/firestore";
 import { PreviewCardData, FormTemplate}  from "../../models";
 
 const db = getFirestore(app);
@@ -50,5 +50,13 @@ export async function getFormFromDatabase(userID: string, formID: string){
   }catch(e){
     console.log('Error getting document:', e);
     return null;
+  }
+}
+
+export async function deleteFormFromDatabase(userID: string, formID: string){
+  try{
+    await deleteDoc(doc(db, userID, formID));
+  }catch(e){
+    console.log('Error deleting document:', e);
   }
 }

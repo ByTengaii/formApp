@@ -10,7 +10,7 @@ import {
     MinusCircle, 
     XCircle,
     RightArrow,
-    DotsVertical } from '../../../assets/index';
+    TrashIcon} from '../../../assets/index';
 import { Badge }  from '../'
 
 interface PreviewCardProps {
@@ -22,12 +22,14 @@ interface PreviewCardProps {
         status: 'solved' | 'temporarySolution' | 'notSolved';
     }
     RigtArrowProps?: TouchableOpacityProps;
+    TrashProps?: TouchableOpacityProps;
+    containerStyle?: object;
 }
 
 export function FormPreviewCard(props: PreviewCardProps) {
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, props.containerStyle]}>
             <Badge text={String(props.index)}/>
             <View style={styles.context}>
                 <Text style={styles.titleText}>{props.data.text}</Text>
@@ -58,10 +60,14 @@ export function FormPreviewCard(props: PreviewCardProps) {
                 </View>
             </View>
             <View style={styles.buttonsContainer}>
-                <DotsVertical
-                    height={24}
-                    width={24}
-                />
+                <TouchableOpacity
+                {...props.TrashProps}>
+                    <TrashIcon
+                        height={24}
+                        width={24}
+                    />
+                </TouchableOpacity>
+                
                 <TouchableOpacity
                     {...props.RigtArrowProps}
                 >
