@@ -18,13 +18,13 @@ function generateRandomFormId() {
     return `form-${Math.random().toString(36).substr(2, 9)}`;
 }
 
-function createFormTemplate (uid: string, formData: FormData){
+function createFormTemplate (uid: string, formData: FormData, formId: string){
     
-    const formId = generateRandomFormId();
-
+    const formID = formId? formId : generateRandomFormId();
+    console.log('Submit FormID:',formID);
     const data: FormTemplate = {
         ownerId: uid,
-        formId: formId,
+        formId: formID,
         createdAt: new Date(),
         updatedAt: new Date(),
         formData: {
@@ -65,13 +65,15 @@ function createFormTemplate (uid: string, formData: FormData){
 
 
 export function Form_5(props: FormProps) {
+    const statusBarContext = useStatusBarContext();
+    statusBarContext.setActiveIndex(4);
     const formContext = useFormContext();
     const userContext = useUser();
     const flatListRef = useRef<FlatList>(null); // Create a reference
-    const statusBarContext = useStatusBarContext();
-    statusBarContext.setActiveIndex(4);
     const anwerSheet = ['', 'solved', 'notSolved', 'temporarySolution', 'notSolved']
     const [activeIndex, setActiveIndex] = useState(anwerSheet.indexOf(formContext.getValues('status') as string));
+    const formId = formContext.getValues('formId'); 
+    console.log('FORM5',formId);
 
     const { errors } = formContext.formState;
 
@@ -84,7 +86,7 @@ export function Form_5(props: FormProps) {
         try{
             let formTemplate = null;
             if (userContext.userData) 
-                formTemplate = createFormTemplate( userContext.userData.uid , data as FormData );
+                formTemplate = createFormTemplate( userContext.userData.uid , data as FormData, formId );
             console.log('FormTemplate/n',formTemplate);
             if(formTemplate) {
                 await addForm2Database(formTemplate);

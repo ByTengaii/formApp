@@ -3,6 +3,7 @@ import { SpareFormData } from "./";
 
 export type FormProps = {
     navigation: any;
+    route?: any;
 };
 
 export type Item = {
@@ -13,6 +14,7 @@ export type Item = {
 };
 
 export type FormData = {
+    formId?: string,
     tower: string,
     location: string,
     equipmant: string,
@@ -80,6 +82,7 @@ export type FormTemplate = {
 
 export const FormSchema: ZodType<FormData> = z
     .object({
+        formId: z.string().optional(),
         tower: z.string(({ required_error: "Tower is required" })).min(1),
         location: z.string(({ required_error: "Location is required" })).min(1),
         equipmant: z.string(({ required_error: "Equipmant is required" })).min(1),
@@ -159,3 +162,31 @@ export type PreviewCardData = {
     date: string;
     status: 'notSolved' | 'solved' | 'temporarySolution';
 }
+
+export  const defaultFormData: Partial<FormData> ={
+    tower: '',
+    location: '',
+    equipmant: '',
+    serialNo: '',
+    band: '',
+    barCode: '',
+    faultDefination: '',
+    faultType: '',
+    startDay: new Date(),
+    startTime: new Date(),
+    contact: false,
+    workshopNames: [],
+    comingTime: [],
+    identificationTime: [],
+    repairTime: [],
+    waitingTime: [],
+    montageTime: [],
+    spareParts: [],
+    careProcedure: false,
+    detectionBefore: false,
+    catchFaultProcedure: false,
+    lastRepairPlan: '',
+    lastRepair: '',
+    nextRepairPlan: '',
+    status: 'notSolved'
+};

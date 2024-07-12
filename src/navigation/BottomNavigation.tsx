@@ -6,6 +6,7 @@ import { Profile, ViewFormList, FormNavigation } from '../index';
 import { ListActiveIcon, ListDeactiveIcon, UserIcon, PlusIcon } from './../../assets/index'
 import Colors from './../theme/colors';
 import { useAppFonts} from "../theme";
+import { defaultFormData } from '../models';
 
 const Tab = createBottomTabNavigator();
 
@@ -54,7 +55,7 @@ export function BottomNavigation(props: BottomNavigationProps) {
         <Tab.Screen
           name="Yeni Form"
           component={FormNavigation}
-          initialParams={{ formId: '0' }}
+          initialParams={{ formData: defaultFormData}}
           options={{
             tabBarStyle: { display: "none" },
             headerShown: false,

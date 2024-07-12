@@ -1,10 +1,11 @@
 import React, { useRef } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { useFormContext } from "react-hook-form";
-import { useStatusBarContext, useUser } from '../../services/context/'
-import { FormProps, Item } from "../../models";
+import { useStatusBarContext, } from '../../services/context/'
+import { FormProps, Item, defaultFormData} from "../../models";
 import { SelectDateController, SelectTimeController, ContinueButton, LeaveButton, InputLargeController } from "../../components";
 import { Colors } from "../../theme";
+
 
 
 
@@ -31,12 +32,15 @@ const items = [
 export function Form_1(props: FormProps) {
     const flatListRef = useRef<FlatList>(null); // Create a reference
     const formContext = useFormContext();
-    const userContext = useUser();
     const statusBarContext = useStatusBarContext();
     statusBarContext.setActiveIndex(0);
-    const onSubmit = () => {
+    const onNext = () => {
         props.navigation.navigate('page-2')
     };
+    const onLeft = () => {
+        formContext.reset(defaultFormData);
+        props.navigation.goBack();
+    }
 
     const ViewItem = ({ item }: { item: Item }) => {
         switch (item.type) {
@@ -59,10 +63,14 @@ export function Form_1(props: FormProps) {
                 renderItem={ViewItem}
             />
             <View style={styles.submitContainer}>
-                <LeaveButton />
+                <LeaveButton
+                    props={{
+                        onPress: onLeft,
+                    }}
+                />
                 <ContinueButton
                     props={{
-                        onPress: onSubmit,
+                        onPress: onNext,
                     }}
                 />
             </View>
