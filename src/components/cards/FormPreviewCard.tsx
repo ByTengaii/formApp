@@ -1,33 +1,47 @@
-import * as React from "react";
-import { Text, View, StyleSheet } from "react-native";
-import { CheckCircle, MinusCircle, XCircle, RightArrow, DotsVertical } from '../../../assets/index';
+import React, {useMemo} from "react";
+import { 
+    Text, 
+    View, 
+    TouchableOpacity, 
+    StyleSheet, 
+    TouchableOpacityProps} from "react-native";
+import { 
+    CheckCircle, 
+    MinusCircle, 
+    XCircle,
+    RightArrow,
+    TrashIcon} from '../../../assets/index';
+import { Badge }  from '../'
 
 interface PreviewCardProps {
     index: number;
     data :{
+        formId: string;
         text: string;
         date: string;
-        status: 'Solved' | 'Temporary Solution' | 'Not Solved';
+        status: 'solved' | 'temporarySolution' | 'notSolved';
     }
+    RigtArrowProps?: TouchableOpacityProps;
+    TrashProps?: TouchableOpacityProps;
+    containerStyle?: object;
 }
 
 export function FormPreviewCard(props: PreviewCardProps) {
+
     return (
-        <View style={styles.container}>
-            <View style={styles.badge}>
-                <Text style={styles.badgeText}>{props.index}.</Text>
-            </View>
+        <View style={[styles.container, props.containerStyle]}>
+            <Badge text={String(props.index)}/>
             <View style={styles.context}>
                 <Text style={styles.titleText}>{props.data.text}</Text>
                 <Text style={styles.dateText}>{props.data.date}</Text>
                 <View style={styles.statusContainer}>
-                    {props.data.status === 'Solved' ? (
+                    {props.data.status === 'solved' ? (
                         <CheckCircle
                             height={14}
                             width={14}
                             style={styles.statusIcon}
                         />
-                    ) : props.data.status === 'Temporary Solution' ? (
+                    ) : props.data.status === 'temporarySolution' ? (
                         <MinusCircle
                             height={14}
                             width={14}
@@ -40,20 +54,28 @@ export function FormPreviewCard(props: PreviewCardProps) {
                             style={styles.statusIcon}
                         />
                     )}
-                    <Text style={{ ...styles.statusText, color: props.data.status === 'Solved' ? 'green' : props.data.status === 'Temporary Solution' ? 'orange' : 'red' }}>
-                        {props.data.status}
+                    <Text style={{ ...styles.statusText, color: props.data.status === 'solved' ? 'green' : props.data.status === 'temporarySolution' ? 'orange' : 'red' }}>
+                        {props.data.status === 'solved' ? 'Solved' : props.data.status === 'temporarySolution' ? 'Temporary Solution' : 'Not Solved'}
                     </Text>
                 </View>
             </View>
             <View style={styles.buttonsContainer}>
-                <DotsVertical
-                    height={24}
-                    width={24}
-                />
+                <TouchableOpacity
+                {...props.TrashProps}>
+                    <TrashIcon
+                        height={24}
+                        width={24}
+                    />
+                </TouchableOpacity>
+                
+                <TouchableOpacity
+                    {...props.RigtArrowProps}
+                >
                 <RightArrow
                     height={24}
                     width={24}
                 />
+                </TouchableOpacity>
             </View>
         </View>
     );

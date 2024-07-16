@@ -1,23 +1,43 @@
+import React, { useMemo } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import Colors from '../theme/colors';
-import { ExitButton } from '../index';
-import { useUser } from '../services/';
+import { ExitButton } from '../components/';
+import { useUser } from '../services/context';
+import { getProfilePicture } from '../services/data';
+import { useEffect } from 'react';
 
 interface ProfileProps {
-    //pPicture: string | null;*
     setSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export function Profile(props: ProfileProps) {
     const user = useUser();
-    const profilePic = require('../../assets/avatar.png');
+    
+    const [profilePicUrl, setProfilePicUrl] = React.useState<any>(null);
+
+    useEffect(() => {
+        const fetchProfilePic = async () => {
+            try {
+                const url = await getProfilePicture(user.userData.uid);
+                setProfilePicUrl(url);
+            } catch (error) {
+                console.error("Failed to load profile picture:", error);
+                // Handle errors or set a default profile picture if necessary
+            }
+        };
+
+        fetchProfilePic();
+    }, [user.userData.uid, profilePicUrl]);
+
+    //const profilePic = require('../../assets/avatar.png');
     return (
         <View style={styles.container} >
             <View style={styles.banner}>
-                <Image
-                    source={profilePic}
-                    style={styles.profilePic}
-                />
+                {profilePicUrl ? (
+                    <Image source={{ uri: profilePicUrl }} style={styles.profilePic} />
+                ) : (
+                    <Text>Loading profile picture...</Text>
+                )}
                 <Text style={styles.name}>{user.userData?.name} {user.userData?.surname}</Text>
             </View>
             <View style={styles.infoContainer}>
@@ -27,10 +47,10 @@ export function Profile(props: ProfileProps) {
             <View style={styles.infoContainer}>
                 <Text style={styles.title}>E-Mail</Text>
                 <Text style={styles.info}>{user.userData?.email}</Text>
-            </View>    
+            </View>
             <View style={styles.exitContainer}>
-                <ExitButton setSignedIn={props.setSignedIn}/>
-            </View>            
+                <ExitButton setSignedIn={props.setSignedIn} />
+            </View>
         </View>
     )
 }
@@ -44,7 +64,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         paddingHorizontal: 20,
         paddingTop: 60,
-        paddingBottom:16,
+        paddingBottom: 16,
     },
     banner: {
         alignItems: 'center',
@@ -54,6 +74,7 @@ const styles = StyleSheet.create({
         width: 64,
         height: 64,
         marginBottom: 16,
+        borderRadius: 32,
     },
     name: {
         fontSize: 24,

@@ -1,6 +1,6 @@
 import { app } from "../fireBaseConfig";
 import { getAuth, signInWithEmailAndPassword} from "firebase/auth";
-import { getUser } from "./getData";
+import { getUser } from "./userFetching";
 import { UserData } from "../../models";
 
 const auth = getAuth(app);

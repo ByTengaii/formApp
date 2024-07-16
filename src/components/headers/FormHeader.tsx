@@ -1,15 +1,12 @@
 import { Text,View,StyleSheet, TouchableOpacity } from "react-native";
 import { LeftButtonIcon, RightButtonIcon } from "../../../assets";
-import {StatusBar} from "../../index";
+import { Colors } from "../../theme";
+import {StatusBar} from "../";
 
 interface FormHeaderProps {
     title: string;
     subtitle: string;
     navigation: any;
-    index:{
-        activeIndex: number;
-        setActiveIndex: React.Dispatch<React.SetStateAction<number>>
-    }
 }
 export function FormHeader(props: FormHeaderProps) {
     return (
@@ -26,7 +23,7 @@ export function FormHeader(props: FormHeaderProps) {
                     <RightButtonIcon />
                 </TouchableOpacity>    
             </View>
-            <StatusBar index={props.index} navigation={props.navigation}/>
+            <StatusBar navigation={props.navigation}/>
         </View>
     );
 }
@@ -44,9 +41,22 @@ const styles = StyleSheet.create({
         borderBottomWidth:1,
         borderColor:'#f0f0f0'
     },
-    textContainer:{},
-    title:{},
-    subtitle:{},
+    textContainer:{
+    },
+    title:{
+        textAlign:'center',
+        color:Colors.primary,
+        lineHeight:28,
+        fontSize:18,
+        fontFamily:'Inter_600SemiBold',
+    },
+    subtitle:{
+        textAlign:'center',
+        color:Colors.secondary,
+        fontSize:14,
+        lineHeight:20,
+        fontFamily:'Inter_400Regular',
+    },
     LeftButton:{},
     RightButton:{},
     statusbar:{},

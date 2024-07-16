@@ -1,14 +1,19 @@
 import React from 'react';
-import { Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { Text, TouchableOpacity, StyleSheet, TouchableOpacityProps } from 'react-native';
 import Colors from '../../theme/colors';
 import { useNavigation } from '@react-navigation/native';
 
-export function LeaveButton() {
-    const navigation = useNavigation();
+interface LeaveButtonProps {
+    props?: TouchableOpacityProps
+}
+
+const LeaveButton: React.FC<LeaveButtonProps> = ({
+    props
+}) => {
     return (
         <TouchableOpacity
             style={styles.button}
-            onPress={() => navigation.goBack()}
+            {...props}
         >
             <Text style={styles.text}>Vazgeç</Text>
         </TouchableOpacity>
@@ -34,3 +39,5 @@ const styles = StyleSheet.create({
         fontFamily: 'Inter_600SemiBold'
     }
 });
+
+export default LeaveButton

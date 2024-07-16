@@ -1,10 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Alert} from "react-native";
 import {  useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { LoginFooter, InputLargeController } from "../index";
-import { Colors } from "../theme/index";
-import { useUser, signIn} from '../services/index';
+import { useUser} from '../services/context/index';
+import { signIn } from '../services/auth/index';
+import { LoginFooter, InputLargeController } from "../components/index";
+import { Colors, useAppFonts} from "../theme/index";
 import { UserFormData, UserFormSchema, UserData} from '../models/index';
 import { LoginBackGroundPattern } from '../../assets/index';
 
@@ -15,17 +16,18 @@ interface LoginProps {
 
 
 export function Login(props: LoginProps) {
+    const fonst = useAppFonts();
     const user = useUser();
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-        setValue
-    } = useForm<UserFormData>({
-        resolver: zodResolver(UserFormSchema)
+    const methods = useForm<UserFormData>({
+        resolver: zodResolver(UserFormSchema),
+        defaultValues: {
+            email: 'gurkanqq28@hotmail.com',
+            password: '01012002',
+        }
     });
 
-    const onSubmit = handleSubmit(async (data) => {
+    if (!fonst) return null;
+    const onSubmit = methods.handleSubmit(async (data) => {
         const userData =  await signIn(data.email, data.password);
         console.log("Data:", userData);
         if (userData) {
@@ -33,12 +35,11 @@ export function Login(props: LoginProps) {
             props.handleAuth(true);
         }
         else {
-            console.log("Error");
+            Alert.alert("Error", "Invalid email or password");
+            console.log("User login error");
         }
     });
 
-    setValue('email', 'gurkanqq28@hotmail.com');
-    setValue('password', '01012002');
     return (
         <View style={[styles.main, styles.mainFlexBox]}>
             <LoginBackGroundPattern style={styles.backgroundPatternDecorative} />
@@ -51,16 +52,14 @@ export function Login(props: LoginProps) {
                 </View>
                 <InputLargeController
                     title={'Email'}
-                    control={control}
+                    formMethods={methods}
                     name='email'
-                    errors={errors}
                     placeholder='example@gmail.com'
                 />
                 <InputLargeController
                     title={'password'}
-                    control={control}
+                    formMethods={methods}
                     name='password'
-                    errors={errors}
                     placeholder=''
                     style={styles.labels}
                     props={{

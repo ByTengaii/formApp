@@ -5,7 +5,7 @@ import { CheckIcon } from "../../../assets";
 import Colors from "../../theme/colors";
 
 interface YesButtonProps {
-    setAnswerHandler: React.Dispatch<React.SetStateAction<boolean>>
+    setAnswerHandler: (answer: boolean) => void;
     isEnable: boolean;
     style?: object;
 }

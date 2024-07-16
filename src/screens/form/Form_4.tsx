@@ -1,17 +1,18 @@
 import React, { useRef } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
-import { StatusBar, ContinueButton, GoBackButton, YesNoQuestion, FormInputLarge, Badge } from "../../index";
+import {  ContinueButton, GoBackButton, YesNoQuestion,  Badge, InputLargeController } from "../../components";
 import Colors from "../../theme/colors";
-import { FormProps } from "../../models/FormModel";
-
+import { FormProps } from "../../models/";
+import { useStatusBarContext } from "../../services/context";
+import { useFormContext } from "react-hook-form";
 
 const items = [
-    { id: 1, type: 'booleanButton', title: "Bu hatayı bulmak için AM/PM önleyici bakım prosedürümüz var mı ?" },
-    { id: 2, type: 'booleanButton', title: "Hatayı arızadan önce yakalamak mümkün müydü ?" },
-    { id: 3, type: 'booleanButton', title: "Bakım prosedürleri arızanın nasıl yakalanabileceğini açıklıyor mu ?" },
-    { id: 4, type: 'input', title: "En son bakım ne zaman planlanmıştı ?" },
-    { id: 5, type: 'input', title: "En son bakım ne zaman yapıldı ?" },
-    { id: 6, type: 'input', title: "Bir sonraki bakım ne zaman planlandı ?" },
+    { id: 1, name:'careProcedure',type: 'booleanButton', title: "Bu hatayı bulmak için AM/PM önleyici bakım prosedürümüz var mı ?" },
+    { id: 2, name:'detectionBefore', type: 'booleanButton', title: "Hatayı arızadan önce yakalamak mümkün müydü ?" },
+    { id: 3, name:'catchFaultProcedure',type: 'booleanButton', title: "Bakım prosedürleri arızanın nasıl yakalanabileceğini açıklıyor mu ?" },
+    { id: 4, name:'lastRepairPlan',type: 'input', title: "En son bakım ne zaman planlanmıştı ?" },
+    { id: 5, name:'lastRepair',type: 'input', title: "En son bakım ne zaman yapıldı ?" },
+    { id: 6, name:'nextRepairPlan',type: 'input', title: "Bir sonraki bakım ne zaman planlandı ?" },
 ];
 
 function orderSchema(order: string, element: React.JSX.Element) {
@@ -23,34 +24,47 @@ function orderSchema(order: string, element: React.JSX.Element) {
     );
 }
 
-const renderItem = ({ item }: { item: any }) => {
-    switch (item.type) {
-        case 'booleanButton':
-            return orderSchema(item.id, <YesNoQuestion question={item.title} />);
-        default:
-            return orderSchema(item.id, <FormInputLarge title={item.title} />);
-    }
 
-};
 
 export function Form_4(props:FormProps) {
     const flatListRef = useRef<FlatList>(null); // Create a reference
-    props.index.setActiveIndex(3);
+    const formContext = useFormContext();
+    const statusBarContext = useStatusBarContext();
+    statusBarContext.setActiveIndex(3);
+
+    const ViewItem = ({ item }: { item: any }) => {
+        switch (item.type) {
+            case 'booleanButton':
+                return orderSchema(item.id, <YesNoQuestion formMethods={formContext} question={item.title} name={item.name} />);
+            default:
+                return orderSchema(item.id, <InputLargeController
+                    name={item.name}
+                    formMethods={formContext}
+                    title={item.title}
+                    style={{ flex:1, marginBottom: 20}}
+                    />);
+        }
+    
+    };
+
+    const onSubmit = () => {
+        props.navigation.navigate('page-5')
+    };
 
     return (
-
         <View style={styles.container}>
             <FlatList
                 ref={flatListRef}
                 data={items}
                 style={{ flex: 1, paddingTop: 20 }}
-                renderItem={renderItem}
+                renderItem={ViewItem}
             />
             <View style={styles.submitContainer}>
                 <GoBackButton />
                 <ContinueButton
-                    navigation={props.navigation}
-                    pageName='page-5'
+                    props={{
+                        onPress: onSubmit,
+                    }}
                 />
             </View>
         </View>

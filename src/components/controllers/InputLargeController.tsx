@@ -1,29 +1,30 @@
 import { FC } from "react";
 import { Text, View, TextInput, TextInputProps, StyleSheet } from "react-native"
-import { Controller, Control, FieldValues, FieldErrors } from "react-hook-form"
+import { Controller, UseFormReturn } from "react-hook-form"
 import Colors from "../../theme/colors";
 
 interface Props {
     title: string;
-    control: Control<any>;
-    errors: FieldErrors<FieldValues>;
     name: string;
-    placeholder: string;
+    formMethods: UseFormReturn<any>;
+    placeholder?: string;
     style?: object;
     props?: TextInputProps
+    inputStyle?: object;
 }
 
 
 const InputLargeController: FC<Props> = ({
-    control,
-    errors,
     name,
+    formMethods,
     title,
-    placeholder,
+    placeholder="",
     style,
+    inputStyle,
     props }) => {
+        const { control, formState: { errors } } = formMethods;
     return (
-        <>
+        <View style={style}>
             <Controller
                 name={name}
                 rules={{ required: true }}
@@ -32,7 +33,7 @@ const InputLargeController: FC<Props> = ({
                     <View style={style}>
                         <Text style={styles.title}>{title}</Text>
                         <TextInput
-                            style={styles.input}
+                            style={[styles.input, inputStyle]}
                             onBlur={onBlur}
                             onChangeText={onChange}
                             value={value}
@@ -42,11 +43,12 @@ const InputLargeController: FC<Props> = ({
                     </View>
                 )}
             />
-            {errors 
+                {errors 
                 && errors[name] 
                 && <Text style={{ color: Colors.red }}>{String(errors[name].message)}</Text>
             }
-        </>
+        </View>
+        
     );
 }
 

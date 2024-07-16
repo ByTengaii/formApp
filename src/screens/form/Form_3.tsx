@@ -1,45 +1,67 @@
-import React, { useRef } from "react";
+import React, { useCallback, useRef, useState} from "react";
 import { FlatList, StyleSheet, View } from "react-native";
-import {  ContinueButton, GoBackButton, TakeSpareParts, Badge } from "../../index";
-import Colors from "../../theme/colors";
-import { FormProps } from "../../models/FormModel";
+import {  ContinueButton, GoBackButton, SpareTable,FormTitle, TakeSpareModal, AddSpareButton} from "../../components";
+import {Colors} from "../../theme/";
+import { FormProps, SpareFormData} from "../../models/";
+import { useStatusBarContext } from "../../services/context";
+import { useFormContext } from "react-hook-form";
 
 
-const items = [
+const renderData = [
     { id: 1, type: 'booleanButton', title: "Bu hatayı bulmak için AM/PM önleyici bakım prosedürümüz var mı ?" },
 ];
 
-function orderSchema(order: string, element: React.JSX.Element) {
-    return (
-        <View style={{flexDirection: 'row'}}>
-            <Badge text={order} style={{ marginRight: 10 }} />
-            {element}
-        </View>
-    );
-}
 
-const renderItem = ({ item }: { item: any }) => {
-    return <TakeSpareParts/>;
-};
 
 export function Form_3(props: FormProps) {
+    const formContext = useFormContext();
+    const statusBarContext = useStatusBarContext();
+    const [items, setItems] = useState(formContext.getValues('spareParts') as SpareFormData[]);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modalData, setModalData] = useState({} as SpareFormData);
+    const [isEdit, setIsEdit] = useState(false);
     const flatListRef = useRef<FlatList>(null); // Create a reference
-    props.index.setActiveIndex(2);
+    statusBarContext.setActiveIndex(2);
+
+    
+    const handleItems = useCallback((data:SpareFormData[]) => {
+        setItems(data);
+        formContext.setValue('spareParts', data);
+        console.log('function rendered');
+    },[formContext.getValues('spareParts')]);
+    
+    const onSubmit = () => {
+        props.navigation.navigate('page-4')
+    };
+
+    const renderItem = ({ item }: { item: any }) => {
+        return (
+            <View>
+            <FormTitle title="Kullanılan Yedek Parçalar" style={{ marginBottom: 10 }} />
+            {items.map((item,index) => {
+                return <SpareTable key={index} stateModal={{modalVisible,setModalVisible}} data={{items, handleItems}} element={item} modalData={{modalData,setModalData, setIsEdit}} style={{ marginBottom: 10 }} />;
+            })}
+            <TakeSpareModal isEdit={isEdit} modelData={{modalData, setModalData}}stateModal={{modalVisible, setModalVisible}} data={{items,handleItems}} />
+            <AddSpareButton  modalData={{modalData, setModalData, setIsEdit}}stateModal={{modalVisible, setModalVisible}}data={{items, handleItems}}/>
+        </View>
+        );
+    };
 
     return (
 
         <View style={styles.container}>
             <FlatList
                 ref={flatListRef}
-                data={items}
+                data={renderData}
                 style={{ flex: 1, paddingTop: 20 }}
                 renderItem={renderItem}
             />
             <View style={styles.submitContainer}>
                 <GoBackButton />
                 <ContinueButton
-                    navigation={props.navigation}
-                    pageName='page-4'
+                    props={{
+                        onPress: onSubmit,
+                    }}
                 />
             </View>
         </View>
