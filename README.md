@@ -4,7 +4,7 @@
 It's an application that user can make CRUD operations for creating an fault form to notify the company.
 
 ## Demo
-![Demo of App](/FormAppDemo.gif)
+![Demo of App](./FormAppDemo.gif)
 
 ## Run Locally
 
