@@ -4,7 +4,7 @@
 It's an application that user can make CRUD operations for creating an fault form to notify the company.
 
 ## Demo
-![Demo of App](./FormAppDemo.gif)
+<img src="./FormAppDemo.gif" width="250" height="600" alt="Demo of App">
 
 ## Run Locally
 
@@ -23,7 +23,8 @@ Go to the project directory
 Install dependencies
 
 ```bash
-  npm install
+  npm install<img s>
+
 ```
 
 Start the server for android
