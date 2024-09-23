@@ -36,7 +36,7 @@ export function Login(props: LoginProps) {
         }
         else {
             Alert.alert("Error", "Invalid email or password");
-            console.log("User login error");
+            console.error("User login error");
         }
     });
 
